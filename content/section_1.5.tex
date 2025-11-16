@@ -1,5 +1,9 @@
 \section{凸集、凸函数和凸规划}
 
+\subsection{凸集}
+
+\subsubsection{凸集、凸组合}
+
 \begin{definition}
     {\bf（凸集）}
 
@@ -40,6 +44,151 @@
 从而$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S$，故$S$是凸集. 
 \proved
 
+\begin{theorem}
+    {\bf（凸集的性质）}
+
+    （1）凸集的交是凸集；
+
+    （2）凸集的内点集
+    \footnote{
+        设$S \subseteq \R^n$，$\bs{x} \in S$，如果存在一个开球$B(\bs{x}, \varepsilon) = \{ \bs{y} \in \R^n \mid \Vert \bs{y} - \bs{x} \Vert < \varepsilon \}$，使得$B(\bs{x}, \varepsilon) \subseteq S$，则称$\bs{x}$是$S$的{\bf 内点}，$S$的内点的全体称为$S$的{\bf 内点集}，记作$\text{int}(S)$. 
+        所以$\bs{x} \in \text{int}(S) \Leftrightarrow \exists \varepsilon > 0, (\Vert \bs{y} - \bs{x} \Vert < \varepsilon \Rightarrow \bs{y} \in S)$. 
+    }
+    是凸集；
+
+    （3）凸集的闭包
+    \footnote{
+        设$S \subseteq \R^n$，$\bs{x} \in \R^n$，如果$\forall \varepsilon > 0$都有$B(\bs{x}, \varepsilon) \cap S \neq \varnothing$，则称$\bs{x}$是$S$的{\bf 聚点}，$S$的聚点的全体称为$S$的{\bf 闭包}，记作$\overline{S}$. 
+    }
+    是凸集；
+
+    （4）凸集边界上任意点存在支撑超平面
+    \footnote{
+        设$\bs{\alpha} \in \R^n \textbackslash \{ \bs{0} \}$，$\beta \in \R$，称集合$H = \{ \bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} = \beta\}$是{\bf 超平面}，简记作$H: \bs{\alpha}^{\top} \bs{x} = \beta$. 
+        设$S \subseteq \R^n$，$\bs{x}_0 \in S$，若超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta$满足：
+
+        （i）$\exists \bs{x}^{(0)} \in S$，使得$\bs{x}^{(0)} \in H$；
+
+        （ii）$\forall \bs{x} \in S$，$\bs{\alpha}^{\top} \bs{x} \le \beta$
+
+        则称$H$是$S$的{\bf 支撑超平面}. 
+    }；
+
+    （5）两个互相不交的凸集之间存在分离超平面
+    \footnote{
+        设$S_1, S_2 \subseteq \R^n$，且$S_1 \cap S_2 = \varnothing$. 
+        若存在超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta$，使得$\forall \bs{x}^{(1)} \in S_1$，$\bs{\alpha}^{\top} \bs{x}^{(1)} \ge \beta$，且$\forall \bs{x}^{(2)} \in S_1$，$\bs{\alpha}^{\top} \bs{x}^{(2)} \le \beta$，则称$H$是$S_1, S_2$的{\bf 分离超平面}. 
+    }. 
+\end{theorem}
+
+\prove
+（1）设$S_1, S_2$都是凸集，即证明$S_1 \cap S_2$是凸集，也即证明$\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in (S_1 \cap S_2)$，$\forall \lambda \in [0,1]$，都有$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in (S_1 \cap S_2)$. 
+由于$\bs{x}^{(1)}, \bs{x}^{(2)} \in (S_1 \cap S_2)$，则有$\bs{x}^{(1)}, \bs{x}^{(2)} \in S_1$且$\bs{x}^{(1)}, \bs{x}^{(2)} \in S_2$，故$\forall \lambda \in [0,1]$，都有$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S_1$且$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S_2$，所以$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in (S_1 \cap S_2)$，原命题得证. 
+
+（2）设$S$是一凸集，$\text{int}(S)$是其内点集，任取$\bs{x}^{(1)}, \bs{x}^{(2)} \in \text{int}(S)$，$\lambda \in [0,1]$，则$\exists r > 0$，使得
+\begin{align*}
+    \Vert \bs{y}^{(1)} - \bs{x}^{(1)} \Vert \le r & \Rightarrow \bs{y}^{(1)} \in S, \\
+    \Vert \bs{y}^{(2)} - \bs{x}^{(2)} \Vert \le r & \Rightarrow \bs{y}^{(2)} \in S
+\end{align*}
+可以证明内点定义中使用开球和使用闭球是等价的，这里为了讨论方便，我们使用有闭球的定义. 
+要证明$\text{int}(S)$是凸集，即证明$\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in \text{int}(S)$，也即证明$\exists \varepsilon > 0$，使得
+$$
+    \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \le \varepsilon \Rightarrow \bs{z} \in S
+$$
+我们由三角不等式得到启发，于是上述逻辑式的前件的左式可以作如下放缩：
+\begin{align*}
+    & \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \\
+    = & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} + \lambda (\bs{y}^{(1)} - \bs{x}^{(1)}) + (1 - \lambda) (\bs{y}^{(2)} - \bs{x}^{(2)}) \Vert \\
+    \le & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + \Vert \lambda (\bs{y}^{(1)} - \bs{x}^{(1)}) \Vert + \Vert (1 - \lambda) (\bs{y}^{(2)} - \bs{x}^{(2)}) \Vert \\
+    \le & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + \lambda r + (1 - \lambda) r \\
+    = & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + r
+\end{align*}
+其中$\bs{y}^{(1)}, \bs{y}^{(2)}$满足$\Vert \bs{y}^{(i)} - \bs{x}^{(i)} \Vert \le r$，$i = 1, 2$，所以$\bs{y}^{(1)}, \bs{y}^{(2)} \in S$，故$\forall \lambda \in [0,1]$，$\bs{y}^{(1)} + (1 - \lambda) \bs{y}^{(2)} \in S$. 
+我们要保证$\bs{z} \in S$，那么只需要控制$\varepsilon = r$，于是就有
+$$
+    0 \le \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert \le r - r = 0
+$$
+从而$\bs{z} = \lambda \bs{y}^{(1)} + (1 - \lambda) \bs{y}^{(2)} \in S$，也即待证命题：$\exists \varepsilon = r > 0$，使得
+$$
+    \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \le \varepsilon \Rightarrow \bs{z} \in S
+$$
+的前件可推出后件，从而$\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in \text{int}(S)$，待证命题得证. 
+
+（3）我们先证明一个引理：$\bs{x} \in \overline{S}$当且仅当存在一个点列$\{\bs{x}^{(n)}\} \subset S$满足$\displaystyle \lim_{n \to \infty} \bs{x}^{(n)} = \bs{x}$. 
+（实际上这正是聚点的另一等价定义）
+
+先证$\Rightarrow$. 
+对每一个整数$n$，取$\varepsilon_n = \frac 1n$，则能得到一个开球列$\{ B(\bs{x}, \varepsilon_n) \}$. 
+应用选择公理，从这个开球列中依次取一个点，排成一个点列$\{ \bs{x} ^{(n)} \}$，则必然有
+$$
+    \Vert \bs{x}^{(n)} - \bs{x} \Vert = \frac{1}{n} \to 0
+$$
+
+
+再证$\Leftarrow$. 
+由于$\displaystyle \lim_{n \to \infty} \bs{x}^{(n)} = \bs{x}$，则$\forall \varepsilon > 0$，都$\exists N > 0$，使得$\Vert \bs{x}^{(n)} - \bs{x} \Vert < \varepsilon$对于$\forall n > N$成立，从而$\forall \varepsilon > 0$，都一定存在一个$n$，使得$\bs{x}^{(n)} \in B(\bs{x}, \varepsilon)$并且$\bs{x}^{(n)} \in S$，从而$\bs{x}^{(n)} \in B(\bs{x}, \varepsilon) \cap S$，故$B(\bs{x}, \varepsilon) \cap S \neq \varnothing$，所以$\bs{x} \in \overline{S}$. 
+从而引理得证. 
+
+任取$\bs{x}, \bs{y} \in \overline{S}$，$\lambda \in [0, 1]$，由引理，$\exists \{ \bs{x}^{(n)} \}, \{ \bs{y}^{(n)} \} \subset S$，使得$\bs{x}^{(n)} \to \bs{x}$，$\bs{y}^{(n)} \to \bs{y}$. 
+构造点列$\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \}$，则由$\exists \{ \bs{x}^{(n)} \}, \{ \bs{y}^{(n)} \} \subset S$以及$S$是凸集，有$\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \} \in S$. 
+由$\bs{x}^{(n)} \to \bs{x}$，$\bs{y}^{(n)} \to \bs{y}$，知$\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \} \to \lambda \bs{x} + (1 - \lambda) \bs{y}$，所以根据引理，$\lambda \bs{x} + (1 - \lambda) \bs{y} \in \overline{S}$. 
+原命题得证. 
+
+（4）暂时懒得写. 
+
+（5）暂时懒得写. 
+\proved
+
+\begin{definition}
+    {\bf（凸组合）}
+
+    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
+    若$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^m \lambda_j = 1$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 凸组合}. 
+\end{definition}
+
+\begin{theorem}
+    {\bf（凸集和凸组合的关系）}
+
+    
+    $S$是凸集$\Leftrightarrow S$中任意有限点的凸组合属于$S$. 
+\end{theorem}
+
+\prove
+
+\proved
+
+\begin{definition}
+    {\bf（凸包）}
+
+    设非空集合$S \subseteq \R^n$，由$S$中所有有限点的凸组合所构成的集合，被称为$S$的{\bf 凸包}，记作$\text{cov}(S)$. 
+\end{definition}
+
+\begin{theorem}
+    {\bf（凸集和凸包的关系）}
+
+    如果$S$是凸集，那么$\text{cov} (S) = S$. 
+\end{theorem}
+
+\prove
+
+\proved
+
+\begin{definition}
+    {\bf（多胞形）}
+
+    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
+    由$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的所有凸组合构成的集合称为多胞形，记作$H(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)})$. 
+\end{definition}
+
+\begin{definition}
+    {\bf（单纯形）}
+
+    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
+    若多胞形$H(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)})$满足$\bs{x}^{(2)} - \bs{x}^{(1)}, \bs{x}^{(3)} - \bs{x}^{(1)}, \cdots, \bs{x}^{(m)} - \bs{x}^{(1)}$线性无关，则称该多胞形是单纯形. 
+\end{definition}
+
+\subsubsection{凸锥、半正组合}
+
 \begin{definition}
     {\bf（锥、凸锥）}
 
@@ -50,24 +199,26 @@
 规定$\{ \bs{0} \}, \R^n$都是凸锥. 
 
 \begin{definition}
-    {\bf（凸组合，半正组合）}
+    {\bf（半正组合）}
 
     设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
-
-    （1）若$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^m \lambda_j = 1$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 凸组合}. 
-
-    （2）若$\displaystyle \sum_{j=1}^m \lambda_j > 0$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 半正组合}. 
+    若$\displaystyle \sum_{j=1}^m \lambda_j > 0$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 半正组合}. 
 \end{definition}
 
 \begin{theorem}
-    \par\par
-    $S$是凸集$\Leftrightarrow S$中任意有限点的凸组合属于$S$. 
+    {\bf（凸锥和半正组合的关系）}
+
+    $S$是凸锥$\Leftrightarrow S$中任意有限点的半正组合属于$S$. 
 \end{theorem}
 
-\begin{definition}
-    {\bf（凸包）}
+\prove
 
-    设非空集合$S \subseteq \R^n$，由$S$中所有有限点的凸组合所构成的集合，被称为$S$的{\bf 凸包}，记作$\text{cov}(S)$. 
-\end{definition}
+\proved
 
-显然，如果$S$是凸集，那么$\text{cov} (S) = S$. 
+\subsection{凸函数}
+
+\subsubsection{凸函数}
+
+\subsubsection{水平集}
+
+\subsection{凸规划}
