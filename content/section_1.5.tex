@@ -1,0 +1,73 @@
+\section{凸集、凸函数和凸规划}
+
+\begin{definition}
+    {\bf（凸集）}
+
+    设$S \subseteq \R^n$，若$\forall \bs{x}^{(1)}, \bs{x}^{(2)}\in S$，$\lambda \in [0,1]$，必有
+    $$
+        \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S
+    $$
+    则称$S$为{\bf 凸集}. 
+\end{definition}
+
+规定单点集$\{\bs{x}\}$和空集$\varnothing$都是空集. 
+需要注意的是，方程$\bs{x} = \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} = \bs{x}^{(2)} + \lambda (\bs{x}^{(1)} - \bs{x}^{(2)})$，$\lambda \in [0,1]$表示连接$\bs{x}^{(1)}$和$\bs{x}^{(2)}$的线段. 
+
+\eg
+设$\bs{A} \in \R^{m \times n}$，$\bs{b} \in \R^n$，证明以下命题成立：
+
+（1）集合$S = \{ \bs{x} \mid \bs{Ax} = \bs{b} \}$是凸集；
+
+（2）集合$S = \{ \bs{x} \mid \bs{Ax} \le \bs{b} \}$是凸集. 
+
+\prove
+（1）任取$\bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\lambda \in [0,1]$，则都有
+\begin{align*}
+    &\bs{A}(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \\
+    =& \lambda \bs{A} \bs{x}^{(1)} + (1 - \lambda) \bs{A} \bs{x}^{(2)} \\
+    =& \lambda \bs{b} + (1 - \lambda) \bs{b} \\
+    =& \bs{b}
+\end{align*}
+从而$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S$，故$S$是凸集. 
+
+（2）任取$\bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\lambda \in [0,1]$，则都有
+\begin{align*}
+    &\bs{A}(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \\
+    =& \lambda \bs{A} \bs{x}^{(1)} + (1 - \lambda) \bs{A} \bs{x}^{(2)} \\
+    \le& \lambda \bs{b} + (1 - \lambda) \bs{b} \\
+    =& \bs{b}
+\end{align*}
+从而$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S$，故$S$是凸集. 
+\proved
+
+\begin{definition}
+    {\bf（锥、凸锥）}
+
+    设$S \subseteq \R^n$，若$\forall \bs{x} \in S$，$\lambda > 0$，必有$\lambda \bs{x} \in S$，则称$S$为以$\bs{0}$为顶点的{\bf 锥}. 
+    若$S$还是凸集，则称$S$为{\bf 凸锥}.  
+\end{definition}
+
+规定$\{ \bs{0} \}, \R^n$都是凸锥. 
+
+\begin{definition}
+    {\bf（凸组合，半正组合）}
+
+    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
+
+    （1）若$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^m \lambda_j = 1$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 凸组合}. 
+
+    （2）若$\displaystyle \sum_{j=1}^m \lambda_j > 0$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 半正组合}. 
+\end{definition}
+
+\begin{theorem}
+    \par\par
+    $S$是凸集$\Leftrightarrow S$中任意有限点的凸组合属于$S$. 
+\end{theorem}
+
+\begin{definition}
+    {\bf（凸包）}
+
+    设非空集合$S \subseteq \R^n$，由$S$中所有有限点的凸组合所构成的集合，被称为$S$的{\bf 凸包}，记作$\text{cov}(S)$. 
+\end{definition}
+
+显然，如果$S$是凸集，那么$\text{cov} (S) = S$. 

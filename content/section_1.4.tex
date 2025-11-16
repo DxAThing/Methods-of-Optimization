@@ -1,0 +1,40 @@
+\section{多元函数及其导数}
+
+多元函数$f: \R^n \to \R$可看作一个$n$维向量$\bs{x}$的函数$f(\bs{x})$. 
+受篇幅所限，我们并不给出矩阵导数的定义，具体请参见《矩阵分析》课程相关内容. 
+在此我们只不加证明地给出一些常用函数的矩阵导数（即其梯度）. 
+
+\begin{theorem}
+    {\bf（一些常见函数的梯度）}
+
+    \begin{itemize}
+        \item 线性函数：$f(\bs{x}) = \bs{c}^{\top}\bs{x} + \bs{d}$，$\nabla f(\bs{x}) = \bs{c}$，$\nabla^2 f(x) = \bs{0}$；
+        \item 二次函数：$f(\bs{x}) = \frac{1}{2} \bs{x}^{\top} \bs{Qx} + \bs{c}^{\top}\bs{x} + \bs{d}$，$\nabla f(\bs{x}) = \bs{Qx} + \bs{c}$，$\nabla^2 f(x) = \bs{Q}$，其中$\bs{Q}$为对称阵. 
+        % \item 向量值线性函数：$\bs{f}(\bs{x}) = \bs{Ax} + \bs{d} \in \R^m$，
+        % $\frac{\d \bs{f}}{\d \bs{x}} = \bs{A}^{\top}$. 
+    \end{itemize}
+\end{theorem}
+
+接下来依旧不加证明地介绍多元函数的Taylor展开式及中值定理. 
+此处不加证明是因为此内容可以被读者在任何一本《数学分析》教材中找到. 
+
+\begin{theorem}
+    {\bf（Taylor展开式）}
+
+    设$f: \R^n \to \R$在$\bs{x}^*$的某邻域内二阶可导，则有：
+    \begin{itemize}
+        \item 一阶Taylor展开式：$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*) + o(\Vert \bs{x} - \bs{x}^* \Vert)$；
+        \item 二阶Taylor展开式：$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*)  + \frac{1}{2} (\bs{x} - \bs{x}^*)^{\top} \nabla^2 f(\bs{x}^*) (\bs{x} - \bs{x}^*) + o(\Vert \bs{x} - \bs{x}^* \Vert^2)$. 
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+    {\bf（中值定理）}
+
+    设$f: \R^n \to \R$在$\bs{x}^*$的某邻域$U(\bs{x}^*)$内二阶可导，则$\forall x \in U(\bs{x}^*)$，都有：
+    \begin{itemize}
+        \item Lagrange中值定理：$\exists \lambda \in (0,1)$，记$\bs{x}_{\lambda} = \bs{x^*} + \lambda (\bs{x} - \bs{x}^*)$，则有$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top} (\bs{x}_{\lambda}) (\bs{x} - \bs{x}^*)$；
+        \item Taylor中值定理：$\exists \mu \in (0,1)$，记$\bs{x}_{\mu} = \bs{x^*} + \mu (\bs{x} - \bs{x}^*)$，则有$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*)  + \frac{1}{2} (\bs{x} - \bs{x}^*)^{\top} \nabla^2 f(\bs{x}_{\mu}) (\bs{x} - \bs{x}^*)$. 
+    \end{itemize}
+\end{theorem}
+

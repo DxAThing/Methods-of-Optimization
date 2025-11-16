@@ -1,0 +1,253 @@
+% 定义本书中使用到的格式
+
+\ctexset {chapter = {
+  pagestyle = headings
+  }
+}
+\ctexset {section = {
+    beforeskip = 3em
+  }
+}
+% \ctexset {subsection = {
+%     aftername = {、}
+%   }
+% }
+% \ctexset {subsubsection = {
+%     aftername = {}
+%   }
+% }
+
+\usepackage{array}
+\usepackage{tabularray}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{calc}
+\usepackage{caption}
+\captionsetup[figure]{labelsep=none}
+
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=1cm}
+\usepackage{multicol}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=false, % 内部链接颜色
+  pdfborder={0 0 0} % 移除链接框架
+}
+
+\usepackage{longdivision}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{polynom}
+\usepackage[figuresright]{rotating}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta,
+  calc,
+  decorations.pathmorphing,
+  intersections,
+  patterns,
+  patterns.meta,
+  through,
+}
+
+\usepackage{xlop}
+\usepackage{xparse}
+
+
+% 绘制带圈的数字
+\newcommand{\circled}[2][]{\tikz[baseline=(char.base)]
+    {\node[shape = circle, draw, inner sep = 1pt]
+    (char) {\phantom{\ifblank{#1}{#2}{#1}}};%
+    \node at (char.center) {\makebox[0pt][c]{#2}};}}
+\robustify{\circled}
+
+% 罗马数字
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\newcommand{\moveup}{\setlength\abovedisplayskip{-1.5em}} % 当 “解:” 后直接写公式时，为了“解”与公式水平对齐所需要的偏移。
+\newcommand{\practice}{\textbf{练\quad 习\ }}
+\newcommand{\ulspace}[1][2em]{\underline{\hspace{#1}}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+
+\setcounter{secnumdepth}{3}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+\ctexset {subsubsection = {
+  aftername = {.\ }
+  }
+}
+
+% 更改目录设置
+\setcounter{tocdepth}{2}
+
+\renewcommand{\thefootnote}{\circled{\arabic{footnote}}}
+\counterwithout*{footnote}{chapter}
+
+% 例题环境
+\newcounter{cnteg}[chapter]
+\newcommand{\eg}{
+  \stepcounter{cnteg}
+  \textbf{例\thechapter.\thecnteg\ }
+}
+
+% 解环境
+\newcommand{\solve}{\textbf{【解】}}
+\newcommand{\solved}{{\hfill 【解毕】}}
+
+% 证明环境
+\newcommand{\prove}{\textbf{【证明】}}
+\newcommand{\proved}{{\hfill 【证毕】}}
+
+% 习题环境
+\newcommand{\exercise}{
+  \vspace{1em}
+  \newpage
+  \begin{center}
+    \bf\large{\labelexercise}
+  \end{center}
+}
+\newcommand{\labelexercise}{ 
+  习题\thesection
+}
+
+% 答案环境
+\newcommand{\answer}{
+  \vspace{1em}
+  \newpage
+  \setcounter{cntxiaoti}{0}
+  \begin{center}
+    \bf\large{\labelanswer}
+  \end{center}
+}
+\newcommand{\labelanswer}{ 
+  习题\thesection \quad 答案
+}
+
+% 小结环境
+\newcommand{\summary}{
+  \nonumsection[\labelsummary]{\huge \labelsummary}
+}
+\newcommand{\labelsummary}{小 \hspace{2em} 结}
+
+\newcommand{\spacing}{\vspace{0.5em}} % 手工调整垂直间隔（测试发现 0.5em 比较合适。不支持参数，特殊情况直接使用 \vspace{} 命令。）
+
+% 修改数学公式与上下文的距离
+\makeatletter
+\renewcommand\normalsize{%
+    \abovedisplayskip 1\p@ \@plus1\p@ \@minus6\p@
+    \belowdisplayskip \abovedisplayskip
+}
+\makeatother
+
+% 绘制 弧 符号。代码来自
+%    https://tex.stackexchange.com/questions/96680/
+\makeatletter
+\DeclareFontFamily{U}{tipa}{}
+\DeclareFontShape{U}{tipa}{m}{n}{<->tipa10}{}
+\newcommand{\myarc@char}{{\usefont{U}{tipa}{m}{n}\symbol{62}}}%
+
+\newcommand{\myarc}[1]{\mathpalette\myarc@arc{#1}}
+
+\newcommand{\myarc@arc}[2]{%
+  \sbox0{$\m@th#1#2$}%
+  \vbox{
+    \hbox{\resizebox{\wd0}{\height}{\myarc@char}}
+    \nointerlineskip
+    \box0
+  }%
+}
+\makeatother
+
+% % ----------------------------------
+% \newlength{\defaultParIndent}  % 页面缺省的 \parindent 长度。
+% \setlength{\defaultParIndent}{\parindent}
+
+% ----------------------------------
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{definition}{定义}[chapter]
+
+% 小题和小小题
+\newcounter{cntxiaoti}[subsubsection]      % 小题的计数器
+\newcounter{cntxiaoxiaoti}[cntxiaoti]      % 小小题的计数器
+\counterwithin*{cntxiaoxiaoti}{cnteg}
+
+\newlength{\lenLabel}                     % 内部变量：用于计算题目前编号所占的长度
+\newlength{\lenParent}                    % 内部变量：用于记录父题目编号所占的长度
+\setlength{\lenParent}{0em}
+
+\newenvironment{xiaotis}{ % “小题” 环境
+  \NewDocumentCommand \xiaoti {s m} { % 小题的标题
+    \IfBooleanTF {##1}
+      {
+        \setlength{\lenLabel}{\widthof{\labelxiaoti}}
+        % \hangafter 1
+        \setlength{\hangindent}{\parindent + \lenLabel}
+        {\hspace{\lenLabel}##2}
+      }
+      {
+        \stepcounter{cntxiaoti}
+        \setlength{\lenLabel}{\widthof{\labelxiaoti}}
+        % \hangafter 1
+        % \setlength{\hangindent}{\parindent + \lenLabel}
+        {\labelxiaoti ##2}
+      }
+  }
+  \newcommand{\labelxiaoti}{\arabic{cntxiaoti}. }  % 1. 2. 3. ……
+}{%
+}
+
+% 为命令 `\xiaoxiaoti' 增加一个可选参数，是为了实现：当“小题”没有文字时，第一个“小小题” 与“小题”同行。
+% 对应 “习题 十四” 中的第 10 小题。
+% 在此之前，是通过将 “小小题” 上移一行来实现同行显示。如： “习题 七” 中的第 10 小题。
+% 但当“小题”本身处于页的最后一行时，上移不能生效，会导致“小题”显示在上一页的页末，而“小小题”显示在下一页的页首。
+\newenvironment{xiaoxiaotis}{ % “小小题” 环境
+  \setlength{\lenParent}{\lenParent + \lenLabel}
+  \NewDocumentCommand{\xiaoxiaoti}{o m} { % 小小题的标题
+    \stepcounter{cntxiaoxiaoti}
+    \setlength{\lenLabel}{\widthof{\labelxiaoxiaoti}}
+    \IfNoValueTF{##1}
+      {\hangafter 1\setlength{\hangindent}{\parindent + \lenParent + \lenLabel + 0.5em}{\hspace{\lenParent}\labelxiaoxiaoti##2}}
+      {\hangafter 1\setlength{\hangindent}{\parindent + \lenParent + \lenLabel + 0.5em}{\hspace{##1}\labelxiaoxiaoti##2}}
+  }
+  \newcommand{\labelxiaoxiaoti}{（\arabic{cntxiaoxiaoti}）} % （1） （2） （3） ……
+}{%
+}
+
+\newcommand{\twoInLine}  [3][10em] {\begin{tabular}[t]{*{2}{@{}p{#1}}} #2 & #3\end{tabular}}
+\newcommand{\threeInLine}[4][10em] {\begin{tabular}[t]{*{3}{@{}p{#1}}} #2 & #3 & #4\end{tabular}}
+\newcommand{\fourInLine} [5][10em] {\begin{tabular}[t]{*{4}{@{}p{#1}}} #2 & #3 & #4 & #5\end{tabular}}
+
+\newcommand{\twoInLineXxt}  [3][10em] {\begin{tabular}[t]{*{2}{@{}p{#1}}} \xiaoxiaoti{#2} & \xiaoxiaoti{#3}\end{tabular}}
+\newcommand{\threeInLineXxt}[4][10em] {\begin{tabular}[t]{*{3}{@{}p{#1}}} \xiaoxiaoti{#2} & \xiaoxiaoti{#3} & \xiaoxiaoti{#4}\end{tabular}}
+\newcommand{\fourInLineXxt} [5][10em] {\begin{tabular}[t]{*{4}{@{}p{#1}}} \xiaoxiaoti{#2} & \xiaoxiaoti{#3} & \xiaoxiaoti{#4} & \xiaoxiaoti{#5}\end{tabular}}
+
+\newcommand{\shangyihang}{\vspace{-1.5em}} % 上移一行
+
+\newcommand{\degree}{^\circ}
+
+\newcommand{\fourchoices}[5][10em]{\begin{tabular}[t]{*{4}{@{}p{#1}}} A.\ #2 &B.\ #3 &C.\ #4 &D.\ #5\end{tabular}}
+\newcommand{\twochoices}[5][20em]{\begin{tabular}[t]{*{4}{@{}p{#1}}} A.\ #2 &B.\ #3 \\C.\ #4 &D.\ #5\end{tabular}}
+\newcommand{\onechoices}[5][40em]{\begin{tabular}[t]{*{4}{@{}p{#1}}} A.\ #2 \\B.\ #3 \\C.\ #4 \\D.\ #5\end{tabular}}
+
+% 修改itemize环境的行间距
+\makeatletter
+\def\@listi{\leftmargin\leftmargini
+            \topsep 0pt
+            \parsep 0pt
+            \itemsep 0pt}
+\makeatother
+
+\newcommand{\R}{{\mathbb R}}
+\renewcommand{\frac}{\dfrac}

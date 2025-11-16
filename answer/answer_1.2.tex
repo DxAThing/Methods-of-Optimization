@@ -1,0 +1,169 @@
+\answer
+
+\begin{xiaotis}
+    
+    \xiaoti{设集合$A=\{2, a^2-a+2, 1-a\}$. 
+        若$4 \in A$，则$a$的值是\ulspace.
+    }
+
+    \solve 
+    因为$4 \in A$，所以$a^2-a+2=4$或$1-a=4$，解得$a=2$或$-1$或$-3$. 
+    （这是$4 \in A$的必要条件，需要代回检验充分性）
+    当$a=2$时，$A=\{2,4,1\}$，满足题意；
+    当$a=-1$时，$1-a=2$，与集合的元素互异性相悖，故应舍去；
+    当$a=-3$时，$A=\{2,14,4\}$，满足题意.
+
+    综上，答案是2或$-3$.
+
+    \solved
+    
+    \xiaoti{以下关于集合的描述，正确的是（\qquad）
+    }
+
+    \onechoices
+    {$\{\varnothing\}$ 是空集，因为它包含的是空集}
+    {$\{\varnothing\}$ 是一个单元素集，元素是空集 $\varnothing$}
+    {$\{\varnothing\}$ 和 $\varnothing$ 是相同的集合}
+    {$\varnothing \in \{\varnothing\}$表明$\varnothing$是$\{\varnothing\}$的子集}
+
+    \solve 
+    选B. 
+    选项 A 错误，$\{\varnothing\}$ 是一个单元素集，而不是空集. 
+    选项 B 正确，$\{\varnothing\}$ 包含一个元素，即空集. 
+    选项 C 错误，$\{\varnothing\}$ 和 $\varnothing$ 是不同的集合. 
+    选项 D 错误，$\varnothing \in \{\varnothing\}$表明$\varnothing$是$\{\varnothing\}$的元素. 
+    注意，$\varnothing \in \{\varnothing\}$与$\varnothing \subseteq \{\varnothing\}$均是正确的.
+
+    \solved
+
+    \xiaoti{若集合$A=\{1,2,3,m\}$，$b=\{2,3,m^2\}$，若$B \subseteq A$，则实数$m$的值为\ulspace. 
+    }
+
+    \solve 
+    集合$B$中2，3这两个元素$A$中已经有了，故只需考虑元素$m^2$是$A$中的谁即可. 
+    因为 $B \subseteq A$ 且 $m^2 \in B$，所以 $m^2 \in A$，故 $m^2 = 1$ 或 $m^2 = m$或 $0$. 
+    （别忘了检验是否满足集合中元素互异. ）
+    经检验，当 $m = 1$ 时，集合 $A$ 中有相同元素，舍去；当 $m = -1$ 或 $0$ 时，集合 $A$，$B$ 均满足元素互异；所以实数 $m$ 的值为 $-1$ 或 $0$.
+
+    \solved
+
+    \xiaoti{已知集合$A = \{a,b,1\}$，$B=\{-1,2,a^2\}$. 
+        若$A=B$，则$a^b=$(\qquad)
+    }
+
+    \spacing
+    \fourchoices
+    {1}
+    {$\dfrac 1 2$}
+    {$-1$}
+    {1或$\dfrac 1 2$}
+    \spacing
+
+    \solve 
+    集合$A$中有两个待定参数，故可以考虑它们是集合$B$中的谁，这样可以一次性待定出两个系数. 
+    由$A=B$知要么$a=-1$，$b=2$，要么$a=2$，$b=-1$. 
+    （这是$A=B$的必要条件，需要代回检验充分性）
+    当$a=-1$，$b=2$时，$A=\{-1, 2, 1\}$，$B=\{-1,2,1\}$符合题意. 
+    当$a=2$，$b=-1$时，$A=\{2, -1, 1\}$，$B=\{-1,2,4\}$不符合题意，应舍去. 
+    综上，$a=-1$，$b=2$，$a^b=(-1)^2=1$. 
+
+    \solved
+
+    \xiaoti{已知集合$A=\{x\in\R \mid x^2+ax+1=0\}$，$B=\{x\in\R \mid x^2+2x-a+3=0\}$，若$A=B$，则实数$a$的取值范围是\ulspace.
+    }
+
+    \solve 
+    $A$，$B$都是一元二次方程的解集，$A=B$意味着两个方程同解. 
+
+    讨论：\circled{1} 先考虑他们都是无解的情况. 
+    $A=B=\varnothing$。则$\Delta_1 = a^2-4<0$且$\Delta_2 = 2^2-4(-a+3)<0$，解之得$-2<a<2$. 
+
+    \circled{2} 再考虑$A$，$B$不是空集的情形，此时两个一元二次方程应同解. 
+    直接算出解集显然偏麻烦，所以考虑由韦达定理建立方程求$a$. 
+    若$A=B\neq\varnothing$，设方程$x^2+ax+1=0$和$x^2+2x-a+3=0$的解为$x_1$，$x_2$，则首先应有$\Delta_1 = a^2-4\ge0$且$\Delta_2 = 2^2-4(-a+3)\ge0$，解之得$a\ge2$. 
+    其次，由韦达定理，有$x_1+x_2=-a=-2$且$x_1+x_2=1=-a+3$，解之得$a=2$，满足$a\ge2$. 
+
+    综上所述，实数$a$的取值范围是$-2<a\le2$. 
+    
+    \solved
+
+    \xiaoti{设集合 $A = \{1,2\}$，$B = \{2,4,6\}$，则 $A \cup B =  $ (\qquad)
+    }
+
+    \fourchoices
+    {$\{2\}$}
+    {$\{1,2\}$}
+    {$\{2,4,6\}$}
+    {$\{1,2,4,6\}$}
+
+    \solve 
+    求并集，把两集合的元素合在一起即可，需注意相同元素只计一次. 
+    由题意，$A \cup B = \{1,2,4,6\} $. 
+    故答案选D.
+
+    \solved
+
+    \xiaoti{已知集合$A = \{x \mid a—2 < x <a+3 \}$，$B = \{ x \mid x^2 -5x + 4 > 0 \}$ ，若$A \cup B = \R$, 则 $a$ 的取值范围是（\qquad）
+    }
+
+    \fourchoices
+    {$(-\infty, 1)$}
+    {(1, 3)}
+    {[1, 3]}
+    {$(3, +\infty)$}
+
+    \solve 
+    $x^2 - 5x + 4 > 0 \Leftrightarrow (x-1)(x-4) > 0 \Leftrightarrow x < 1$ 或 $x > 4$，所以 $B = (-x, 1) \cup (4, +\infty)$. 
+    分析连续取值集合的集合关系，常画数轴来看，其中端点能否重合需重点关注. 
+    要使 $A \cup B = \R$，$a-2$ 与1，$a+3$ 与 $4$ 都不能重合，否则并集就取不到端点处的元素，所以应有$a-2 < 1$，解得 $1 < a < 3$，故 $a$ 的取值范围是 (1, 3).
+
+    注意，对于连续取值的集合的包含关系或交并补运算，一般优先考虑画数轴分析，需要尤其注意端点取值. 
+
+    \begin{figure}[ht]
+        \hfill
+        \includegraphics[width=0.3\linewidth]{./answer/image_1.2/figure7.png}
+    \end{figure}
+
+    \solved
+
+    \xiaoti{若集合 $M = \{x \mid \sqrt{x} < 4\}$，$N = \{x \mid 3x \geq 1\}$，则$M \cap N = $（\qquad）
+    }
+
+    \spacing
+    \fourchoices
+    {\(\{x \mid 0 \leq x < 2\}\)}
+    {\(\{x \mid \dfrac{1}{3} \leq x < 2\}\)}
+    {\(\{x \mid 3 \leq x < 16\}\)}
+    {\(\{x \mid \dfrac{1}{3} \leq x < 16\}\)}
+
+    \spacing
+    \solve
+    $\sqrt{x} < 4 \Leftrightarrow 0 \leq x < 16$，所以$M = \{x| 0 \leq x < 16\}$，$3x \geq 1 \Leftrightarrow x \geq \dfrac{1}{3}$，所以$N = \{x| x \geq \dfrac{1}{3} \}$，所以$M \cap N = \{ x \mid \dfrac{1}{3} \leq x < 16 \}$.
+
+    \begin{figure}[ht]
+        \hfill
+        \includegraphics[width=0.3\linewidth]{./answer/image_1.2/figure8.png}
+    \end{figure}
+
+    \solved
+
+    \xiaoti{已知集合 \(A = \{ x \mid x^2 - x - 2 \leq 0 \}\)，\(B = \{ x \mid 2a < x < a^2 \}\)，若 \(A \cap B = \varnothing\)，则实数 \(a\) 的取值范围是\ulspace.}
+
+    \solve
+    $x^2 - x - 2 \leq 0 \Leftrightarrow (x + 1)(x - 2) \leq 0 \Leftrightarrow -1 \leq x \leq 2$，所以 \(A = [-1, 2]\).    
+    当 \(B = \varnothing\) 时， \(2a \geq a^2\)，解得\(0 \leq a \leq 2\)，此时满足 \(A \cap B = \varnothing\)；
+    若 \(B \neq \varnothing\) 时，首先应有 \(2a < a^2\)，解得\(a < 0\) 或 \(a > 2\) \circled{1}；
+    其次，图形应为图1或图2所示的情形. 
+    若为图1，则 \(a^2 \leq -1\)，无解：
+    若为图2，则 \(2a \geq 2\)，解得\(a \geq 1\)，结合 \circled{1} 可得 \(a > 2\)：综上所述，实数 \(a\) 的取值范围是 \([0, -\infty)\)。
+
+    \begin{figure}[ht]
+        \hfill
+        \includegraphics[width=0.6\linewidth]{./answer/image_1.2/figure9.png}
+    \end{figure}
+
+    \solved
+
+\end{xiaotis}
+
+
