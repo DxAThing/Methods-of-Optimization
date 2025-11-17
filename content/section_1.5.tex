@@ -154,7 +154,23 @@ $$
 \end{theorem}
 
 \prove
+先证$\Rightarrow$. 
+使用数学归纳法. 
+即证明$S$中任意$m$个点的凸组合属于$S$. 
+$m = 1, 2$时，由于$S$是凸集，所以显然成立. 
+假设$m = k$时，结论成立，往证$m = k + 1$时结论也成立，即证明当$\displaystyle \sum_{j = 1}^{k+1} \lambda_{j} = 1$时$\displaystyle\sum_{j=1}^{k+1} \lambda_j \bs{x}_j \in S$. 
+由于$m = k$时结论成立，则有：
+$$
+    \frac{\displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}_j}{\displaystyle\sum_{j = 1}^{k} \lambda_j} = \displaystyle\sum_{j = 1}^{k} \frac{\lambda_j}{\displaystyle\sum_{i = 1}^{k} \lambda_i} \bs{x}_j \in S
+$$
+从而
+$$
+    \displaystyle\sum_{j=1}^{k+1} \lambda_j \bs{x}^{(j)}  = \displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)}  = \displaystyle\sum_{j = 1}^{k} \lambda_j \cdot \frac{\displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)}}{\displaystyle\sum_{j = 1}^{k} \lambda_j} + \lambda_{k+1} \bs{x}^{(k+1)} \in S
+$$
+结论得证. 
 
+再证$\Leftarrow$. 
+取$m = 2$，则若$\lambda_1, \lambda_2 > 0$且$\lambda_1 + \lambda_2 = 1$，都有$\lambda_1 \bs{x}^{(1)} + \lambda_2 \bs{x}^{(2)} \in S$，这正是凸集的定义，从而结论成立. 
 \proved
 
 \begin{definition}
