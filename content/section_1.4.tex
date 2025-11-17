@@ -38,3 +38,26 @@
     \end{itemize}
 \end{theorem}
 
+\begin{definition}
+    {\bf（方向导数）}
+    \label{directional_derivative}
+
+    设$S \subseteq \R^n$为非空凸集，函数$f: S \to \R$，$\bs{x}^* \in S$，方向$\bs{d} \in \R^n$，若$\exists \lambda > 0$，使得$\bs{x}^* + \lambda \bs{d} \in S$（通常令$\lambda$充分小，此时称$\bs{d}$为{\bf 可行方向}），且此时极限
+    $$
+        \lim_{\lambda \to 0^+} \frac{f(\bs{x}^* + \lambda \bs{d}) - f(\bs{x}^*)}{\lambda}
+    $$
+    存在，则称$f(\bs{x})$在点$\bs{x}^*$沿方向$\bs{d}$的{\bf 方向导数}存在，记作$f'(\bs{x}^*; \bs{d})$. 
+\end{definition}
+
+\begin{theorem}
+    {\bf（方向导数和梯度的关系）}
+
+    若$f(\bs{x})$在$\bs{x}^*$处可微，则
+    $$
+        f'(\bs{x}^*; \bs{d}) = \nabla f^{\top} (\bs{x}^*) \bs{d}
+    $$
+\end{theorem}
+
+\prove
+
+\proved

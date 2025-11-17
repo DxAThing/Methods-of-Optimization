@@ -64,7 +64,7 @@
 
     （4）凸集边界上任意点存在支撑超平面
     \footnote{
-        设$\bs{\alpha} \in \R^n \textbackslash \{ \bs{0} \}$，$\beta \in \R$，称集合$H = \{ \bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} = \beta\}$是{\bf 超平面}，简记作$H: \bs{\alpha}^{\top} \bs{x} = \beta$. 
+        设$\bs{\alpha} \in \R^n \backslash \{ \bs{0} \}$，$\beta \in \R$，称集合$H = \{ \bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} = \beta\}$是{\bf 超平面}，简记作$H: \bs{\alpha}^{\top} \bs{x} = \beta$. 
         设$S \subseteq \R^n$，$\bs{x}_0 \in S$，若超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta$满足：
 
         （i）$\exists \bs{x}^{(0)} \in S$，使得$\bs{x}^{(0)} \in H$；
@@ -228,14 +228,141 @@ $$
     $S$是凸锥$\Leftrightarrow S$中任意有限点的半正组合属于$S$. 
 \end{theorem}
 
-\prove
+\prove 先证$\Rightarrow$. 
 
+再证$\Leftarrow$. 
 \proved
 
 \subsection{凸函数}
 
 \subsubsection{凸函数}
 
+\begin{definition}
+    {\bf（凸函数）}
+
+    设集合$S \subseteq \R^n$为凸集，函数$f: S \to R$. 
+    若$\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\lambda \in (0,1)$，均有
+    $$
+        f(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x}^{(2)})
+    $$
+    则称$f(\bs{x})$为凸集$S$上的{\bf 凸函数}. 
+
+    若进一步有上面不等式以严格不等式成立，则称$f(\bs{x})$为凸集$S$上的{\bf 严格凸函数}. 
+    当$-f(\bs{x})$为凸函数（严格凸函数时），则称$f(\bs{x})$为{\bf 凹函数}（{\bf 严格凸函数}）. 
+\end{definition}
+
+\begin{theorem}
+    {\bf（凸函数和凸组合的关系）}
+
+    $f(\bs{x})$为凸集$S$上的凸函数的充要条件是$S$上任意有限点的凸组合的函数值不大于各点函数值的凸组合，即$\forall \bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in S$，对于任意的序列$\{ \lambda_j \}_{j=1}^m$满足$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^{m} \lambda_j = 1$，都有
+    $$
+        f(\sum_{j=1}^m \lambda_j \bs{x}^{(j)}) \le \sum_{j=1}^m \lambda_j f(\bs{x}^{(j)})
+    $$
+\end{theorem}
+
+\prove
+
+\proved
+
+\eg
+设$f_1, f_2$是凸函数，判断：
+
+（1）设$\lambda_1, \lambda_2 > 0$，$\lambda_1 f_1 + \lambda_2 + f_2$是否为凸函数？
+$\lambda_1 f_1 - \lambda_2 + f_2$是否为凸函数？
+
+（2）$f(\bs{x}) = \max \{ f_1(\bs{x}), f_2(\bs{x}) \}$是否为凸函数？
+$g(\bs{x}) = \min \{ f_1(\bs{x}), f_2(\bs{x}) \}$是否为凸函数？
+
+\solve
+
+\solved
+
+\begin{theorem}
+    {\bf（凸函数的性质）}
+
+    设$S \subseteq \R^n$为非空凸集，函数$f: S \to \R$，则有：
+
+    （1）若$f$是凸函数，则$f$在$\text{int}(S)$上连续；
+
+    （2）若$f$是凸函数，则其对任意方向的方向导数（若方向可行）存在；
+
+    （3）设$S$是开集
+    \footnote{
+        设$S \in \R^n$，若$\text{int}(S) = S$，则称$S$是{\bf 开集}. 
+    }
+    ，$f$在$S$上可微，则$f$是凸函数的充要条件是$\forall \bs{x}^* \in S$，都有
+    $$
+        f(\bs{x}) \ge f(\bs{x}^*) + \nabla f^{\top} (\bs{x}^*) (\bs{x} - \bs{x}^*)
+    $$
+    $\forall x \in S$都成立；
+
+    （4）设$S$是开集，$f$在$S$上二次可微，则：
+    
+    （i）$f$是凸函数的充要条件是$\forall \bs{x} \in S$，$\nabla^2 f(\bs{x})$是半正定的；
+
+    （ii）若$\forall \bs{x} \in S$，$\nabla^2 f(\bs{x})$是正定的，则$f$是严格凸函数. 
+\end{theorem}
+
+\prove
+
+\proved
+
+\eg
+若$f(x) = 
+\begin{cases}
+    2, & x = \pm 1 ,\\
+    x^2, & -1 < x < 1
+\end{cases}$，
+容易验证$f$是凸函数，但是$f$在边界点上不连续. 
+
 \subsubsection{水平集}
 
+\begin{definition}
+    {\bf（水平集）}
+
+    设集合$S \subseteq \R^n$，函数$f: S \to \R$，$\alpha \in \R$，称$S_{\alpha} = \{ \bs{x} \in S \mid f(\bs{x}) \le \alpha \}$为$f(\bs{x})$在$S$上的$\alpha${\bf 水平集}. 
+\end{definition}
+
+水平集的概念相当于在地形图中，海拔高度不高于某一数值的区域. 
+
+\begin{theorem}
+    {\bf（凸函数的水平集是凸集）}
+
+    设集合$S \subseteq \R^n$是凸集，函数$f: S \to \R$是凸函数，则对$\forall \alpha \in \R$，$S_{\alpha}$是凸集. 
+\end{theorem}
+
+\prove
+
+\proved
+
+上述定理的逆不真. 
+考虑分段函数
+$f(x) = 
+\begin{cases}
+    1, &x \ge 0, \\
+    0, &x < 0
+\end{cases}
+$
+，函数非凸，但其任意水平集是凸集. 
+
 \subsection{凸规划}
+
+\begin{definition}
+    {\bf（凸规划）}
+
+    （1）若$(f\ S)$中的$S$为凸集，$f$是$S$上的凸函数，优化目标为$\min$时，则称$(f\ S)$为凸规划；
+
+    （2）若$(fgh)$中的$f, g_i$为凸函数，$h_j$为线性函数，则称$(fgh)$为凸规划. 
+\end{definition}
+
+\begin{theorem}
+    {\bf（凸优化的最优解）}
+
+    设$(f\ S)$为凸优化. 
+    若$\bs{x}^*$为问题$(f\ S)$的l.opt.，则$\bs{x}^*$为g.opt. 
+    进一步地，若$f$是严格凸函数，则$\bs{x}^*$是$(f\ S)$的唯一g.opt. 
+\end{theorem}
+
+\prove
+
+\proved
