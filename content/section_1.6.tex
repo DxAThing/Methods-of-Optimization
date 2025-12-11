@@ -125,13 +125,21 @@ b = \begin{pmatrix}
 \solved
 
 \begin{theorem}
-    {\bf（表示定理）}
+    {\bf（表示定理，Minkowski-Weyl）}
 
-    设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(k)}$为所有极点，$\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(l)}$为所有极方向，则$\forall \bs{x} \in S$，$\exists \lambda_i >0$，$i = 1, 2, \cdots, k$，且$\displaystyle \sum_{i=1}^k \lambda_i = 1$，$\mu_j \ge 0$，$j = 1, 2, \cdots, l$，使得
+    设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(k)}$为所有极点，$\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(l)}$为所有极方向，则$\forall \bs{x} \in S$，存在序列$\{\lambda_i\}_{i=1}^k, \{\mu_j\}_{j=1}^l$，其中：
+
+    （1）$\lambda_i >0$，$i = 1, 2, \cdots, k$，且$\displaystyle \sum_{i=1}^k \lambda_i = 1$；
+
+    （2）$\mu_j \ge 0$，$j = 1, 2, \cdots, l$，
+    
+    使得
     \begin{align*}
         \bs{x} = & \lambda_1 \bs{x}^{(1)} + \lambda_2 \bs{x}^{(2)} + \cdots + \lambda_k \bs{x}^{(k)} & \text{（极点的凸组合）} \\
-        + & \mu_1 \bs{x}^{(1)} + \mu_2 \bs{x}^{(2)} + \cdots + \mu_l \bs{x}^{(l)} & \text{（极方向的正组合）}
+        + & \mu_1 \bs{d}^{(1)} + \mu_2 \bs{d}^{(2)} + \cdots + \mu_l \bs{d}^{(l)} & \text{（极方向的半正组合）}
     \end{align*}
+
+    特别地，如果上述多面体$S$是有界的，则有$\mu_j = 0$. 
 \end{theorem}
 
 \prove

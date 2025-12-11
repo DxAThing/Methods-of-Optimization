@@ -10,8 +10,7 @@
     \begin{itemize}
         \item 线性函数：$f(\bs{x}) = \bs{c}^{\top}\bs{x} + \bs{d}$，$\nabla f(\bs{x}) = \bs{c}$，$\nabla^2 f(x) = \bs{0}$；
         \item 二次函数：$f(\bs{x}) = \frac{1}{2} \bs{x}^{\top} \bs{Qx} + \bs{c}^{\top}\bs{x} + \bs{d}$，$\nabla f(\bs{x}) = \bs{Qx} + \bs{c}$，$\nabla^2 f(x) = \bs{Q}$，其中$\bs{Q}$为对称阵. 
-        % \item 向量值线性函数：$\bs{f}(\bs{x}) = \bs{Ax} + \bs{d} \in \R^m$，
-        % $\frac{\d \bs{f}}{\d \bs{x}} = \bs{A}^{\top}$. 
+        \item 向量值线性函数：$\bs{f}(\bs{x}) = \bs{Ax} + \bs{d} \in \R^m$，$\frac{\d \bs{f}}{\d \bs{x}} = \bs{A}^{\top}$. 
     \end{itemize}
 \end{theorem}
 
@@ -21,7 +20,7 @@
 \begin{theorem}
     {\bf（Taylor展开式）}
 
-    设$f: \R^n \to \R$在$\bs{x}^*$的某邻域内二阶可导，则有：
+    设$f: \R^n \to \R$在$\bs{x}^*$的某邻域内分别一阶、二阶可微，则分别有：
     \begin{itemize}
         \item 一阶Taylor展开式：$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*) + o(\Vert \bs{x} - \bs{x}^* \Vert)$；
         \item 二阶Taylor展开式：$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*)  + \frac{1}{2} (\bs{x} - \bs{x}^*)^{\top} \nabla^2 f(\bs{x}^*) (\bs{x} - \bs{x}^*) + o(\Vert \bs{x} - \bs{x}^* \Vert^2)$. 
@@ -59,5 +58,12 @@
 \end{theorem}
 
 \prove
-
+应用$f(\bs{x})$的一阶展开式，则
+\begin{align*}
+    \lim_{\lambda \to 0^+} \frac{f(\bs{x}^* + \lambda \bs{d}) - f(\bs{x}^*)}{\lambda}
+    & = \lim_{\lambda \to 0^+}\frac{f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\lambda \bs{d}) + o(\lambda \Vert \bs{d} \Vert)}{\lambda} \\
+    & = \nabla f^{\top} (\bs{x}^*) \bs{d} + \lim_{\lambda \to 0^+} \frac{o(\lambda \Vert \bs{d} \Vert)}{\lambda} \\
+    & = \nabla f^{\top} (\bs{x}^*) \bs{d} + \lim_{\lambda \to 0^+} \frac{o(\lambda \Vert \bs{d} \Vert)}{\lambda \Vert \bs{d} \Vert} \cdot \Vert \bs{d} \Vert \\
+    & = \nabla f^{\top} (\bs{x}^*) \bs{d}
+\end{align*}
 \proved

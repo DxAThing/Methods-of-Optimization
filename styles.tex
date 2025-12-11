@@ -250,7 +250,18 @@
 \makeatother
 
 \newcommand{\R}{\mathbb{R}}
-\renewcommand{\frac}{\dfrac}
+\renewcommand{\d}{\text{d}}
+\renewcommand{\frac}[2]{\displaystyle\dfrac{#1}{#2}}
+
 
 % 调整行间距
 \renewcommand{\baselinestretch}{1.5}  % 1.5 倍行距
+
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{0.25em plus 0.5em minus 0.25em}%
+  \setlength\belowdisplayskip{0.25em plus 0.5em minus 0.25em}%
+  % \setlength\abovedisplayshortskip{0.5em plus 2pt minus 2pt}%
+  % \setlength\belowdisplayshortskip{8pt plus 2pt minus 2pt}%
+}
+\makeatother
