@@ -1,267 +1,187 @@
-% 定义本书中使用到的格式
+% ==============================================================================
+% 1. 文档类与基础设置
+% ==============================================================================
+\documentclass[12pt, oneside, UTF8]{ctexbook}
 
-\ctexset {chapter = {
-  pagestyle = headings
-  }
+% 设置 CJK 字体：主要解决加粗（黑体）和斜体（楷体）的映射
+\setCJKmainfont{FandolSong-Regular.otf}[
+    BoldFont = FandolHei-Regular.otf,
+    ItalicFont = FandolKai-Regular.otf
+]
+\setmainfont{Times New Roman} % 英文字体使用 Times New Roman
+
+% 章节标题样式设置
+\ctexset {
+    chapter = { pagestyle = headings },
+    section = { beforeskip = 3em },
+    subsubsection = { aftername = {.\ } }
 }
-\ctexset {section = {
-    beforeskip = 3em
-  }
-}
-% \ctexset {subsection = {
-%     aftername = {、}
-%   }
-% }
-% \ctexset {subsubsection = {
-%     aftername = {}
-%   }
-% }
 
-\usepackage{array}
-\usepackage{tabularray}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{calc}
-\usepackage{caption}
-\captionsetup[figure]{labelsep=none}
-
-\usepackage{diagbox}
-\usepackage{enumitem}
-\usepackage{etoolbox}
-\usepackage{float}
+% 页面边距设置
 \usepackage{geometry}
 \geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=1cm}
-\usepackage{multicol}
 
+% 行间距：1.5倍行距
+\renewcommand{\baselinestretch}{1.5} 
+
+% ==============================================================================
+% 2. 常用宏包加载
+% ==============================================================================
+\usepackage{array, tabularray, makecell, multirow, diagbox} % 表格增强
+\usepackage{amsmath, amssymb, amsthm, unicode-math}         % 数学公式与字体
+\setmathfont{TeX Gyre Termes Math}                           % 数学字体匹配 Times
+
+\usepackage{calc, caption}                                   % 计算与标题控制
+\captionsetup[figure]{labelsep=none}                         % 去掉图片编号后的分隔符
+
+\usepackage{enumitem, etoolbox, float, multicol}             % 列表、工具、浮动体、多栏
+\let\longdivision\undefined
+\usepackage{longdivision, polynom, xlop}                    % 长除法、多项式、算术竖式
+\usepackage{rotating, wrapfig}                               % 旋转与文字环绕
+\usepackage{xparse, tcolorbox}                               % 高级参数解析与彩色框
+\tcbuselibrary{theorems, skins}
+
+% 绘图相关
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, decorations.pathmorphing, intersections, patterns, patterns.meta, through}
+
+% 超链接设置
 \usepackage{hyperref}
 \hypersetup{
-  colorlinks=false, % 内部链接颜色
-  pdfborder={0 0 0} % 移除链接框架
+    colorlinks=false, 
+    pdfborder={0 0 0} % 隐藏红框
 }
 
-\usepackage{longdivision}
-\usepackage{makecell}
-\usepackage{multirow}
-\usepackage{polynom}
-\usepackage[figuresright]{rotating}
-\usepackage{wrapfig}
-\usepackage{tikz}
-\usetikzlibrary{
-  arrows.meta,
-  calc,
-  decorations.pathmorphing,
-  intersections,
-  patterns,
-  patterns.meta,
-  through,
-}
+% ==============================================================================
+% 3. 计数器与编号重定义
+% ==============================================================================
+\setcounter{secnumdepth}{3}  % 编号深度到 subsubsection
+\setcounter{tocdepth}{2}     % 目录深度到 subsection
 
-\usepackage{xlop}
-\usepackage{xparse}
+% 编号格式重定义
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 
+% 脚注带圈编号，且不按章节重置
+\renewcommand{\thefootnote}{\circled{\arabic{footnote}}}
+\counterwithout*{footnote}{chapter}
 
-% 绘制带圈的数字
+% ==============================================================================
+% 4. 自定义命令（工具类）
+% ==============================================================================
+
+% 绘制带圈数字 \circled{1}
 \newcommand{\circled}[2][]{\tikz[baseline=(char.base)]
     {\node[shape = circle, draw, inner sep = 1pt]
-    (char) {\phantom{\ifblank{#1}{#2}{#1}}};%
+    (char) {\phantom{\ifblank{#1}{#2}{#1}}};
     \node at (char.center) {\makebox[0pt][c]{#2}};}}
 \robustify{\circled}
 
-% 罗马数字
+% 罗马数字 \rmnum{1} (小写), \Rmnum{1} (大写)
 \makeatletter
 \newcommand{\rmnum}[1]{\romannumeral #1}
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
 
-\newcommand{\moveup}{\setlength\abovedisplayskip{-1.5em}} % 当 “解:” 后直接写公式时，为了“解”与公式水平对齐所需要的偏移。
-\newcommand{\practice}{\textbf{练\quad 习\ }}
-\newcommand{\ulspace}[1][2em]{\underline{\hspace{#1}}}
-\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\bs}[1]{\symbfit{#1}}                      % 数学加粗向量样式
+\newcommand{\degree}{^\circ}                           % 度数符号
 
-\setcounter{secnumdepth}{3}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
-\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
-\ctexset {subsubsection = {
-  aftername = {.\ }
-  }
-}
+% 数学符号简化
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\d}{\text{d}}
+\renewcommand{\frac}[2]{\dfrac{#1}{#2}}   % 强制分式为行间大小
 
-% 更改目录设置
-\setcounter{tocdepth}{2}
-
-\renewcommand{\thefootnote}{\circled{\arabic{footnote}}}
-\counterwithout*{footnote}{chapter}
-
-% 例题环境
-\newcounter{cnteg}[chapter]
-\newcommand{\eg}{
-  \stepcounter{cnteg}
-  \textbf{例\thechapter.\thecnteg\ }
-}
-
-% 解环境
-\newcommand{\solve}{\textbf{【解】}}
-\newcommand{\solved}{{\hfill 【解毕】}}
-
-% 证明环境
-\newcommand{\prove}{\textbf{【证明】}}
-\newcommand{\proved}{{\hfill 【证毕】}}
-
-% 习题环境
-\newcommand{\exercise}{
-  \vspace{1em}
-  \newpage
-  \begin{center}
-    \bf\large{\labelexercise}
-  \end{center}
-}
-\newcommand{\labelexercise}{ 
-  习题\thesection
-}
-
-% 答案环境
-\newcommand{\answer}{
-  \vspace{1em}
-  \newpage
-  \setcounter{cntxiaoti}{0}
-  \begin{center}
-    \bf\large{\labelanswer}
-  \end{center}
-}
-\newcommand{\labelanswer}{ 
-  习题\thesection \quad 答案
-}
-
-% 小结环境
-\newcommand{\summary}{
-  \nonumsection[\labelsummary]{\huge \labelsummary}
-}
-\newcommand{\labelsummary}{小 \hspace{2em} 结}
-
-\newcommand{\spacing}{\vspace{0.5em}} % 手工调整垂直间隔（测试发现 0.5em 比较合适。不支持参数，特殊情况直接使用 \vspace{} 命令。）
-
-% 修改数学公式与上下文的距离
-\makeatletter
-\renewcommand\normalsize{%
-    \abovedisplayskip 1\p@ \@plus1\p@ \@minus6\p@
-    \belowdisplayskip \abovedisplayskip
-}
-\makeatother
-
-% 绘制 弧 符号。代码来自
-%    https://tex.stackexchange.com/questions/96680/
+% 弧形符号绘制 \myarc{AB}
 \makeatletter
 \DeclareFontFamily{U}{tipa}{}
 \DeclareFontShape{U}{tipa}{m}{n}{<->tipa10}{}
-\newcommand{\myarc@char}{{\usefont{U}{tipa}{m}{n}\symbol{62}}}%
-
+\newcommand{\myarc@char}{{\usefont{U}{tipa}{m}{n}\symbol{62}}}
 \newcommand{\myarc}[1]{\mathpalette\myarc@arc{#1}}
-
-\newcommand{\myarc@arc}[2]{%
-  \sbox0{$\m@th#1#2$}%
-  \vbox{
-    \hbox{\resizebox{\wd0}{\height}{\myarc@char}}
-    \nointerlineskip
-    \box0
-  }%
+\newcommand{\myarc@arc}[2]{
+  \sbox0{$\m@th#1#2$}
+  \vbox{ \hbox{\resizebox{\wd0}{\height}{\myarc@char}} \nointerlineskip \box0 }
 }
 \makeatother
 
-% % ----------------------------------
-% \newlength{\defaultParIndent}  % 页面缺省的 \parindent 长度。
-% \setlength{\defaultParIndent}{\parindent}
+% ==============================================================================
+% 5. 自定义环境（解题、证明、习题）
+% ==============================================================================
 
-% ----------------------------------
-\theoremstyle{definition}
-\newtheorem{theorem}{定理}[chapter]
-\newtheorem{definition}{定义}[chapter]
+% 例题环境 \eg
+\newcounter{cnteg}[chapter]
+\newcommand{\eg}{\stepcounter{cnteg}\textbf{例\thechapter.\thecnteg\ }}
 
-% 小题和小小题
-\newcounter{cntxiaoti}[subsubsection]      % 小题的计数器
-\newcounter{cntxiaoxiaoti}[cntxiaoti]      % 小小题的计数器
-\counterwithin*{cntxiaoxiaoti}{cnteg}
+% 解、证明、结论标记
+\newcommand{\solve}{\textbf{【解】}}
+\newcommand{\solved}{{\hfill 【解毕】}}
+\newcommand{\prove}{\textbf{【证明】}}
+\newcommand{\proved}{{\hfill 【证毕】}}
 
-\newlength{\lenLabel}                     % 内部变量：用于计算题目前编号所占的长度
-\newlength{\lenParent}                    % 内部变量：用于记录父题目编号所占的长度
-\setlength{\lenParent}{0em}
+% ==============================================================================
+% 6. 彩色框定义（定义、定理）
+% ==============================================================================
 
-\newenvironment{xiaotis}{ % “小题” 环境
-  \NewDocumentCommand \xiaoti {s m} { % 小题的标题
-    \IfBooleanTF {##1}
-      {
-        \setlength{\lenLabel}{\widthof{\labelxiaoti}}
-        % \hangafter 1
-        \setlength{\hangindent}{\parindent + \lenLabel}
-        {\hspace{\lenLabel}##2}
-      }
-      {
-        \stepcounter{cntxiaoti}
-        \setlength{\lenLabel}{\widthof{\labelxiaoti}}
-        % \hangafter 1
-        % \setlength{\hangindent}{\parindent + \lenLabel}
-        {\labelxiaoti ##2}
-      }
-  }
-  \newcommand{\labelxiaoti}{\arabic{cntxiaoti}. }  % 1. 2. 3. ……
-}{%
+% 定义图片中的颜色 (近似值)
+\definecolor{amzblue}{RGB}{0, 114, 189}   % 定义框的蓝色
+\definecolor{amzpurple}{RGB}{119, 66, 188} % 定理框的紫色
+\definecolor{boxbg}{RGB}{248, 248, 255}    % 极淡的背景色(GhostWhite)
+
+% 全局 tcolorbox 样式设置
+\tcbset{
+    commonstyle/.style={
+        enhanced,
+        colback=boxbg,              % 内容区域背景色
+        colframe=amzblue,           % 外部边框线颜色（虽然我们后面设为0pt，但影响标题位置）
+        boxrule=0.5pt,              % 细微的边框线
+        arc=2mm,                    % 整体圆角
+        fonttitle=\bfseries\normalsize,
+        coltitle=white,             % 标题文字颜色
+        attach boxed title to top left={xshift=2mm, yshift=-3mm}, % 标题盒子的位置偏移
+        boxed title style={
+            colback=amzblue,        % 标题小方块的背景色
+            colframe=amzblue,
+            arc=1mm,                % 标题小方块的圆角
+            outer arc=1mm,
+            boxrule=0.5pt,
+        },
+        separator sign={},          % 空格
+        description delimiters={（}{）},% 加上括号
+        drop shadow,                % 阴影
+        top=4mm,                    % 增加顶部间距，防止标题盖住正文
+    }
 }
 
-% 为命令 `\xiaoxiaoti' 增加一个可选参数，是为了实现：当“小题”没有文字时，第一个“小小题” 与“小题”同行。
-% 对应 “习题 十四” 中的第 10 小题。
-% 在此之前，是通过将 “小小题” 上移一行来实现同行显示。如： “习题 七” 中的第 10 小题。
-% 但当“小题”本身处于页的最后一行时，上移不能生效，会导致“小题”显示在上一页的页末，而“小小题”显示在下一页的页首。
-\newenvironment{xiaoxiaotis}{ % “小小题” 环境
-  \setlength{\lenParent}{\lenParent + \lenLabel}
-  \NewDocumentCommand{\xiaoxiaoti}{o m} { % 小小题的标题
-    \stepcounter{cntxiaoxiaoti}
-    \setlength{\lenLabel}{\widthof{\labelxiaoxiaoti}}
-    \IfNoValueTF{##1}
-      {\hangafter 1\setlength{\hangindent}{\parindent + \lenParent + \lenLabel + 0.5em}{\hspace{\lenParent}\labelxiaoxiaoti##2}}
-      {\hangafter 1\setlength{\hangindent}{\parindent + \lenParent + \lenLabel + 0.5em}{\hspace{##1}\labelxiaoxiaoti##2}}
-  }
-  \newcommand{\labelxiaoxiaoti}{（\arabic{cntxiaoxiaoti}）} % （1） （2） （3） ……
-}{%
+% 重新定义环境，允许传入颜色
+\newtcbtheorem[number within=chapter]{definition}{定义}{
+    commonstyle,
+    colframe=amzblue,
+    boxed title style={colback=amzblue, colframe=amzblue},
+}{def}
+\newtcbtheorem[number within=chapter]{theorem}{定理}{
+    commonstyle,
+    colframe=amzpurple,
+    boxed title style={colback=amzpurple, colframe=amzpurple},
+}{thm}
+
+% ==============================================================================
+% 7. 间距修正（全局微调）
+% ==============================================================================
+% 修改公式与前后文的紧凑度
+\makeatletter
+\g@addto@macro\normalsize{%
+	\setlength\abovedisplayskip{0.25em plus 0.5em minus 0.25em}
+	\setlength\belowdisplayskip{0.25em plus 0.5em minus 0.25em}
+	\setlength\abovedisplayshortskip{0em plus 2pt minus 2pt}
+	\setlength\belowdisplayshortskip{0em plus 2pt minus 2pt}
 }
-
-\newcommand{\twoInLine}  [3][10em] {\begin{tabular}[t]{*{2}{@{}p{#1}}} #2 & #3\end{tabular}}
-\newcommand{\threeInLine}[4][10em] {\begin{tabular}[t]{*{3}{@{}p{#1}}} #2 & #3 & #4\end{tabular}}
-\newcommand{\fourInLine} [5][10em] {\begin{tabular}[t]{*{4}{@{}p{#1}}} #2 & #3 & #4 & #5\end{tabular}}
-
-\newcommand{\twoInLineXxt}  [3][10em] {\begin{tabular}[t]{*{2}{@{}p{#1}}} \xiaoxiaoti{#2} & \xiaoxiaoti{#3}\end{tabular}}
-\newcommand{\threeInLineXxt}[4][10em] {\begin{tabular}[t]{*{3}{@{}p{#1}}} \xiaoxiaoti{#2} & \xiaoxiaoti{#3} & \xiaoxiaoti{#4}\end{tabular}}
-\newcommand{\fourInLineXxt} [5][10em] {\begin{tabular}[t]{*{4}{@{}p{#1}}} \xiaoxiaoti{#2} & \xiaoxiaoti{#3} & \xiaoxiaoti{#4} & \xiaoxiaoti{#5}\end{tabular}}
-
-\newcommand{\shangyihang}{\vspace{-1.5em}} % 上移一行
-
-\newcommand{\degree}{^\circ}
-
-\newcommand{\fourchoices}[5][10em]{\begin{tabular}[t]{*{4}{@{}p{#1}}} A.\ #2 &B.\ #3 &C.\ #4 &D.\ #5\end{tabular}}
-\newcommand{\twochoices}[5][20em]{\begin{tabular}[t]{*{4}{@{}p{#1}}} A.\ #2 &B.\ #3 \\C.\ #4 &D.\ #5\end{tabular}}
-\newcommand{\onechoices}[5][40em]{\begin{tabular}[t]{*{4}{@{}p{#1}}} A.\ #2 \\B.\ #3 \\C.\ #4 \\D.\ #5\end{tabular}}
+\makeatother
 
 % 修改itemize环境的行间距
 \makeatletter
-\def\@listi{\leftmargin\leftmargini
-            \topsep 0pt
-            \parsep 0pt
-            \itemsep 0pt}
-\makeatother
-
-\newcommand{\R}{\mathbb{R}}
-\renewcommand{\d}{\text{d}}
-\renewcommand{\frac}[2]{\displaystyle\dfrac{#1}{#2}}
-
-
-% 调整行间距
-\renewcommand{\baselinestretch}{1.5}  % 1.5 倍行距
-
-\makeatletter
-\g@addto@macro\normalsize{%
-  \setlength\abovedisplayskip{0.25em plus 0.5em minus 0.25em}%
-  \setlength\belowdisplayskip{0.25em plus 0.5em minus 0.25em}%
-  % \setlength\abovedisplayshortskip{0.5em plus 2pt minus 2pt}%
-  % \setlength\belowdisplayshortskip{8pt plus 2pt minus 2pt}%
-}
+\def\@listi{\leftmargin\leftmargini \topsep 0pt \parsep 0pt \itemsep 0pt}
+% \def\@listi{\leftmargin\leftmargini
+%             \topsep 0pt
+%             \parsep 0pt
+%             \itemsep 0pt}
 \makeatother

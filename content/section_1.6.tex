@@ -1,26 +1,23 @@
 \section{多面体、极点、极方向}
 
-\begin{definition}
-    {\bf（多面体）}
+\begin{definition}{半空间}{}
+    设超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta \subseteq \R^n$，则这个超平面把$\R^n$分成两部分$\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \ge \beta \}$和$\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \le \beta \}$，这样的两部分称为{\bf 闭半空间}，若有严格不等式成立，则称其为{\bf 开半空间}. 
+\end{definition}
 
-    有限个闭半空间
-    \footnote{
-        设超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta \subseteq \R^n$，则这个超平面把$\R^n$分成两部分$\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \ge \beta \}$和$\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \le \beta \}$，这样的两部分称为{\bf 闭半空间}，若有严格不等式成立，则称其为{\bf 开半空间}. 
-    }
-    的交称为{\bf 多面体}. 
+\begin{definition}{多面体}{}
+
+    有限个闭半空间的交称为{\bf 多面体}. 
 \end{definition}
 
 由定义看出，多面体实际上由一系列线性不等式组定义，故一般可以将其写作$\{ \bs{x} \in \R^n \mid \bs{Ax} \le \bs{b} \}$，其中$\bs{A} \in \R^{m \times n}$，$\bs{b} \in \R^m$. 
 其中我们选取一种特殊的多面体$\{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b} , \bs{x} \ge \bs{0} \}$，称其为{\bf 标准型多面体}. 
 
-\begin{definition}
-    {\bf（极点）}
+\begin{definition}{极点}{}
 
     设$S \subseteq \R^n$，$\bs{x} \in S$，若不存在$\bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\bs{x}^{(1)} \neq \bs{x}^{(2)}$，使得$\bs{x} = \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}$，则称$x$是$S$的{\bf 极点}（或{\bf 顶点}）. 
 \end{definition}
 
-\begin{definition}
-    {\bf（极方向）}
+\begin{definition}{极方向}{}
     
     设$S \subseteq \R^n$，$\bs{d} \in \R^n$，若$\bs{d}$是$S$的可行方向（见{\bf 方向导数}的定义），且不能被表示为$S$的两个不同可行方向
     \footnote{
@@ -29,8 +26,7 @@
     的非负组合，则称$\bs{d}$是$S$的{\bf 极方向}. 
 \end{definition}
 
-\begin{theorem}
-    {\bf（极点特征）}
+\begin{theorem}{极点特征}{}
 
     设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，则$\bs{x}$是多面体$S$的极点的充要条件是存在分解$\bs{A} = (\bs{B}, \bs{N})$，使得
 
@@ -80,8 +76,7 @@ $.
 
 \solved
 
-\begin{theorem}
-    {\bf（极方向特征）}
+\begin{theorem}{极方向特征}{}
 
     设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，则
 
@@ -90,7 +85,7 @@ $.
     （2）$\bs{d}$是$S$的极方向的充要条件是存在分解$\bs{A} = (\bs{B}, \bs{N})$，使得
     
     {
-        \setlength{\parindent}{4em}
+        \setlength{\parindent}{2em}
         （i）$\bs{B}$为$m$阶可逆阵；
 
         （ii）$\bs{d} = (\bs{d_B}^{\top}, \bs{d_N}^{\top})$（分解方式与$\bs{A}$相同），其中$\bs{d_B} = - \bs{B}^{-1} \bs{a}_j \ge \bs{0}$，$\bs{d_N} = \bs{e}_j$. 
@@ -124,8 +119,7 @@ b = \begin{pmatrix}
 
 \solved
 
-\begin{theorem}
-    {\bf（表示定理，Minkowski-Weyl）}
+\begin{theorem}{表示定理，Minkowski-Weyl}{}
 
     设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(k)}$为所有极点，$\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(l)}$为所有极方向，则$\forall \bs{x} \in S$，存在序列$\{\lambda_i\}_{i=1}^k, \{\mu_j\}_{j=1}^l$，其中：
 

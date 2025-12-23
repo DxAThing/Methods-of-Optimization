@@ -1,7 +1,6 @@
 \section{子空间、正交子空间}
 
-\begin{definition}
-    {\bf（子空间）}
+\begin{definition}{子空间}{}
 
     设$\bs{d}^{(i)}\in\R^n,i=1,2,\cdots,m$是线性无关的向量组，称集合$\{ \bs{x} \mid \bs{x} = \displaystyle \sum_{j=1}^m \alpha_j \bs{d}^{(j)}, \alpha_J \in \R \}$是由向量$\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)}$生成的{\bf 子空间}，记作
     $L(\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)})$
@@ -16,8 +15,7 @@
 并且$\text{Rank}(\bs{A})=m$，也就是说$\bs{A}$是{\bf 列满秩}的. 
 我们将会在接下来的证明中用到这个性质. 
 
-\begin{definition}
-    {\bf（正交子空间）}
+\begin{definition}{正交子空间}{}
 
     称集合$\{ \bs{x}\in\R^n \mid \bs{x}^{\top}\bs{y}=0, \forall \bs{y}\in L \}$为子空间$L$的{\bf 正交子空间}，记作$L^{\bot}$. 
 \end{definition}
@@ -29,8 +27,7 @@
     & \Leftrightarrow \forall \bs{\alpha} \in \R^m, \bs{x}^{\top}\bs{A}\bs{\alpha} = 0
 \end{align*}
 
-\begin{theorem}
-    {\bf（子空间投影定理）}
+\begin{theorem}{子空间投影定理}{}
 
     设$L$为$\R^n$的子空间，则$\forall \bs{z} \in \R^n$，则必有以下两个命题成立：
 
@@ -85,8 +82,9 @@ $\forall \bs{\beta}\in\R^m$都成立，所以$\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A
 所以上述命题成立，从而目标问题的唯一解就是（1）中的$\bs{x}$，代入$\bs{u} = \bs{x}$即得到目标问题最优值为$\Vert \bs{y} \Vert$. 
 \proved
 
-\eg
-设$\bs{x}, \bs{y} \in \R^n$，若$\forall \bs{y} \in L$，都有$\bs{x}^{\top}\bs{y} \le \alpha$，则有$\bs{x} \in L^{\bot}$且$\alpha \ge 0$. 
+\begin{theorem}{}{}
+    设$\bs{x}, \bs{y} \in \R^n$，若$\forall \bs{y} \in L$，都有$\bs{x}^{\top}\bs{y} \le \alpha$，则有$\bs{x} \in L^{\bot}$且$\alpha \ge 0$. 
+\end{theorem}
 
 \prove
 取$\bs{y} = \bs{0}$，则$\bs{x}^{\top}\bs{y} = 0$，从而$\bs{x}^{\top}\bs{y}$的上界$\alpha \ge 0$. 
@@ -97,7 +95,6 @@ $\forall \bs{\beta}\in\R^m$都成立，所以$\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A
     &= \bs{x}^{(1)\top}\bs{y}
 \end{align*}
 令$\bs{y} = \lambda \bs{x}^{(1)}$且$\lambda \to +\infty$，则$\bs{x}^{(1)\top}\bs{y} \to +\infty$，与$\bs{x}^{\top}\bs{y}$有上界$\alpha$矛盾，故必有$\bs{x} \in L^{\bot}$. 
-
 \proved
 
 该命题还有以下等价表述：
