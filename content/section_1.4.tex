@@ -5,7 +5,6 @@
 在此我们只不加证明地给出一些常用函数的矩阵导数（即其梯度）. 
 
 \begin{theorem}{一些常见函数的梯度}{}
-
     \begin{itemize}
         \item 线性函数：$f(\bs{x}) = \bs{c}^{\top}\bs{x} + \bs{d}$，$\nabla f(\bs{x}) = \bs{c}$，$\nabla^2 f(x) = \bs{0}$；
         \item 二次函数：$f(\bs{x}) = \frac{1}{2} \bs{x}^{\top} \bs{Qx} + \bs{c}^{\top}\bs{x} + \bs{d}$，$\nabla f(\bs{x}) = \bs{Qx} + \bs{c}$，$\nabla^2 f(x) = \bs{Q}$，其中$\bs{Q}$为对称阵. 
@@ -17,7 +16,6 @@
 此处不加证明是因为此内容可以被读者在任何一本《数学分析》教材中找到. 
 
 \begin{theorem}{Taylor展开式}{}
-
     设$f: \R^n \to \R$在$\bs{x}^*$的某邻域内分别一阶、二阶可微，则分别有：
     \begin{itemize}
         \item 一阶Taylor展开式：$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*) + o(\Vert \bs{x} - \bs{x}^* \Vert)$；
@@ -26,16 +24,14 @@
 \end{theorem}
 
 \begin{theorem}{中值定理}{}
-
     设$f: \R^n \to \R$在$\bs{x}^*$的某邻域$U(\bs{x}^*)$内二阶可导，则$\forall x \in U(\bs{x}^*)$，都有：
     \begin{itemize}
-        \item Lagrange中值定理：$\exists \lambda \in (0,1)$，记$\bs{x}_{\lambda} = \bs{x^*} + \lambda (\bs{x} - \bs{x}^*)$，则有$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top} (\bs{x}_{\lambda}) (\bs{x} - \bs{x}^*)$；
-        \item Taylor中值定理：$\exists \mu \in (0,1)$，记$\bs{x}_{\mu} = \bs{x^*} + \mu (\bs{x} - \bs{x}^*)$，则有$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*)  + \frac{1}{2} (\bs{x} - \bs{x}^*)^{\top} \nabla^2 f(\bs{x}_{\mu}) (\bs{x} - \bs{x}^*)$. 
+        \item Lagrange中值定理：$\exists \lambda \in (0,1)$，记$\bs{x}_{\lambda} = \bs{x^*} + \lambda (\bs{x} - \bs{x}^*)$，则有$$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top} (\bs{x}_{\lambda}) (\bs{x} - \bs{x}^*)$$
+        \item Taylor中值定理：$\exists \mu \in (0,1)$，记$\bs{x}_{\mu} = \bs{x^*} + \mu (\bs{x} - \bs{x}^*)$，则有$$f(\bs{x}) = f(\bs{x}^*) + \nabla f^{\top}(\bs{x}^*) (\bs{x} - \bs{x}^*)  + \frac{1}{2} (\bs{x} - \bs{x}^*)^{\top} \nabla^2 f(\bs{x}_{\mu}) (\bs{x} - \bs{x}^*)$$
     \end{itemize}
 \end{theorem}
 
 \begin{definition}{方向导数}{directional_derivative}
-
     设$S \subseteq \R^n$为非空凸集，函数$f: S \to \R$，$\bs{x}^* \in S$，方向$\bs{d} \in \R^n$，若$\exists \lambda > 0$，使得$\bs{x}^* + \lambda \bs{d} \in S$（通常令$\lambda$充分小，此时称$\bs{d}$为{\bf 可行方向}），且此时极限
     $$
         \lim_{\lambda \to 0^+} \frac{f(\bs{x}^* + \lambda \bs{d}) - f(\bs{x}^*)}{\lambda}
@@ -44,7 +40,6 @@
 \end{definition}
 
 \begin{theorem}{方向导数和梯度的关系}{}
-
     若$f(\bs{x})$在$\bs{x}^*$处可微，则
     $$
         f'(\bs{x}^*; \bs{d}) = \nabla f^{\top} (\bs{x}^*) \bs{d}

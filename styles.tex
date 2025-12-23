@@ -1,25 +1,33 @@
 % ==============================================================================
 % 1. 文档类与基础设置
 % ==============================================================================
-\documentclass[12pt, oneside, UTF8]{ctexbook}
-
 % 设置 CJK 字体：主要解决加粗（黑体）和斜体（楷体）的映射
 \setCJKmainfont{FandolSong-Regular.otf}[
     BoldFont = FandolHei-Regular.otf,
     ItalicFont = FandolKai-Regular.otf
 ]
 \setmainfont{Times New Roman} % 英文字体使用 Times New Roman
+% \setmainfont{times.ttf}
 
 % 章节标题样式设置
 \ctexset {
-    chapter = { pagestyle = headings },
-    section = { beforeskip = 3em },
-    subsubsection = { aftername = {.\ } }
+    chapter = { 
+        pagestyle = headings
+    },
+    section = { 
+        beforeskip = 3em
+    },
+    subsection = {
+    beforeskip = {1.5em plus .5em minus .2em}, % 缩小上方间距
+    afterskip = {1.0em plus .2em},            % 缩小下方间距
+    fixskip = true,                            % 修正不必要的间距
+    },
+    subsubsection = { 
+        aftername = {.\ }, 
+        beforeskip = 0.5em,
+        afterskip = 0.5em
+    }
 }
-
-% 页面边距设置
-\usepackage{geometry}
-\geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=1cm}
 
 % 行间距：1.5倍行距
 \renewcommand{\baselinestretch}{1.5} 
@@ -39,11 +47,11 @@
 \usepackage{longdivision, polynom, xlop}                    % 长除法、多项式、算术竖式
 \usepackage{rotating, wrapfig}                               % 旋转与文字环绕
 \usepackage{xparse, tcolorbox}                               % 高级参数解析与彩色框
-\tcbuselibrary{theorems, skins}
+\tcbuselibrary{theorems, skins, breakable}
 
-% 绘图相关
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta, calc, decorations.pathmorphing, intersections, patterns, patterns.meta, through}
+% 页面边距设置
+\usepackage{geometry}
+\geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=1cm}
 
 % 超链接设置
 \usepackage{hyperref}
@@ -51,6 +59,10 @@
     colorlinks=false, 
     pdfborder={0 0 0} % 隐藏红框
 }
+
+% 绘图相关
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, decorations.pathmorphing, intersections, patterns, patterns.meta, through}
 
 % ==============================================================================
 % 3. 计数器与编号重定义
@@ -110,7 +122,7 @@
 
 % 例题环境 \eg
 \newcounter{cnteg}[chapter]
-\newcommand{\eg}{\stepcounter{cnteg}\textbf{例\thechapter.\thecnteg\ }}
+\newcommand{\eg}{\stepcounter{cnteg}\textbf{例\thechapter.\thecnteg\ \ }}
 
 % 解、证明、结论标记
 \newcommand{\solve}{\textbf{【解】}}
@@ -131,6 +143,7 @@
 \tcbset{
     commonstyle/.style={
         enhanced,
+        breakable,                  % 关键：允许环境跨页
         colback=boxbg,              % 内容区域背景色
         colframe=amzblue,           % 外部边框线颜色（虽然我们后面设为0pt，但影响标题位置）
         boxrule=0.5pt,              % 细微的边框线
@@ -139,15 +152,16 @@
         coltitle=white,             % 标题文字颜色
         attach boxed title to top left={xshift=2mm, yshift=-3mm}, % 标题盒子的位置偏移
         boxed title style={
+            before upper=\hspace{-2em}\noindent,
             colback=amzblue,        % 标题小方块的背景色
             colframe=amzblue,
             arc=1mm,                % 标题小方块的圆角
             outer arc=1mm,
             boxrule=0.5pt,
         },
-        separator sign={},          % 空格
+        separator sign={\,},          % 空格
         description delimiters={（}{）},% 加上括号
-        drop shadow,                % 阴影
+        % drop shadow,                % 阴影
         top=4mm,                    % 增加顶部间距，防止标题盖住正文
     }
 }
@@ -169,19 +183,65 @@
 % ==============================================================================
 % 修改公式与前后文的紧凑度
 \makeatletter
-\g@addto@macro\normalsize{%
-	\setlength\abovedisplayskip{0.25em plus 0.5em minus 0.25em}
-	\setlength\belowdisplayskip{0.25em plus 0.5em minus 0.25em}
+\g@addto@macro\normalsize{
+    % --- 控制行间公式 (Display Math) ---
+	\setlength\abovedisplayskip{0em plus 0.5em minus 0.25em}
+	\setlength\belowdisplayskip{0em plus 0.5em minus 0.25em}
 	\setlength\abovedisplayshortskip{0em plus 2pt minus 2pt}
 	\setlength\belowdisplayshortskip{0em plus 2pt minus 2pt}
+
+    % --- 控制行内公式 (Inline Math) 的避让机制 ---
+    % 设置阈值：当两行间距小于 1pt 时触发避让
+    \setlength\lineskiplimit{3pt} 
+    % 设置避让间距：触发后强制留出 3pt 的缝隙，防止重叠
+    \setlength\lineskip{3pt}
 }
 \makeatother
 
 % 修改itemize环境的行间距
-\makeatletter
-\def\@listi{\leftmargin\leftmargini \topsep 0pt \parsep 0pt \itemsep 0pt}
-% \def\@listi{\leftmargin\leftmargini
-%             \topsep 0pt
-%             \parsep 0pt
-%             \itemsep 0pt}
-\makeatother
+\usepackage{enumitem}
+% \setlist[itemize]{nosep}
+\setlist[itemize]{
+    nosep,
+    wide=2.5em,           % 关键：2em(段落缩进) + 0.5em(第一个字的中心)
+    leftmargin=0pt,       % 配合 wide，确保列表不产生额外的整体偏移
+    labelindent=\parindent+0.5em\relax,    % 强制让点出现在 2.5em 的位置，即对准首字中心
+    listparindent=\parindent, 
+    before=\noindent      % 保持你之前的设置
+}
+
+\setlist[enumerate,1]{ % 仅针对第一层级
+    nosep,
+    wide,
+    label=（\arabic*）,
+    labelsep=0pt,
+    labelindent=\parindent+1em\relax
+}
+
+\newlist{romlist}{enumerate}{2}
+% 第一层级 romlist - 正常缩进
+\setlist[romlist,1]{
+    nosep,
+    wide,
+    label=（\roman*）,
+    labelsep=0pt,
+    labelindent=\parindent+1em\relax
+}
+% 嵌套的 romlist（第二层级）- 更大的缩进
+\setlist[romlist,2]{
+    nosep,,
+    wide,
+    label=（\roman*）,
+    labelsep=0pt,
+    labelindent=\parindent+2em\relax
+}
+
+\newlist{indromlist}{enumerate}{1}
+\setlist[indromlist,1]{
+    nosep,
+    wide,
+    label=（\roman*）,
+    labelsep=0pt,
+    % itemindent=1em,   % 如果需要，可以调整项目缩进
+    labelindent=\parindent+2em\relax
+}

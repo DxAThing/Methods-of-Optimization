@@ -31,14 +31,15 @@
 
     设$L$为$\R^n$的子空间，则$\forall \bs{z} \in \R^n$，则必有以下两个命题成立：
 
-    （1）$\exists! \bs{x}\in L, \bs{y} \in L^{\bot}$，使得$\bs{z} = \bs{x}+\bs{y}$；
-
-    （2）在（1）中的$\bs{x}$为问题
+    \begin{enumerate}
+        \item $\exists! \bs{x}\in L, \bs{y} \in L^{\bot}$，使得$\bs{z} = \bs{x}+\bs{y}$；
+        \item 在（1）中的$\bs{x}$为问题
     \begin{align*}
         \min_{\bs{u}} \quad & \Vert \bs{z} - \bs{u} \Vert \\
         \text{s.t.} \quad & \bs{u} \in L
     \end{align*}
     的唯一解，且该问题的最优值为（1）中的$\Vert \bs{y} \Vert$.
+    \end{enumerate}
 \end{theorem}
 
 \prove
@@ -60,7 +61,7 @@
     = & \bs{z}^{\top}\bs{A}\bs{\beta} - \bs{z}^{\top}\bs{A}\bs{E}\bs{\beta} \\
     = & \bs{0}
 \end{align*}
-$\forall \bs{\beta}\in\R^m$都成立，所以$\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\top}$，也即取$y = \bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\top}$即可. 
+$\forall \bs{\beta}\in\R^m$都成立，所以$\bs{z} - \bs{A}(\bs{A}^{\bot}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\top}$，也即取$y = \bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{bot}$即可. 
 存在性证毕. 
 
 接下来证明唯一性. 
