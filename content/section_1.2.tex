@@ -2,84 +2,84 @@
 
 接下来将约定一些术语的符号表示：
 \begin{itemize}
-    \item $\R^n$——$n$维欧式空间；
-    \item $\bs{x} = (x_1, x_2, \cdots, x_n)^{\top} \in \R^n$——表示$\R^n$中的一个点或一个向量，其中分量$x_i\in\R$；
-    \item $\bs{d} = (d_1, d_2, \cdots, d_n)^{\top} \in \R^n$，其中$\bs{d} \neq \bs{0}$——表示从$\bs{0}$指向$\bs{d}$的方向. 
-    此外，设$\bs{d}^{(1)}, \bs{d}^{(2)} \in \R^n$，若$\exists \lambda > 0$，使得$\bs{d}^{(1)} = \lambda \bs{d}^{(2)}$，则称$\bs{d}^{(1)}, \bs{d}^{(2)}$是{\bf 同方向}的. 
-    \item $\bs{x}+\lambda \bs{d}$——表示从$\bs{x}$点出发，沿$d$方向移动$\lambda \bs{d}$长度得到的点.
+    \item \(\R^n\)——\(n\)维欧式空间；
+    \item \(\bs{x} = (x_1, x_2, \cdots, x_n)^{\top} \in \R^n\)——表示\(\R^n\)中的一个点或一个向量，其中分量\(x_i\in\R\)；
+    \item \(\bs{d} = (d_1, d_2, \cdots, d_n)^{\top} \in \R^n\)，其中\(\bs{d} \neq \bs{0}\)——表示从\(\bs{0}\)指向\(\bs{d}\)的方向. 
+    此外，设\(\bs{d}^{(1)}, \bs{d}^{(2)} \in \R^n\)，若\(\exists \lambda > 0\)，使得\(\bs{d}^{(1)} = \lambda \bs{d}^{(2)}\)，则称\(\bs{d}^{(1)}, \bs{d}^{(2)}\)是{\bf 同方向}的. 
+    \item \(\bs{x}+\lambda \bs{d}\)——表示从\(\bs{x}\)点出发，沿\(d\)方向移动\(\lambda \bs{d}\)长度得到的点.
 \end{itemize}
 
 下面是对欧式空间中向量的运算的定义. 
 
 \begin{definition}{向量的运算}{}
-    设$\bs{x} = (x_1, x_2, \cdots, x_n)^{\top} \in \R^n$，$\bs{y} = (y_1, y_2, \cdots, y_n)^{\top} \in \R^n$，则
+    设\(\bs{x} = (x_1, x_2, \cdots, x_n)^{\top} \in \R^n\)，\(\bs{y} = (y_1, y_2, \cdots, y_n)^{\top} \in \R^n\)，则
 
     \begin{enumerate}
-        \item {\bf 向量的内积运算}：$\bs{x}^{\top} \bs{y} = \bs{y}^{\top} \bs{x} = \displaystyle \sum_{i=1}^n x_iy_i$；
-        \item {\bf 向量长度}：$\| \bs{x} \| = \sqrt{\bs{x}^{\top} \bs{x}} = \sqrt{\displaystyle \sum_{i=1}^n x_i^2}$；
-        \item {\bf 两点间距离}：$\| \bs{x} - \bs{y} \|$. 
+        \item {\bf 向量的内积运算}：\(\bs{x}^{\top} \bs{y} = \bs{y}^{\top} \bs{x} = \displaystyle \sum_{i=1}^n x_iy_i\)；
+        \item {\bf 向量长度}：\(\| \bs{x} \| = \sqrt{\bs{x}^{\top} \bs{x}} = \sqrt{\displaystyle \sum_{i=1}^n x_i^2}\)；
+        \item {\bf 两点间距离}：\(\| \bs{x} - \bs{y} \|\). 
     \end{enumerate}
 \end{definition}
 
 \begin{theorem}{三角不等式}{}
-    $\forall \bs{x}, \bs{y} \in \R^n$，有
+    \(\forall \bs{x}, \bs{y} \in \R^n\)，有
     \begin{equation}
         \| \bs{x}+\bs{y} \| \le \| \bs{x} \| + \| \bs{y} \|
     \end{equation}
 \end{theorem}
 
-\prove
-对左式和右式分别平方后相减，有
-\begin{align*}
-    \text{左式}^2 - \text{右式}^2 
-    & = (\bs{x}+\bs{y})^{\top}(\bs{x}+\bs{y}) - (\bs{x}^{\top}\bs{x} + \bs{y}^{\top}\bs{y} + 2 \| \bs{x} \| \| \bs{y} \|) \\
-    & = (\bs{x}^{\top}\bs{x} + \bs{y}^{\top}\bs{y} + 2\bs{x}^{\top}\bs{y}) - (\bs{x}^{\top}\bs{x} + \bs{y}^{\top}\bs{y} + 2 \| \bs{x} \| \| \bs{y} \|) \\
-    &= 2(\bs{x}^{\top}\bs{y} - \| \bs{x} \| \| \bs{y} \|)
-\end{align*}
-也即只需证明柯西不等式
-\begin{equation*}
-    \bs{x}^{\top}\bs{y} \le \| \bs{x} \| \| \bs{y} \|
-\end{equation*}
-成立即可. 
-于是我们构造关于$t$的方程
-\begin{equation*}
-    \| \bs{x} +t\bs{y} \|^2 = \bs{y}^{\top}\bs{y}t^2 + 2 \bs{x}^{\top}\bs{y}t + \bs{x}^{\top}\bs{x} = 0
-\end{equation*}
-显然由于向量的模长一定非负，故该方程至多有一个解，也即该二次方程的判别式
-\begin{equation*}
-    \Delta =  4 (\bs{x}^{\top}\bs{y})^2 - 4 (\bs{x}^{\top}\bs{x})(\bs{y}^{\top}\bs{y}) \le 0
-\end{equation*}
-从而柯西不等式得证，从而原不等式得证. 
-\proved
+\begin{proof}
+    对左式和右式分别平方后相减，有
+    \begin{align*}
+        \text{左式}^2 - \text{右式}^2 
+        & = (\bs{x}+\bs{y})^{\top}(\bs{x}+\bs{y}) - (\bs{x}^{\top}\bs{x} + \bs{y}^{\top}\bs{y} + 2 \| \bs{x} \| \| \bs{y} \|) \\
+        & = (\bs{x}^{\top}\bs{x} + \bs{y}^{\top}\bs{y} + 2\bs{x}^{\top}\bs{y}) - (\bs{x}^{\top}\bs{x} + \bs{y}^{\top}\bs{y} + 2 \| \bs{x} \| \| \bs{y} \|) \\
+        &= 2(\bs{x}^{\top}\bs{y} - \| \bs{x} \| \| \bs{y} \|)
+    \end{align*}
+    也即只需证明柯西不等式
+    \begin{equation*}
+        \bs{x}^{\top}\bs{y} \le \| \bs{x} \| \| \bs{y} \|
+    \end{equation*}
+    成立即可. 
+    于是我们构造关于\(t\)的方程
+    \begin{equation*}
+        \| \bs{x} +t\bs{y} \|^2 = \bs{y}^{\top}\bs{y}t^2 + 2 \bs{x}^{\top}\bs{y}t + \bs{x}^{\top}\bs{x} = 0
+    \end{equation*}
+    显然由于向量的模长一定非负，故该方程至多有一个解，也即该二次方程的判别式
+    \begin{equation*}
+        \Delta =  4 (\bs{x}^{\top}\bs{y})^2 - 4 (\bs{x}^{\top}\bs{x})(\bs{y}^{\top}\bs{y}) \le 0
+    \end{equation*}
+    从而柯西不等式得证，从而原不等式得证. 
+\end{proof}
 
 \begin{definition}{点列的收敛}{}
-    设$\{\bs{x}^{(n)}\}$是定义在$\R^n$上的点列，若$\exists \bs{x} \in\R^n$，使得$\displaystyle\lim_{n\to\infty}\| \bs{x}^{(n)} - \bs{x} \| = 0$，则称点列$\{\bs{x}^{(n)}\}$收敛到$\bs{x}$，记作
+    设\(\{\bs{x}^{(n)}\}\)是定义在\(\R^n\)上的点列，若\(\exists \bs{x} \in\R^n\)，使得\(\displaystyle\lim_{n\to\infty}\| \bs{x}^{(n)} - \bs{x} \| = 0\)，则称点列\(\{\bs{x}^{(n)}\}\)收敛到\(\bs{x}\)，记作
     \begin{equation*}
         \lim_{n\to\infty} \bs{x}^{(n)} = \bs{x}
     \end{equation*}
 \end{definition}
 
 \begin{definition}{向量的大小关系}{}
-    设$\bs{x}, \bs{y} \in \R^n$，若$\forall i \in \{ 1, 2, \cdots ,n \}$，都有$x_i \le y_i$，则称$\bs{x} \le \bs{y}$. 
-    类似可规定$\bs{x} \ge \bs{y}$，$\bs{x} < \bs{y}$，$\bs{x} > \bs{y}$. 
+    设\(\bs{x}, \bs{y} \in \R^n\)，若\(\forall i \in \{ 1, 2, \cdots ,n \}\)，都有\(x_i \le y_i\)，则称\(\bs{x} \le \bs{y}\). 
+    类似可规定\(\bs{x} \ge \bs{y}\)，\(\bs{x} < \bs{y}\)，\(\bs{x} > \bs{y}\). 
 \end{definition}
 
-显然，在如上定义中，$(\R^n, \le)$并不是全序集（证明略）. 
-特别地，$\bs{x} \le \bs{0} \Leftrightarrow \forall i \in \{ 1, 2, \cdots ,n \}, x_i \le 0$. 
+显然，在如上定义中，\((\R^n, \le)\)并不是全序集（证明略）. 
+特别地，\(\bs{x} \le \bs{0} \Leftrightarrow \forall i \in \{ 1, 2, \cdots ,n \}, x_i \le 0\). 
 
 \begin{theorem}{}{}
-    设$\bs{x}, \bs{y} \in \R^n$，若$\forall \bs{y} \ge \bs{0}$，都有$\bs{x}^{\top}\bs{y} \le \alpha$，则有$\bs{x} \le \bs{0}$且$\alpha \ge 0$. 
+    设\(\bs{x}, \bs{y} \in \R^n\)，若\(\forall \bs{y} \ge \bs{0}\)，都有\(\bs{x}^{\top}\bs{y} \le \alpha\)，则有\(\bs{x} \le \bs{0}\)且\(\alpha \ge 0\). 
 \end{theorem}
 
-\prove
-取$\bs{y} = \bs{0}$，则$\bs{x}^{\top}\bs{y} = 0$，从而$\bs{x}^{\top}\bs{y}$的上界$\alpha \ge 0$. 
-假设$\bs{x} \le 0$不成立，则$\exists i \in \{1, 2, \cdots, n\}$，使得$x_i > 0$. 
-令$y_i \to +\infty$，则有$\bs{x}^{\top}\bs{y} \to +\infty$，从而与$\bs{x}^{\top}\bs{y}$有上界$\alpha$矛盾，故必有$\bs{x} \le \bs{0}$. 
-\proved
+\begin{proof}
+    取\(\bs{y} = \bs{0}\)，则\(\bs{x}^{\top}\bs{y} = 0\)，从而\(\bs{x}^{\top}\bs{y}\)的上界\(\alpha \ge 0\). 
+    假设\(\bs{x} \le 0\)不成立，则\(\exists i \in \{1, 2, \cdots, n\}\)，使得\(x_i > 0\). 
+    令\(y_i \to +\infty\)，则有\(\bs{x}^{\top}\bs{y} \to +\infty\)，从而与\(\bs{x}^{\top}\bs{y}\)有上界\(\alpha\)矛盾，故必有\(\bs{x} \le \bs{0}\). 
+\end{proof}
 
 该命题还有以下等价表述：
 \begin{itemize}
-    \item 若$\forall \bs{y} \le \bs{0}$，都有$\bs{x}^{\top}\bs{y} \le \alpha$，则有$\bs{x} \ge \bs{0}$且$\alpha \ge 0$；
-    \item 若$\forall \bs{y} \ge \bs{0}$，都有$\bs{x}^{\top}\bs{y} \ge \alpha$，则有$\bs{x} \ge \bs{0}$且$\alpha \le 0$；
-    \item 若$\forall \bs{y} \le \bs{0}$，都有$\bs{x}^{\top}\bs{y} \ge \alpha$，则有$\bs{x} \le \bs{0}$且$\alpha \le 0$. 
+    \item 若\(\forall \bs{y} \le \bs{0}\)，都有\(\bs{x}^{\top}\bs{y} \le \alpha\)，则有\(\bs{x} \ge \bs{0}\)且\(\alpha \ge 0\)；
+    \item 若\(\forall \bs{y} \ge \bs{0}\)，都有\(\bs{x}^{\top}\bs{y} \ge \alpha\)，则有\(\bs{x} \ge \bs{0}\)且\(\alpha \le 0\)；
+    \item 若\(\forall \bs{y} \le \bs{0}\)，都有\(\bs{x}^{\top}\bs{y} \ge \alpha\)，则有\(\bs{x} \le \bs{0}\)且\(\alpha \le 0\). 
 \end{itemize}

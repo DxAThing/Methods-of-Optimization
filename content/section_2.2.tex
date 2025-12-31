@@ -1,0 +1,401 @@
+\section{线性规划的单纯形法}
+
+\subsection{线性规划理论}
+
+线性规划的单纯形法依托以下一个定理：
+
+\begin{theorem}{解的存在性}{}
+    考虑(LP)和多面体 \( S = \{ \bs{x} \in \R^n \mid\bs{Ax} = \bs{b}, x \ge 0 \} \)，设 \( \bs{A} \) 满秩，\( \bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(k)} \)为所有极点，\( \bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(l)} \)为所有极方向，则
+    \begin{enumerate}
+        \item (LP)存在有界最优解 \( \Leftrightarrow \bs{c}^{\top}\bs{d}^{(j)} \le 0 \)， \( \forall j = 1, 2, \cdots, l \)；
+        \item 若(LP)存在有界最优解，则最优解可以在某个极点得到. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+由此，我们可以得到，我们要求(LP)的最优解，只需要求多面体有限个极点的函数值即可. 
+看上去问题似乎是解决了，但是极点的个数大致随着多面体的维数成指数级增加
+（参考例题1.8）！
+此外，求取极点的过程伴随着矩阵的求逆，而这是非常昂贵的. 
+所以我们需要一个有选择的迭代算法代替枚举算法. 
+
+在进行相关讨论之前，由于原ppt和书中的概念过于杂乱，笔者认为有必要将线性规划相关的基础概念总结如下：
+
+\begin{definition}{线性规划相关概念}{}
+    \begin{enumerate}
+        \item \textbf{基}：对于线性规划的约束条件 \( \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \) ，设 \( \bs{B} \) 是矩阵 \( \bs{A} \) 中的一个可逆的 \( m \times m \) 的子矩阵，则称 \( \bs{B} \) 为线性规划的一个\textbf{基矩阵}，简称\textbf{基}，称 \( \bs{N} \) 为基矩阵 \( \bs{B} \) 对应的\textbf{非基矩阵}；
+        \item \textbf{基变量、非基变量}：对应于基 \( \bs{B} \) 中列向量 \( \bs{a}_{j_1}, \bs{a}_{j_2}, \cdots, \bs{a}_{j_m} \) 的变量 \( x_{j_1}, x_{j_2}, \cdots, x_{j_m} \) 称为\textbf{基变量}，其他变量（即对应于非基矩阵 \( \bs{N} \) 中列向量的变量）称为\textbf{非基变量}；
+        \item \textbf{基本解、基本可行解、可行基}：令所有非基变量为0，可以得到 \( m \) 个关于基变量 \( x_{j_1}, x_{j_2}, \cdots, x_{j_m} \) 的线性方程组，解这个线形方程组得到基变量的值，称如上得到的解为一个\textbf{基本解}；若得到的基变量的值均非负，则称其为\textbf{基本可行解}，称这个基 \( \bs{B} \) 为\textbf{可行基}. 写成矩阵形式，
+        \[
+            \bs{x} = 
+            \begin{pmatrix}
+                \bs{x}_{\bs{B}} \\ \bs{x}_{\bs{N}}
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                \bs{B}^{-1}\bs{b} \\ \bs{0}
+            \end{pmatrix}
+        \]
+        称为线性规划问题的一个\textbf{基本可行解}. 
+    \end{enumerate}
+\end{definition}
+
+显然必有以下定理成立：
+
+\begin{theorem}{线性规划基本定理}{}
+    线性规划的基本可行解就是可行域的极点. 
+\end{theorem}
+
+下面的定理表明了我们不需要将所有的极点都代入目标函数，也可以精确地求出最优解opt..
+
+\begin{theorem}{最优性定理}{}
+    考虑(LP)，条件同上，设 \( \bs{x}^* \) 为极点，存在基分解 \( \bs{A} = (\bs{B}, \bs{N}) \)，其中 \( \bs{B} \) 为 \( m \) 阶可逆矩阵，使 \(\bs{x}^* = (\bs{x}_{\bs{B}}^{*\top}, \bs{x_N}^{*\top})^{\top}\) ，此处分解与 \( \bs{A} \) 相同，且 \( \bs{x}^*_{\bs{B}} = \bs{B}^{-1} \bs{b} \ge 0 \) ， \( \bs{x}^*_{\bs{N}} = 0 \). 
+    相应 \( \bs{c}^{\top} = (\bs{c}^{\top}_{\bs{B}}, \bs{c}^{\top}_{\bs{N}})^{\top} \) ，则
+    \begin{enumerate}
+        \item 若 \( \bs{c}_{\bs{N}}^{\top} - \bs{c}_{\bs{B}}^{\top} \bs{B}^{-1} \bs{N} \le 0 \)，则 \( \bs{x}^* \)为opt.；
+        \item 若存在属于 \( \bs{N} \) 的分量 \( j \) ，使得\( \bs{c}_j - \bs{c}^{\top}_{\bs{B}}{\bs{B}}^{-1} \bs{a}_j > 0 \) ，且 \( \bs{B}^{-1} \bs{a}_j \le 0 \) ，则(LP)无有界解. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+
+
+\subsection{表格单纯形法原理及算法原理}
+
+让我们回忆线性规划的标准形式如下
+\[
+    \text{(LP)} \quad 
+    \begin{aligned}
+        \max & \quad  z = \bs{c}^{\top}\bs{x} \\
+        \text{s.t.} & \quad \bs{Ax} = \bs{b} \\
+        & \quad \bs{x} \ge \bs{0}
+    \end{aligned}
+\]
+其中， \( \bs{c}, \bs{x} \in \R^n \) ，\( \bs{b} \in \R^m \) ，\( \bs{A} \) 为 \( m \times n \) 行满秩矩阵，即\( \text{rank}(\bs{A}) = m \). 
+
+\subsubsection{单纯形法原理及算法过程}
+
+下边的算法介绍了单纯形法求线性规划最优解的过程. 
+
+\begin{algorithm}[H]
+    \caption{单纯形法迭代算法 (Simplex Method)}
+    \SetKwInOut{Input}{输入}
+    \SetKwInOut{Output}{输出}
+    \SetKwInOut{Init}{初始化}
+    \Input{系数矩阵 \( \bs{A} \in \mathbb{R}^{m \times n} \)，向量 \( \bs{b} \in \mathbb{R}^m \)，价值向量 \( \bs{c} \in \mathbb{R}^n \)}
+    \Output{最优解 \( \bs{x}^* \) 或问题无界结论}
+    \Init{已知极点 \( \bs{x}^{(k)} \)，基分解 \( \bs{A} = (\bs{B}, \bs{N}) \)，满足 \( \bs{x}_B^{(k)} = \bs{B}^{-1}\bs{b} \ge 0 \)，\( \bs{x}_N^{(k)} = \bs{0} \)}
+    \BlankLine
+    \nl 计算检验向量：\( \bs{\sigma}_N^{\text{T}} = \bs{c}_N^{\text{T}} - \bs{c}_B^{\text{T}} \bs{B}^{-1} \bs{N} \)；\\
+    \nl \If{\( \bs{\sigma}_N \le \bs{0} \)}{
+        \Return \( \bs{x}^{(k)} \) 为opt.；\\
+    }
+    \nl 选择进基变量索引 \( j \) 使得 \( \sigma_j > 0 \)；\\
+    \nl \If{\( \bs{B}^{-1} \bs{a}_j \le \bs{0} \)}{
+        \Return 问题无有界解；\\
+    }
+    \nl \Else{
+        计算步长 \( \alpha = \min \left\{ \frac{(\bs{B}^{-1}\bs{b})_i}{(\bs{B}^{-1}\bs{a}_j)_i} \mid (\bs{B}^{-1}\bs{a}_j)_i > 0 \right\} = \frac{(\bs{B}^{-1}\bs{b})_r}{(\bs{B}^{-1}\bs{a}_j)_r} \)；\\
+        更新解向量：\( \bs{x}^{(k+1)} = \bs{x}^{(k)} + \alpha \bs{d} \)；\\
+        \Indp
+            其中 \( \bs{d}^{\text{T}} = (\bs{d}_B^{\text{T}}, \bs{d}_N^{\text{T}}) \)，且 \( \bs{d}_B = -\bs{B}^{-1}\bs{a}_j\)，\( \bs{d}_N = \bs{e}_j \)；\\
+        \Indm
+        \nl 更新基矩阵 \( \bs{B} \) 为 \( \bs{B}' \)，令 \( k \leftarrow k+1 \) 并返回步骤 1；\\
+    }
+\end{algorithm}
+
+为了说明这个算法的合理性，我们需要说明以下两点成立：
+
+\begin{theorem}{}{}
+    上述算法中，更新点 \( \bs{x}^{(k+1)} \)
+    \begin{enumerate}
+        \item 是更优的；
+        \item 也是 \( S \) 的一个极点. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+\subsubsection{单纯形表}
+
+设 \( \bs{x} \) 为初始极点，相应分解 \( \bs{A} = (\bs{B}, \bs{N}) \)，则列单纯形表如下：
+\begin{longtblr}[
+    label = none,
+    entry = none,
+]{
+    cells = {c},
+    vline{2-3,5-6} = {2-3}{},
+    hline{2-4} = {2-5}{},
+}
+ & \( f \) & \( \bs{x}_{\bs{B}}^{\top} \) & \( \bs{x}_{\bs{N}}^{\top} \) & RHS &  \\
+目标行 & 1 & \( \bs{c}_{\bs{B}}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} \) & 0 & 1行 \\
+约束行 & 0 & \( \bs{B} \) & \( \bs{N} \) & \( \bs{b} \) & \( m \)行 \\
+ & 1列 & \( m \)行 & \( n-m \)行 & 1列 &  
+\end{longtblr}
+
+\noindent
+作变换，使前 \( m+1 \) 列对应的 \( m+1 \)阶矩阵变为单位矩阵，相当于该表左乘
+\( 
+\begin{pmatrix}
+    1 & \bs{c}_{\bs{B}}^{\top} \\
+    0 & \bs{B}
+\end{pmatrix}^{-1}
+=
+\begin{pmatrix}
+    1 & -\bs{c}_{\bs{B}}^{\top} \bs{B}^{-1} \\
+    0 & \bs{B}^{-1}
+\end{pmatrix} \). 
+消去方法为Gauss主元消去法. 
+于是得到
+\begin{longtblr}[
+    label = none,
+    entry = none,
+]{
+    cells = {c},
+    vline{2-3,5-6} = {2-3}{},
+    hline{2-4} = {2-5}{},
+}
+ & \( f \) & \( \bs{x}_{\bs{B}}^{\top} \) & \( \bs{x}_{\bs{N}}^{\top} \) & RHS &  \\
+目标行 & 1 & \( \bs{0}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} - \bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{N} \) & \( -\bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{b} \) & 1行 \\
+约束行 & 0 & \( \bs{I} \) & \( \bs{B}^{-1}\bs{N} \) & \( \bs{B}^{-1}\bs{b} \) & \( m \)行 \\
+ & 1列 & \( m \)行 & \( n-m \)行 & 1列 &  
+\end{longtblr}
+
+\noindent
+根据算法内容，令\textbf{检验向量} \( \bs{\sigma}^{\top}_{\bs{N}} = \bs{c}_{\bs{N}}^{\top} - \bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{N} \)，则单纯形表转化为
+\begin{longtblr}[
+    label = none,
+    entry = none,
+]{
+    cells = {c},
+    vline{2-3,5-6} = {2-3}{},
+    hline{2-4} = {2-5}{},
+}
+ & \( f \) & \( \bs{x}_{\bs{B}}^{\top} \) & \( \bs{x}_{\bs{N}}^{\top} \) & RHS &  \\
+目标行 & 1 & \( \bs{0}^{\top} \) & \( \bs{\sigma}^{\top} \) & \( -z = - \bs{c}^{\top} \bs{x}^* \) & 1行 \\
+约束行 & 0 & \( \bs{I} \) & \( \bs{B}^{-1}\bs{N} \) & \( \bs{x}^*_{\bs{B}} \) & \( m \)行 \\
+ & 1列 & \( m \)行 & \( n-m \)行 & 1列 &  
+\end{longtblr}
+
+\noindent
+可是我们知道，对矩阵求逆的代价是十分昂贵的（对一个 \( n \) 阶矩阵求逆的时间复杂度为 \( O(n^3) \)）. 
+所以如果我们能使 \( \bs{B} = \bs{I} \) ，则 \( \bs{B}^{-1} = \bs{I} \) ，此时求矩阵 \( \bs{B} \) 的逆将会很简单，此时
+\begin{longtblr}[
+    label = none,
+    entry = none,
+]{
+    cells = {c},
+    vline{2-3,5-6} = {2-3}{},
+    hline{2-4} = {2-5}{},
+}
+ & \( f \) & \( \bs{x}_{\bs{B}}^{\top} \) & \( \bs{x}_{\bs{N}}^{\top} \) & RHS &  \\
+目标行 & 1 & \( \bs{0}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} - \bs{c}_{\bs{B}}^{\top}\bs{N} \) & \( -\bs{c}_{\bs{B}}^{\top}\bs{b} \) & 1行 \\
+约束行 & 0 & \( \bs{I} \) & \( \bs{N} \) & \( \bs{b} \) & \( m \)行 \\
+ & 1列 & \( m \)行 & \( n-m \)行 & 1列 &  
+\end{longtblr}
+
+\noindent
+综上所述，我们将单次迭代所需要用到的所有元素集中在一张表中，就得到了如下经过改造的单纯形表：（其中，表\ref{unmodified}对矩阵 \( \bs{B} \) 不作除可逆外的任何要求，表\ref{modified}中令 \( \bs{B} = \bs{I} \) ）
+
+\begin{table}[ht]
+    \centering
+    \caption{经过改造后的单纯形表}
+    \label{unmodified}
+    \begin{tblr}{
+        % width = 0.9\linewidth,
+        colspec = {X[c] X[c] X[c] X[c] X[c] X[c]}, 
+        cells = {m}, % 内容垂直居中
+        cell{1}{1,2,3,6} = {r=2}{}, % 合并前三列和最后一列的行
+        cell{4}{1} = {c=2}{},
+        % 设置纵线
+        vline{1-4,6-7} = {1-4}{solid}, 
+        % vline{5} = {1-2}{solid}, % c_B^T 和 c_N^T 之间的竖线
+        % 设置横线
+        hline{1,3,5} = {1-6}{solid}, % 顶部、中部、底部横线
+        hline{2} = {4-5}{solid},     % 仅在 c 向量和 x 向量之间画横线
+        hline{4} = {1-6}{solid},     % 表格中间的横线
+    }
+    \( \bs{c}_{\bs{B}} \) & \( \bs{x}_{\bs{B}} \) & \( \bs{b} \) & \( \bs{c}_{\bs{B}}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} \) & \( \bs{\alpha} \) \\
+    &  &  & \( \bs{x}_{\bs{B}}^{\top} \) & \( \bs{x}_{\bs{N}}^{\top} \) &  \\
+    \( * \) & \( * \) & \( \bs{B}^{-1}\bs{b} \) & \( \bs{I} \) & \( \bs{B}^{-1}\bs{N} \) & \( * \) \\
+    \( -z \) &  &  \( -\bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{b} \) & \( \bs{0}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} - \bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{N} \) &  
+    \end{tblr}
+\end{table}
+
+\begin{table}[ht]
+    \centering
+    \caption{经过改造后的单纯形表（令 \( \bs{B} = \bs{I} \)）}
+    \label{modified}
+    \begin{tblr}{
+        colspec = {X[c] X[c] X[c] X[c] X[c] X[c]}, 
+        cells = {m}, % 内容垂直居中
+        cell{1}{1,2,3,6} = {r=2}{}, % 合并前三列和最后一列的行
+        cell{4}{1} = {c=2}{},
+        % 设置纵线
+        vline{1-4,6-7} = {1-4}{solid}, 
+        % vline{5} = {1-2}{solid}, % c_B^T 和 c_N^T 之间的竖线
+        % 设置横线
+        hline{1,3,5} = {1-6}{solid}, % 顶部、中部、底部横线
+        hline{2} = {4-5}{solid},     % 仅在 c 向量和 x 向量之间画横线
+        hline{4} = {1-6}{solid},     % 表格中间的横线
+    }
+    \( \bs{c}_{\bs{B}} \) & \( \bs{x}_{\bs{B}} \) & \( \bs{b} \) & \( \bs{c}_{\bs{B}}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} \) & \( \bs{\alpha} \) \\
+    &  &  & \( \bs{x}_{\bs{B}}^{\top} \) & \( \bs{x}_{\bs{N}}^{\top} \) &  \\
+    \( * \) & \( * \) & \( \bs{b} \) & \( \bs{I} \) & \( \bs{N} \) & \( * \) \\
+    \( -z \) &  & \( -\bs{c}_{\bs{B}}^{\top}\bs{b} \) & \( \bs{0}^{\top} \) & \( \bs{c}_{\bs{N}}^{\top} - \bs{c}_{\bs{B}}^{\top}\bs{N} \) &
+    \end{tblr}
+\end{table}
+
+该表的填写规则如下：（合并的单元格按照合并之前最左上角的单元格编号）
+\begin{itemize}
+    \item 表格第3行第1-2列（即\( \bs{c}_{\bs{B}}\) 和 \(\bs{x}_{\bs{B}} \)所示单元格下边的单元格），将列向量 \( \bs{c}_{\bs{B}}, \bs{x}_{\bs{B}} \) 分别展开后写入；
+    \item 表格第3行第3列（即\( \bs{B}^{-1}\bs{b} \) 或 \( \bs{b} \) 所示单元格），将列向量 \( \bs{B}^{-1}\bs{b} \) 或 \( \bs{b} \) 展开后写入；
+    \item 表格第4行第3列（即\( -\bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{b} \) 或 \( -\bs{c}_{\bs{B}}^{\top}\bs{b}\) 所示单元格），将标量 \( -\bs{c}_{\bs{B}}^{\top}\bs{B}^{-1}\bs{b} \) 或 \( -\bs{c}_{\bs{B}}^{\top}\bs{b} \) 计算出来后写入；
+    \item 表格第4-5列，将所示行向量或矩阵展开后写入；
+    \item 表格第3行第6列（即 \( \bs{\alpha} \) 所示单元格下边的单元格），将列向量 \( \bs{\alpha} \) 展开后写入. 
+    其中，步长 \( \alpha_i = 
+    \begin{cases}
+        \frac{b_i}{a_{ik}}, & a_{ik}>0 \\
+        \infty, & a_{ik} \le 0
+    \end{cases} \)， \( k \) 为进基变量索引. 
+\end{itemize}
+
+\subsubsection{引入单位阵 \( \bs{I} \) }
+
+这一小节我们分为两种情况来讨论：对\textbf{规范形式}求解线性规划问题和\textbf{一般情况下}的求解线性规划问题. 
+
+考虑线性规划的规范形式(P)
+\begin{align*}
+    \max & \quad z = c_1x_1 + c_2 x_2 + \cdots + c_n x_n \\
+    \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n \le b_1 \\
+    & \quad a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n \le b_2 \\
+    & \quad \vdots \\
+    & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n \le b_m \\
+    & \quad x_1, x_2, \cdots, x_n \ge 0 \\
+    & \quad b_1, b_2, \cdots, b_m > 0
+\end{align*}
+加入松弛变量 \( {x}_{n+1}, {x}_{n+2}, \cdots, {x}_{n+m} \) 后，转化为标准形式
+\begin{align*}
+    \max & \quad z = c_1x_1 + c_2 x_2 + \cdots + c_n x_n \\
+    \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n + x_{n+1} = b_1 \\
+    & \quad a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n + x_{n+2} = b_2 \\
+    & \quad \vdots \\
+    & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n + x_{n+m} = b_m \\
+    & \quad x_1, x_2, \cdots, x_n, {x}_{n+1}, {x}_{n+2}, \cdots, {x}_{n+m} \ge 0 \\
+    & \quad b_1, b_2, \cdots, b_m > 0
+\end{align*}
+我们可以得到，\( x_j = 0 \)，\( j = 1, 2, \cdots, n \)；\( x_{n+1} = b_i \)，\( i = 1, 2, \cdots, m \) 是 \( S \) 的一个基本可行解 ，对应的 \( \bs{B} \) 是单位矩阵. 
+
+应用单纯形法解线性规划问题有如下注意事项：
+\begin{itemize}
+    \item 每一步运算只能用矩阵初等行变换；
+    \item 表中第3列的数总应保持非负；
+    \item 当所有检验数均非正时，得到最优单纯形表；
+    \item 检验数的更新也相当于是主元消去. 
+\end{itemize}
+
+\eg
+用单纯形法解如下线性规划问题：
+\begin{enumerate}
+    \item \( \begin{aligned}[t]
+            \max & \quad z = 1500x_1 + 2500 x_2 \\
+            \text{s.t.} & \quad 3 x_1 + 2 x_2 + x_3 = 65 \\
+            & \quad 2 x_1 + x_2 + x_4 = 40 \\
+            & \quad 3 x_2 + x_5 = 75 \\
+            & \quad x_1, x_2, \cdots, x_5 \ge 0
+        \end{aligned} 
+    \)
+    \item \( \begin{aligned}[t]
+            \max & \quad z = 1500x_1 + 1000 x_2 \\
+            \text{s.t.} & \quad 3 x_1 + 2 x_2 + x_3 = 65 \\
+            & \quad 2 x_1 + x_2 + x_4 = 40 \\
+            & \quad 3 x_2 + x_5 = 75 \\
+            & \quad x_1, x_2, \cdots, x_5 \ge 0
+        \end{aligned} 
+    \)
+\end{enumerate}
+
+\begin{solution}
+    
+\end{solution}
+
+接下来我们讨论一般情况，即初始基本可行解不明显时的情况. 
+
+考虑一般问题
+\begin{align*}
+    \max & \quad z = c_1x_1 + c_2 x_2 + \cdots + c_n x_n \\
+    \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1 \\
+    & \quad a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n = b_2 \\
+    & \quad \vdots \\
+    & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m \\
+    & \quad x_1, x_2, \cdots, x_n \ge 0
+\end{align*}
+其中右端项 \( b_1, b_2, \cdots, b_m \ge 0 \) .
+接下来介绍两种方法. 
+
+\textbf{大 \( M\) 法}：
+
+引入人工变量 \( x_{n+i} \ge 0 \) ， \( i = 1, 2, \cdots, m \) 及充分大正数 \( M \)，得到
+\begin{align*}
+    \max & \quad z = c_1x_1 + c_2 x_2 + \cdots + c_n x_n - Mx_{n+1} - \cdots - Mx_{n+m} \\
+    \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n + x_{n+1} = b_1 \\
+    & \quad a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n + x_{n+2} = b_2 \\
+    & \quad \vdots \\
+    & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n + x_{n+m} = b_m \\
+    & \quad x_1, x_2, \cdots, x_n, x_{n+1}, \cdots, x_{n+m} \ge 0
+\end{align*}
+显然，\( x_j = 0 \)，\( j = 1, 2, \cdots, n \)；\( x_{n+1} = b_i \)，\( i = 1, 2, \cdots, m \) 是 \( S \) 的一个基本可行解 ，对应的 \( \bs{B} \) 是单位矩阵. 
+若得到的最优解满足 \( x_{n+i} = 0 \)，\( i = 1, 2, \cdots, m \)，则其为原问题的\textbf{最优解}；否则，原问题\textbf{无可行解}. 
+
+\eg
+应用大 \( M\) 法解如下线性规划问题
+\begin{align*}
+    \max & \quad z = 5x_1 + 2x_2 + 3x_3 - x_4 \\
+    \text{s.t.} & \quad x_1 + 2x_2 + 3x_3 = 15 \\
+    & \quad 2x_1 + x_2 + 5x_3 = 20 \\
+    & \quad x_1 + 2x_3 + 4x_3 + x_4 = 26 \\
+    & \quad x_1, x_2, x_3, x_4 \ge 0 
+\end{align*}
+
+\begin{solution}
+    
+\end{solution}
+
+\textbf{两阶段法}：
+
+两阶段法的核心思想是：先求出原问题的一个基本可行解（第一阶段），再求解原问题（第二阶段）. 
+
+第一阶段中，引入人工变量 \( x_{n+i} \ge 0 \) ， \( i = 1, 2, \cdots, m \) ，构造：
+\begin{align*}
+    \max & \quad z = - x_{n+1} - x_{n+2} -  \cdots - x_{n+m} \\
+    \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n + x_{n+1} = b_1 \\
+    & \quad a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n + x_{n+2} = b_2 \\
+    & \quad \vdots \\
+    & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n + x_{n+m} = b_m \\
+    & \quad x_1, x_2, \cdots, x_n, x_{n+1}, \cdots, x_{n+m} \ge 0
+\end{align*}
+之后求解上述问题. 显然，\( x_j = 0 \)，\( j = 1, 2, \cdots, n \)；\( x_{n+1} = b_i \)，\( i = 1, 2, \cdots, m \) 是 \( S \) 的一个基本可行解 ，对应的 \( \bs{B} \) 是单位矩阵. 
+若得到的最优解满足 \( x_{n+i} = 0 \)，\( i = 1, 2, \cdots, m \)，则其为原问题的\textbf{基本可行解}；否则，原问题\textbf{无可行解}. 
+得到原问题的基本可行解之后，求解原问题. 
+
+\eg
+应用两阶段法解如下线性规划问题
+\begin{align*}
+    \max & \quad z = 5x_1 + 2x_2 + 3x_3 - x_4 \\
+    \text{s.t.} & \quad x_1 + 2x_2 + 3x_3 = 15 \\
+    & \quad 2x_1 + x_2 + 5x_3 = 20 \\
+    & \quad x_1 + 2x_3 + 4x_3 + x_4 = 26 \\
+    & \quad x_1, x_2, x_3, x_4 \ge 0 
+\end{align*}
+
+\begin{solution}
+    
+\end{solution}

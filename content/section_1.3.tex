@@ -2,25 +2,25 @@
 
 \begin{definition}{子空间}{}
 
-    设$\bs{d}^{(i)}\in\R^n,i=1,2,\cdots,m$是线性无关的向量组，称集合$\{ \bs{x} \mid \bs{x} = \displaystyle \sum_{j=1}^m \alpha_j \bs{d}^{(j)}, \alpha_J \in \R \}$是由向量$\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)}$生成的{\bf 子空间}，记作
-    $L(\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)})$
-    ，简记作$L$. 
+    设\(\bs{d}^{(i)}\in\R^n,i=1,2,\cdots,m\)是线性无关的向量组，称集合\(\{ \bs{x} \mid \bs{x} = \displaystyle \sum_{j=1}^m \alpha_j \bs{d}^{(j)}, \alpha_J \in \R \}\)是由向量\(\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)}\)生成的{\bf 子空间}，记作
+    \(L(\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)})\)
+    ，简记作\(L\). 
 \end{definition}
 
-可以看到，$\forall L \subseteq \R^n$，都有$\bs{0} \in L$. 
-若令$\bs{A} = (\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)}) \in \R^{n \times m}$，$\bs{\alpha} = (\alpha_1, \alpha_2, \cdots, \alpha_m)^{\top} \in \R^m$，则
+可以看到，\(\forall L \subseteq \R^n\)，都有\(\bs{0} \in L\). 
+若令\(\bs{A} = (\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(m)}) \in \R^{n \times m}\)，\(\bs{\alpha} = (\alpha_1, \alpha_2, \cdots, \alpha_m)^{\top} \in \R^m\)，则
 \begin{equation*}
     \bs{x} \in L \Leftrightarrow \exists \bs{\alpha} \in \R^m, \bs{x} = \bs{A}\bs{\alpha}
 \end{equation*}
-并且$\text{Rank}(\bs{A})=m$，也就是说$\bs{A}$是{\bf 列满秩}的. 
+并且\(\text{Rank}(\bs{A})=m\)，也就是说\(\bs{A}\)是{\bf 列满秩}的. 
 我们将会在接下来的证明中用到这个性质. 
 
 \begin{definition}{正交子空间}{}
 
-    称集合$\{ \bs{x}\in\R^n \mid \bs{x}^{\top}\bs{y}=0, \forall \bs{y}\in L \}$为子空间$L$的{\bf 正交子空间}，记作$L^{\bot}$. 
+    称集合\(\{ \bs{x}\in\R^n \mid \bs{x}^{\top}\bs{y}=0, \forall \bs{y}\in L \}\)为子空间\(L\)的{\bf 正交子空间}，记作\(L^{\bot}\). 
 \end{definition}
 
-不难看出$\forall L \subseteq \R^n$，都有$\bs{0} \in L^{\top}$. 且有
+不难看出\(\forall L \subseteq \R^n\)，都有\(\bs{0} \in L^{\top}\). 且有
 \begin{align*}
     \bs{x} \in L^{\bot}
     & \Leftrightarrow \forall \bs{y}\in L, \bs{x}^{\top}\bs{y} = 0 \\
@@ -29,77 +29,78 @@
 
 \begin{theorem}{子空间投影定理}{}
 
-    设$L$为$\R^n$的子空间，则$\forall \bs{z} \in \R^n$，则必有以下两个命题成立：
+    设\(L\)为\(\R^n\)的子空间，则\(\forall \bs{z} \in \R^n\)，则必有以下两个命题成立：
 
     \begin{enumerate}
-        \item $\exists! \bs{x}\in L, \bs{y} \in L^{\bot}$，使得$\bs{z} = \bs{x}+\bs{y}$；
-        \item 在（1）中的$\bs{x}$为问题
+        \item \(\exists! \bs{x}\in L, \bs{y} \in L^{\bot}\)，使得\(\bs{z} = \bs{x}+\bs{y}\)；
+        \item 在（1）中的\(\bs{x}\)为问题
     \begin{align*}
         \min_{\bs{u}} \quad & \Vert \bs{z} - \bs{u} \Vert \\
         \text{s.t.} \quad & \bs{u} \in L
     \end{align*}
-    的唯一解，且该问题的最优值为（1）中的$\Vert \bs{y} \Vert$.
+    的唯一解，且该问题的最优值为（1）中的\(\Vert \bs{y} \Vert\).
     \end{enumerate}
 \end{theorem}
 
-\prove
-（1）先证明存在性. 
-我们从线性方程近似解的求法得到灵感. 
-（2）中问题的目标实质上是求线性方程$\bs{A\alpha} = \bs{z}$在$\R^m$中的近似解，为此我们将左右两边左乘$\bs{A}^{\top}$，于是得到正规方程
-\begin{equation*}
-    \bs{A}^{\top}\bs{A\alpha}=\bs{A}^{\top}\bs{z}
-\end{equation*}
-由于$\bs{A}$是列满秩的，所以$\bs{A}^{\top}\bs{A}$是可逆的，所以$\bs{\alpha} = (\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z}$，所以取
-\begin{equation*}
-    \bs{x} = \bs{A\alpha} = \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z}
-\end{equation*}
-接下来只需证$\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\bot}$. 
-由于
-\begin{align*}
-    &(\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z})^{\top}\bs{A}\bs{\beta}\\ 
-    = & \bs{z}^{\top}\bs{A}\bs{\beta} - \bs{z}^{\top}\bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{A}\bs{\beta} \\
-    = & \bs{z}^{\top}\bs{A}\bs{\beta} - \bs{z}^{\top}\bs{A}\bs{E}\bs{\beta} \\
-    = & \bs{0}
-\end{align*}
-$\forall \bs{\beta}\in\R^m$都成立，所以$\bs{z} - \bs{A}(\bs{A}^{\bot}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\top}$，也即取$y = \bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{bot}$即可. 
-存在性证毕. 
+\begin{proof}
+    （1）先证明存在性. 
+    我们从线性方程近似解的求法得到灵感. 
+    （2）中问题的目标实质上是求线性方程\(\bs{A\alpha} = \bs{z}\)在\(\R^m\)中的近似解，为此我们将左右两边左乘\(\bs{A}^{\top}\)，于是得到正规方程
+    \begin{equation*}
+        \bs{A}^{\top}\bs{A\alpha}=\bs{A}^{\top}\bs{z}
+    \end{equation*}
+    由于\(\bs{A}\)是列满秩的，所以\(\bs{A}^{\top}\bs{A}\)是可逆的，所以\(\bs{\alpha} = (\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z}\)，所以取
+    \begin{equation*}
+        \bs{x} = \bs{A\alpha} = \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z}
+    \end{equation*}
+    接下来只需证\(\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\bot}\). 
+    由于
+    \begin{align*}
+        &(\bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z})^{\top}\bs{A}\bs{\beta}\\ 
+        = & \bs{z}^{\top}\bs{A}\bs{\beta} - \bs{z}^{\top}\bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{A}\bs{\beta} \\
+        = & \bs{z}^{\top}\bs{A}\bs{\beta} - \bs{z}^{\top}\bs{A}\bs{E}\bs{\beta} \\
+        = & \bs{0}
+    \end{align*}
+    \(\forall \bs{\beta}\in\R^m\)都成立，所以\(\bs{z} - \bs{A}(\bs{A}^{\bot}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{\top}\)，也即取\(y = \bs{z} - \bs{A}(\bs{A}^{\top}\bs{A})^{-1}\bs{A}^{\top}\bs{z} \in L^{bot}\)即可. 
+    存在性证毕. 
 
-接下来证明唯一性. 
-假设在子空间$L$中，$\exists \bs{p} \neq \bs{x}$，使得$\exists \bs{q} \in L^{\bot}$，$\bs{z} = \bs{p}+\bs{q}$，则有$\bs{q} = \bs{x}+\bs{y}-\bs{p}$，但是
-\begin{align*}
-    \bs{x}^{\top}\bs{q}
-    & = \bs{x}^{\top}(\bs{x}+\bs{y}-\bs{p}) \\
-    & = \bs{x}^{\top}\bs{x} - \bs{x}^{\top}\bs{q} \\
-    & \neq 0
-\end{align*}
-与$\exists \bs{q} \in L^{\bot}$矛盾，所以假设不成立，唯一性得证. 
+    接下来证明唯一性. 
+    假设在子空间\(L\)中，\(\exists \bs{p} \neq \bs{x}\)，使得\(\exists \bs{q} \in L^{\bot}\)，\(\bs{z} = \bs{p}+\bs{q}\)，则有\(\bs{q} = \bs{x}+\bs{y}-\bs{p}\)，但是
+    \begin{align*}
+        \bs{x}^{\top}\bs{q}
+        & = \bs{x}^{\top}(\bs{x}+\bs{y}-\bs{p}) \\
+        & = \bs{x}^{\top}\bs{x} - \bs{x}^{\top}\bs{q} \\
+        & \neq 0
+    \end{align*}
+    与\(\exists \bs{q} \in L^{\bot}\)矛盾，所以假设不成立，唯一性得证. 
 
-（2）考查函数$f(t) = \Vert \bs{z} - \bs{x} - t\bs{v} \Vert^2$，$\forall \bs{v} \in L$且$\bs{v}\neq\bs{0}$，则要证明目标问题的唯一解是$\bs{x}$，即证明$f(t)$取最小值当且仅当$t=0$，也即证明$\forall v \in L$，$f'(0)=0$，且$\forall t \neq 0$，$f'(t) \neq 0$，而
-\begin{align*}
-    f'(t)
-    &= -2 \bs{y}^{\top} \bs{v} + 2t \bs{v}^{\top} \bs{v} \\
-    &= 2t \bs{v}^{\top} \bs{v}
-\end{align*}
-所以上述命题成立，从而目标问题的唯一解就是（1）中的$\bs{x}$，代入$\bs{u} = \bs{x}$即得到目标问题最优值为$\Vert \bs{y} \Vert$. 
-\proved
+    （2）考查函数\(f(t) = \Vert \bs{z} - \bs{x} - t\bs{v} \Vert^2\)，\(\forall \bs{v} \in L\)且\(\bs{v}\neq\bs{0}\)，则要证明目标问题的唯一解是\(\bs{x}\)，即证明\(f(t)\)取最小值当且仅当\(t=0\)，也即证明\(\forall v \in L\)，\(f'(0)=0\)，且\(\forall t \neq 0\)，\(f'(t) \neq 0\)，而
+    \begin{align*}
+        f'(t)
+        &= -2 \bs{y}^{\top} \bs{v} + 2t \bs{v}^{\top} \bs{v} \\
+        &= 2t \bs{v}^{\top} \bs{v}
+    \end{align*}
+    所以上述命题成立，从而目标问题的唯一解就是（1）中的\(\bs{x}\)，代入\(\bs{u} = \bs{x}\)即得到目标问题最优值为\(\Vert \bs{y} \Vert\). 
+\end{proof}
 
 \begin{theorem}{}{}
-    设$\bs{x}, \bs{y} \in \R^n$，若$\forall \bs{y} \in L$，都有$\bs{x}^{\top}\bs{y} \le \alpha$，则有$\bs{x} \in L^{\bot}$且$\alpha \ge 0$. 
+    设\(\bs{x}, \bs{y} \in \R^n\)，若\(\forall \bs{y} \in L\)，都有\(\bs{x}^{\top}\bs{y} \le \alpha\)，则有\(\bs{x} \in L^{\bot}\)且\(\alpha \ge 0\). 
 \end{theorem}
 
-\prove
-取$\bs{y} = \bs{0}$，则$\bs{x}^{\top}\bs{y} = 0$，从而$\bs{x}^{\top}\bs{y}$的上界$\alpha \ge 0$. 
-假设$\bs{x} \not\in L^{\bot}$，则由子空间投影定理的（1），$\exists \bs{x}^{(1)} \in L$，$\bs{x}^{(2)} \in L^{\bot}$，使得$\bs{x} = \bs{x}^{(1)} + \bs{x}^{(2)}$，那么
-\begin{align*}
-    \bs{x}^{\top}\bs{y} &= (\bs{x}^{(1)} + \bs{x}^{(2)})^{\top}\bs{y} \\
-    &= \bs{x}^{(1)\top}\bs{y} + \bs{x}^{(2)\top}\bs{y} \\
-    &= \bs{x}^{(1)\top}\bs{y}
-\end{align*}
-令$\bs{y} = \lambda \bs{x}^{(1)}$且$\lambda \to +\infty$，则$\bs{x}^{(1)\top}\bs{y} \to +\infty$，与$\bs{x}^{\top}\bs{y}$有上界$\alpha$矛盾，故必有$\bs{x} \in L^{\bot}$. 
-\proved
+\begin{proof}
+    取\(\bs{y} = \bs{0}\)，则\(\bs{x}^{\top}\bs{y} = 0\)，从而\(\bs{x}^{\top}\bs{y}\)的上界\(\alpha \ge 0\). 
+    假设\(\bs{x} \not\in L^{\bot}\)，则由子空间投影定理的（1），\(\exists \bs{x}^{(1)} \in L\)，\(\bs{x}^{(2)} \in L^{\bot}\)，使得\(\bs{x} = \bs{x}^{(1)} + \bs{x}^{(2)}\)，那么
+    \begin{align*}
+        \bs{x}^{\top}\bs{y} &= (\bs{x}^{(1)} + \bs{x}^{(2)})^{\top}\bs{y} \\
+        &= \bs{x}^{(1)\top}\bs{y} + \bs{x}^{(2)\top}\bs{y} \\
+        &= \bs{x}^{(1)\top}\bs{y}
+    \end{align*}
+    令\(\bs{y} = \lambda \bs{x}^{(1)}\)且\(\lambda \to +\infty\)，则\(\bs{x}^{(1)\top}\bs{y} \to +\infty\)，与\(\bs{x}^{\top}\bs{y}\)有上界\(\alpha\)矛盾，故必有\(\bs{x} \in L^{\bot}\). 
+
+\end{proof}
 
 该命题还有以下等价表述：
 \begin{itemize}
-    \item 若$\forall \bs{y} \in L$，都有$\bs{x}^{\top}\bs{y} \ge \alpha$，则有$\bs{x} \in L^{\bot}$且$\alpha \le 0$. 
+    \item 若\(\forall \bs{y} \in L\)，都有\(\bs{x}^{\top}\bs{y} \ge \alpha\)，则有\(\bs{x} \in L^{\bot}\)且\(\alpha \le 0\). 
 \end{itemize}
 

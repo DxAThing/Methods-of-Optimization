@@ -37,7 +37,9 @@
 % ==============================================================================
 \usepackage{array, tabularray, makecell, multirow, diagbox} % 表格增强
 \usepackage{amsmath, amssymb, amsthm, unicode-math}         % 数学公式与字体
-\setmathfont{TeX Gyre Termes Math}                           % 数学字体匹配 Times
+\usepackage{bm}                                             % 放在 unicode-math 之后作为兜底
+\setmathfont{TeX Gyre Termes Math}                          % 数学字体匹配 Times
+\allowdisplaybreaks
 
 \usepackage{calc, caption}                                   % 计算与标题控制
 \captionsetup[figure]{labelsep=none}                         % 去掉图片编号后的分隔符
@@ -48,6 +50,12 @@
 \usepackage{rotating, wrapfig}                               % 旋转与文字环绕
 \usepackage{xparse, tcolorbox}                               % 高级参数解析与彩色框
 \tcbuselibrary{theorems, skins, breakable}
+
+\usepackage[ruled, linesnumbered, vlined]{algorithm2e} 
+% 重命名标题（适配中文）
+\renewcommand{\algorithmcfname}{算法}
+% 设置算法行号字体
+\SetNlSty{normalsize}{}{:}
 
 % 页面边距设置
 \usepackage{geometry}
@@ -130,6 +138,33 @@
 \newcommand{\prove}{\textbf{【证明】}}
 \newcommand{\proved}{{\hfill 【证毕】}}
 
+\usepackage{environ} % 用于捕获环境内容
+\usepackage{etoolbox} % 用于设置开关
+
+% --- 定义显示/隐藏开关 ---
+\newbool{showsolution}
+\boolfalse{showsolution}  % 设置为 true 显示，false 隐藏
+
+% --- 定义解题环境 ---
+\NewEnviron{solution}{
+    \ifbool{showsolution}{
+        \textbf{【解】}
+        \BODY
+        \hfill {【解毕】}
+    }{}
+}
+
+% --- 定义证明环境 ---
+\let\proof\undefined
+\let\endproof\undefined
+\NewEnviron{proof}{
+    \ifbool{showsolution}{
+        \textbf{【证明】}
+        \BODY
+        \hfill {【证毕】}
+    }{}
+}
+
 % ==============================================================================
 % 6. 彩色框定义（定义、定理）
 % ==============================================================================
@@ -137,6 +172,7 @@
 % 定义图片中的颜色 (近似值)
 \definecolor{amzblue}{RGB}{0, 114, 189}   % 定义框的蓝色
 \definecolor{amzpurple}{RGB}{119, 66, 188} % 定理框的紫色
+\definecolor{amzgreen}{RGB}{0, 136, 80}   % 推论使用的绿色
 \definecolor{boxbg}{RGB}{248, 248, 255}    % 极淡的背景色(GhostWhite)
 
 % 全局 tcolorbox 样式设置
@@ -177,6 +213,12 @@
     colframe=amzpurple,
     boxed title style={colback=amzpurple, colframe=amzpurple},
 }{thm}
+% 推论环境：不出现编号，颜色设为绿色
+\newtcbtheorem[number within=chapter]{corollary}{推论}{
+    commonstyle,
+    colframe=amzgreen,
+    boxed title style={colback=amzgreen, colframe=amzgreen},
+}{cor}
 
 % ==============================================================================
 % 7. 间距修正（全局微调）
@@ -185,10 +227,10 @@
 \makeatletter
 \g@addto@macro\normalsize{
     % --- 控制行间公式 (Display Math) ---
-	\setlength\abovedisplayskip{0em plus 0.5em minus 0.25em}
-	\setlength\belowdisplayskip{0em plus 0.5em minus 0.25em}
-	\setlength\abovedisplayshortskip{0em plus 2pt minus 2pt}
-	\setlength\belowdisplayshortskip{0em plus 2pt minus 2pt}
+	\setlength\abovedisplayskip{0.25em plus 0.5em minus 0.25em}
+	\setlength\belowdisplayskip{0.25em plus 0.5em minus 0.25em}
+	\setlength\abovedisplayshortskip{0em plus 2pt minus 0pt}
+	\setlength\belowdisplayshortskip{0em plus 2pt minus 0pt}
 
     % --- 控制行内公式 (Inline Math) 的避让机制 ---
     % 设置阈值：当两行间距小于 1pt 时触发避让
@@ -198,9 +240,19 @@
 }
 \makeatother
 
+\setlength{\jot}{0pt}
+
+% \usepackage{etoolbox}
+% \makeatletter
+% % 增加大算子（operator）上下标的限位间距
+% \patchcmd{\slimits@}{\displaystyle}{\displaystyle\addtolength{\jot}{3pt}}{}{}
+% \makeatother
+
+% ==============================================================================
+% 8. 重定义列表
+% ==============================================================================
 % 修改itemize环境的行间距
 \usepackage{enumitem}
-% \setlist[itemize]{nosep}
 \setlist[itemize]{
     nosep,
     wide=2.5em,           % 关键：2em(段落缩进) + 0.5em(第一个字的中心)

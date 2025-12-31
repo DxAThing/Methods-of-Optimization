@@ -1,46 +1,46 @@
 \section{多面体、极点、极方向}
 
 \begin{definition}{半空间}{}
-    设超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta \subseteq \R^n$，则这个超平面把$\R^n$分成两部分$\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \ge \beta \}$和$\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \le \beta \}$，这样的两部分称为{\bf 闭半空间}，若有严格不等式成立，则称其为{\bf 开半空间}. 
+    设超平面\(H: \bs{\alpha}^{\top} \bs{x} = \beta \subseteq \R^n\)，则这个超平面把\(\R^n\)分成两部分\(\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \ge \beta \}\)和\(\{\bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} \le \beta \}\)，这样的两部分称为{\bf 闭半空间}，若有严格不等式成立，则称其为{\bf 开半空间}. 
 \end{definition}
 
 \begin{definition}{多面体}{}
     有限个闭半空间的交称为{\bf 多面体}. 
 \end{definition}
 
-由定义看出，多面体实际上由一系列线性不等式组定义，故一般可以将其写作$\{ \bs{x} \in \R^n \mid \bs{Ax} \le \bs{b} \}$，其中$\bs{A} \in \R^{m \times n}$，$\bs{b} \in \R^m$. 
-其中我们选取一种特殊的多面体$\{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b} , \bs{x} \ge \bs{0} \}$，称其为{\bf 标准型多面体}. 
+由定义看出，多面体实际上由一系列线性不等式组定义，故一般可以将其写作\(\{ \bs{x} \in \R^n \mid \bs{Ax} \le \bs{b} \}\)，其中\(\bs{A} \in \R^{m \times n}\)，\(\bs{b} \in \R^m\). 
+其中我们选取一种特殊的多面体\(\{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b} , \bs{x} \ge \bs{0} \}\)，称其为{\bf 标准型多面体}. 
 
 \begin{definition}{极点}{}
-    设$S \subseteq \R^n$，$\bs{x} \in S$，若不存在$\bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\bs{x}^{(1)} \neq \bs{x}^{(2)}$，使得$\bs{x} = \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}$，则称$x$是$S$的{\bf 极点}（或{\bf 顶点}）. 
+    设\(S \subseteq \R^n\)，\(\bs{x} \in S\)，若不存在\(\bs{x}^{(1)}, \bs{x}^{(2)} \in S\)，\(\bs{x}^{(1)} \neq \bs{x}^{(2)}\)，使得\(\bs{x} = \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}\)，则称\(x\)是\(S\)的{\bf 极点}（或{\bf 顶点}）. 
 \end{definition}
 
 \begin{definition}{极方向}{}
     
-    设$S \subseteq \R^n$，$\bs{d} \in \R^n$，若$\bs{d}$是$S$的可行方向（见{\bf 方向导数}的定义），且不能被表示为$S$的两个不同可行方向的非负组合，则称$\bs{d}$是$S$的{\bf 极方向}. 
+    设\(S \subseteq \R^n\)，\(\bs{d} \in \R^n\)，若\(\bs{d}\)是\(S\)的可行方向（见{\bf 方向导数}的定义），且不能被表示为\(S\)的两个不同可行方向的非负组合，则称\(\bs{d}\)是\(S\)的{\bf 极方向}. 
 \end{definition}
 
 \begin{theorem}{极点特征}{}
-    设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，则$\bs{x}$是多面体$S$的极点的充要条件是存在分解$\bs{A} = (\bs{B}, \bs{N})$，使得
+    设多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\) ，其中  \(\bs{A} \in \R^{m \times n}\)行满秩，则\(\bs{x}\)是多面体\(S\)的极点的充要条件是存在分解\(\bs{A} = (\bs{B}, \bs{N})\)，使得
     \begin{romlist}
-        \item $B$为$m$阶可逆阵；
-        \item $\bs{x} = (\bs{x_B}^{\top}, \bs{x_N}^{\top})^{\top}$（分解方式与$\bs{A}$相同），其中$\bs{x_B} = \bs{B}^{-1} \bs{b} \ge \bs{0}$，$\bs{x_N} = \bs{0}$. 
+        \item \(B\)为\(m\)阶可逆阵；
+        \item \(\bs{x} = (\bs{x_B}^{\top}, \bs{x_N}^{\top})^{\top}\)（分解方式与\(\bs{A}\)相同），其中\(\bs{x_B} = \bs{B}^{-1} \bs{b} \ge \bs{0}\)，\(\bs{x_N} = \bs{0}\). 
     \end{romlist}
 \end{theorem}
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}
 
 \eg
-证明：多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$中必存在有限多的极点. 
+证明：多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\)中必存在有限多的极点. 
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}
 
 \eg 
-设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$，在以下条件下，求该多面体的极点：
+设多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\)，在以下条件下，求该多面体的极点：
 
 （1）$A = \begin{pmatrix}
     3 & 1 & 2 & 0 \\
@@ -64,37 +64,37 @@ $；
 \end{pmatrix}
 $. 
 
-\solve
-
-\solved
+\begin{solution}
+    
+\end{solution}
 
 \begin{theorem}{极方向特征}{}
-    设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，则
+    设多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\) ，其中  \(\bs{A} \in \R^{m \times n}\)行满秩，则
     \begin{enumerate}
-        \item $\bs{d}$是$S$的方向的充要条件是$\bs{Ad} = \bs{0}$且$\bs{d} \ge 0$；
-        \item $\bs{d}$是$S$的极方向的充要条件是存在分解$\bs{A} = (\bs{B}, \bs{N})$，使得
+        \item \(\bs{d}\)是\(S\)的方向的充要条件是\(\bs{Ad} = \bs{0}\)且\(\bs{d} \ge 0\)；
+        \item \(\bs{d}\)是\(S\)的极方向的充要条件是存在分解\(\bs{A} = (\bs{B}, \bs{N})\)，使得
         \begin{indromlist}
-            \item $\bs{B}$为$m$阶可逆阵；
-            \item $\bs{d} = (\bs{d_B}^{\top}, \bs{d_N}^{\top})^{\top}$（分解方式与$\bs{A}$相同），其中$\bs{d_B} = - \bs{B}^{-1} \bs{a}_j \ge \bs{0}$，$\bs{d_N} = \bs{e}_j$. 
-            这里$\bs{e}_j$是第$j$个元素为1，其余元素为0的单位向量. 
-            $j$是使得$\bs{N}$中的列向量$\bs{a}_j$满足$\bs{B}^{-1} \bs{a}_j \le \bs{0}$的下标.
+            \item \(\bs{B}\)为\(m\)阶可逆阵；
+            \item \(\bs{d} = (\bs{d_B}^{\top}, \bs{d_N}^{\top})^{\top}\)（分解方式与\(\bs{A}\)相同），其中\(\bs{d_B} = - \bs{B}^{-1} \bs{a}_j \ge \bs{0}\)，\(\bs{d_N} = \bs{e}_j\). 
+            这里\(\bs{e}_j\)是第\(j\)个元素为1，其余元素为0的单位向量. 
+            \(j\)是使得\(\bs{N}\)中的列向量\(\bs{a}_j\)满足\(\bs{B}^{-1} \bs{a}_j \le \bs{0}\)的下标.
         \end{indromlist}
     \end{enumerate}  
 \end{theorem}
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}
 
 \eg
-证明：多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$中必有极点，且个数不超过$(n-m)C_n^m$. 
+证明：多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\)中必有极点，且个数不超过\((n-m)C_n^m\). 
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}
 
 \eg 
-设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$，其中$A = 
+设多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\)，其中$A = 
 \begin{pmatrix}
     3 & 1 & 2 & -6 & 0 \\
     0 & 4 & 5 & -5 & 1
@@ -103,23 +103,24 @@ b = \begin{pmatrix}
     3 \\ 6
 \end{pmatrix}$，求该多面体的极方向. 
 
-\solve
-
-\solved
+\begin{proof}
+    
+\end{proof}
 
 \begin{theorem}{表示定理，Minkowski-Weyl}{Minkowski-Weyl}
-    设多面体$S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}$ ，其中  $\bs{A} \in \R^{m \times n}$行满秩，$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(k)}$为所有极点，$\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(l)}$为所有极方向，则$\forall \bs{x} \in S$，存在序列$\{\lambda_i\}_{i=1}^k, \{\mu_j\}_{j=1}^l$，其中：
+    \label{Minkowski-Weyl}
+    设多面体\(S = \{ \bs{x} \in \R^n \mid \bs{Ax} = \bs{b}, \bs{x} \ge \bs{0} \}\) ，其中  \(\bs{A} \in \R^{m \times n}\)行满秩，\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(k)}\)为所有极点，\(\bs{d}^{(1)}, \bs{d}^{(2)}, \cdots, \bs{d}^{(l)}\)为所有极方向，则\(\forall \bs{x} \in S\)，存在序列\(\{\lambda_i\}_{i=1}^k, \{\mu_j\}_{j=1}^l\)，其中：
     \begin{enumerate}
-        \item $\lambda_i >0$，$i = 1, 2, \cdots, k$，且$\displaystyle \sum_{i=1}^k \lambda_i = 1$；
-        \item $\mu_j \ge 0$，$j = 1, 2, \cdots, l$，使得
+        \item \(\lambda_i >0\)，\(i = 1, 2, \cdots, k\)，且\(\displaystyle \sum_{i=1}^k \lambda_i = 1\)；
+        \item \(\mu_j \ge 0\)，\(j = 1, 2, \cdots, l\)，使得
         \begin{align*}
             \bs{x} = & \lambda_1 \bs{x}^{(1)} + \lambda_2 \bs{x}^{(2)} + \cdots + \lambda_k \bs{x}^{(k)} & \text{（极点的凸组合）} \\
             + & \mu_1 \bs{d}^{(1)} + \mu_2 \bs{d}^{(2)} + \cdots + \mu_l \bs{d}^{(l)} & \text{（极方向的半正组合）}
         \end{align*}
-        特别地，如果上述多面体$S$是有界的，则有$\mu_j = 0$. 
+        特别地，如果上述多面体\(S\)是有界的，则有\(\mu_j = 0\). 
     \end{enumerate}
 \end{theorem}
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}

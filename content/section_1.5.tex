@@ -5,73 +5,74 @@
 \subsubsection{凸集、凸组合}
 
 \begin{definition}{凸集}{}
-    设$S \subseteq \R^n$，若$\forall \bs{x}^{(1)}, \bs{x}^{(2)}\in S$，$\lambda \in [0,1]$，必有
-    $$
+    设\(S \subseteq \R^n\)，若\(\forall \bs{x}^{(1)}, \bs{x}^{(2)}\in S\)，\(\lambda \in [0,1]\)，必有
+    \[
         \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S
-    $$
-    则称$S$为{\bf 凸集}. 
+    \]
+    则称\(S\)为{\bf 凸集}. 
 \end{definition}
 
-规定单点集$\{\bs{x}\}$和空集$\varnothing$都是空集. 
-需要注意的是，方程$\bs{x} = \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} = \bs{x}^{(2)} + \lambda (\bs{x}^{(1)} - \bs{x}^{(2)})$，$\lambda \in [0,1]$表示连接$\bs{x}^{(1)}$和$\bs{x}^{(2)}$的线段. 
+规定单点集\(\{\bs{x}\}\)和空集\(\varnothing\)都是空集. 
+需要注意的是，方程\(\bs{x} = \lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} = \bs{x}^{(2)} + \lambda (\bs{x}^{(1)} - \bs{x}^{(2)})\)，\(\lambda \in [0,1]\)表示连接\(\bs{x}^{(1)}\)和\(\bs{x}^{(2)}\)的线段. 
 
 \eg
-设$\bs{A} \in \R^{m \times n}$，$\bs{b} \in \R^n$，证明以下命题成立：
+设\(\bs{A} \in \R^{m \times n}\)，\(\bs{b} \in \R^n\)，证明以下命题成立：
 
-（1）集合$S = \{ \bs{x} \mid \bs{Ax} = \bs{b} \}$是凸集；
+\begin{enumerate}
+    \item 集合\(S = \{ \bs{x} \mid \bs{Ax} = \bs{b} \}\)是凸集；
+    \item 集合\(S = \{ \bs{x} \mid \bs{Ax} \le \bs{b} \}\)是凸集. 
+\end{enumerate}
 
-（2）集合$S = \{ \bs{x} \mid \bs{Ax} \le \bs{b} \}$是凸集. 
+\begin{proof}
+    （1）任取\(\bs{x}^{(1)}, \bs{x}^{(2)} \in S\)，\(\lambda \in [0,1]\)，则都有
+    \begin{align*}
+        &\bs{A}(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \\
+        =& \lambda \bs{A} \bs{x}^{(1)} + (1 - \lambda) \bs{A} \bs{x}^{(2)} \\
+        =& \lambda \bs{b} + (1 - \lambda) \bs{b} \\
+        =& \bs{b}
+    \end{align*}
+    从而\(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S\)，故\(S\)是凸集. 
 
-\prove
-（1）任取$\bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\lambda \in [0,1]$，则都有
-\begin{align*}
-    &\bs{A}(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \\
-    =& \lambda \bs{A} \bs{x}^{(1)} + (1 - \lambda) \bs{A} \bs{x}^{(2)} \\
-    =& \lambda \bs{b} + (1 - \lambda) \bs{b} \\
-    =& \bs{b}
-\end{align*}
-从而$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S$，故$S$是凸集. 
-
-（2）任取$\bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\lambda \in [0,1]$，则都有
-\begin{align*}
-    &\bs{A}(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \\
-    =& \lambda \bs{A} \bs{x}^{(1)} + (1 - \lambda) \bs{A} \bs{x}^{(2)} \\
-    \le& \lambda \bs{b} + (1 - \lambda) \bs{b} \\
-    =& \bs{b}
-\end{align*}
-从而$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S$，故$S$是凸集. 
-\proved
+    （2）任取\(\bs{x}^{(1)}, \bs{x}^{(2)} \in S\)，\(\lambda \in [0,1]\)，则都有
+    \begin{align*}
+        &\bs{A}(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \\
+        =& \lambda \bs{A} \bs{x}^{(1)} + (1 - \lambda) \bs{A} \bs{x}^{(2)} \\
+        \le& \lambda \bs{b} + (1 - \lambda) \bs{b} \\
+        =& \bs{b}
+    \end{align*}
+    从而\(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S\)，故\(S\)是凸集. 
+\end{proof}
 
 在介绍凸集的性质之前，我们先对一些将要用到的名词进行必要的说明. 
 
 \begin{definition}{内点、内点集、开集}{}
-    设$S \subseteq \R^n$，$\bs{x} \in S$，如果存在一个开球$B(\bs{x}, \varepsilon) = \{ \bs{y} \in \R^n \mid \Vert \bs{y} - \bs{x} \Vert < \varepsilon \}$，使得$B(\bs{x}, \varepsilon) \subseteq S$，则称$\bs{x}$是$S$的{\bf 内点}，$S$的内点的全体称为$S$的{\bf 内点集}，记作$\text{int}(S)$. 
+    设\(S \subseteq \R^n\)，\(\bs{x} \in S\)，如果存在一个开球\(B(\bs{x}, \varepsilon) = \{ \bs{y} \in \R^n \mid \Vert \bs{y} - \bs{x} \Vert < \varepsilon \}\)，使得\(B(\bs{x}, \varepsilon) \subseteq S\)，则称\(\bs{x}\)是\(S\)的{\bf 内点}，\(S\)的内点的全体称为\(S\)的{\bf 内点集}，记作\(\text{int}(S)\). 
 
-    进一步地，如果 $\text{int}(S) = S$，则称$S$是\textbf{开集}
+    进一步地，如果 \(\text{int}(S) = S\)，则称\(S\)是\textbf{开集}
 \end{definition}
 
-所以$\bs{x} \in \text{int}(S) \Leftrightarrow \exists \varepsilon > 0, (\Vert \bs{y} - \bs{x} \Vert < \varepsilon \Rightarrow \bs{y} \in S)$.
+所以\(\bs{x} \in \text{int}(S) \Leftrightarrow \exists \varepsilon > 0, (\Vert \bs{y} - \bs{x} \Vert < \varepsilon \Rightarrow \bs{y} \in S)\).
 
 \begin{definition}{聚点、闭包}{}
-    设$S \subseteq \R^n$，$\bs{x} \in \R^n$，如果$\forall \varepsilon > 0$都有$B(\bs{x}, \varepsilon) \cap S \neq \varnothing$，则称$\bs{x}$是$S$的{\bf 聚点}，$S$的聚点的全体称为$S$的{\bf 闭包}，记作$\overline{S}$. 
+    设\(S \subseteq \R^n\)，\(\bs{x} \in \R^n\)，如果\(\forall \varepsilon > 0\)都有\(B(\bs{x}, \varepsilon) \cap S \neq \varnothing\)，则称\(\bs{x}\)是\(S\)的{\bf 聚点}，\(S\)的聚点的全体称为\(S\)的{\bf 闭包}，记作\(\overline{S}\). 
 \end{definition}
 
 \begin{definition}{超平面}{}
-    设$\bs{\alpha} \in \R^n \backslash \{ \bs{0} \}$，$\beta \in \R$，称集合$H = \{ \bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} = \beta\}$是{\bf 超平面}，简记作$H: \bs{\alpha}^{\top} \bs{x} = \beta$. 
+    设\(\bs{\alpha} \in \R^n \backslash \{ \bs{0} \}\)，\(\beta \in \R\)，称集合\(H = \{ \bs{x} \in \R^n \mid \bs{\alpha}^{\top} \bs{x} = \beta\}\)是{\bf 超平面}，简记作\(H: \bs{\alpha}^{\top} \bs{x} = \beta\). 
 \end{definition}
 
 \begin{definition}{支撑超平面}{}
-    设$S \subseteq \R^n$，$\bs{x}_0 \in S$，若超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta$满足：
+    设\(S \subseteq \R^n\)，\(\bs{x}_0 \in S\)，若超平面\(H: \bs{\alpha}^{\top} \bs{x} = \beta\)满足：
     \begin{romlist}
-        \item $\exists \bs{x}^{(0)} \in S$，使得$\bs{x}^{(0)} \in H$；
-        \item $\forall \bs{x} \in S$，$\bs{\alpha}^{\top} \bs{x} \le \beta$
+        \item \(\exists \bs{x}^{(0)} \in S\)，使得\(\bs{x}^{(0)} \in H\)；
+        \item \(\forall \bs{x} \in S\)，\(\bs{\alpha}^{\top} \bs{x} \le \beta\)
     \end{romlist}
-    则称$H$是$S$的{\bf 支撑超平面}. 
+    则称\(H\)是\(S\)的{\bf 支撑超平面}. 
 \end{definition}
 
 \begin{definition}{分离超平面}{}
-    设$S_1, S_2 \subseteq \R^n$，且$S_1 \cap S_2 = \varnothing$. 
-    若存在超平面$H: \bs{\alpha}^{\top} \bs{x} = \beta$，使得$\forall \bs{x}^{(1)} \in S_1$，$\bs{\alpha}^{\top} \bs{x}^{(1)} \ge \beta$，且$\forall \bs{x}^{(2)} \in S_2$，$\bs{\alpha}^{\top} \bs{x}^{(2)} \le \beta$，则称$H$是$S_1, S_2$的{\bf 分离超平面}. 
+    设\(S_1, S_2 \subseteq \R^n\)，且\(S_1 \cap S_2 = \varnothing\). 
+    若存在超平面\(H: \bs{\alpha}^{\top} \bs{x} = \beta\)，使得\(\forall \bs{x}^{(1)} \in S_1\)，\(\bs{\alpha}^{\top} \bs{x}^{(1)} \ge \beta\)，且\(\forall \bs{x}^{(2)} \in S_2\)，\(\bs{\alpha}^{\top} \bs{x}^{(2)} \le \beta\)，则称\(H\)是\(S_1, S_2\)的{\bf 分离超平面}. 
 \end{definition}
 
 \begin{theorem}{凸集的性质}{}
@@ -85,336 +86,336 @@
     \end{enumerate}
 \end{theorem}
 
-\prove
-（1）设$S_1, S_2$都是凸集，即证明$S_1 \cap S_2$是凸集，也即证明$\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in (S_1 \cap S_2)$，$\forall \lambda \in [0,1]$，都有$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in (S_1 \cap S_2)$. 
-由于$\bs{x}^{(1)}, \bs{x}^{(2)} \in (S_1 \cap S_2)$，则有$\bs{x}^{(1)}, \bs{x}^{(2)} \in S_1$且$\bs{x}^{(1)}, \bs{x}^{(2)} \in S_2$，故$\forall \lambda \in [0,1]$，都有$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S_1$且$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S_2$，所以$\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in (S_1 \cap S_2)$，原命题得证. 
+\begin{proof}
+    （1）设\(S_1, S_2\)都是凸集，即证明\(S_1 \cap S_2\)是凸集，也即证明\(\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in (S_1 \cap S_2)\)，\(\forall \lambda \in [0,1]\)，都有\(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in (S_1 \cap S_2)\). 
+    由于\(\bs{x}^{(1)}, \bs{x}^{(2)} \in (S_1 \cap S_2)\)，则有\(\bs{x}^{(1)}, \bs{x}^{(2)} \in S_1\)且\(\bs{x}^{(1)}, \bs{x}^{(2)} \in S_2\)，故\(\forall \lambda \in [0,1]\)，都有\(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S_1\)且\(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in S_2\)，所以\(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in (S_1 \cap S_2)\)，原命题得证. 
 
-（2）设$S$是一凸集，$\text{int}(S)$是其内点集，任取$\bs{x}^{(1)}, \bs{x}^{(2)} \in \text{int}(S)$，$\lambda \in [0,1]$，则$\exists r > 0$，使得
-\begin{align*}
-    \Vert \bs{y}^{(1)} - \bs{x}^{(1)} \Vert \le r & \Rightarrow \bs{y}^{(1)} \in S, \\
-    \Vert \bs{y}^{(2)} - \bs{x}^{(2)} \Vert \le r & \Rightarrow \bs{y}^{(2)} \in S
-\end{align*}
-可以证明内点定义中使用开球和使用闭球是等价的，这里为了讨论方便，我们使用有闭球的定义. 
-要证明$\text{int}(S)$是凸集，即证明$\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in \text{int}(S)$，也即证明$\exists \varepsilon > 0$，使得
-$$
-    \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \le \varepsilon \Rightarrow \bs{z} \in S
-$$
-我们由三角不等式得到启发，于是上述逻辑式的前件的左式可以作如下放缩：
-\begin{align*}
-    & \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \\
-    = & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} + \lambda (\bs{y}^{(1)} - \bs{x}^{(1)}) + (1 - \lambda) (\bs{y}^{(2)} - \bs{x}^{(2)}) \Vert \\
-    \le & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + \Vert \lambda (\bs{y}^{(1)} - \bs{x}^{(1)}) \Vert + \Vert (1 - \lambda) (\bs{y}^{(2)} - \bs{x}^{(2)}) \Vert \\
-    \le & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + \lambda r + (1 - \lambda) r \\
-    = & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + r
-\end{align*}
-其中$\bs{y}^{(1)}, \bs{y}^{(2)}$满足$\Vert \bs{y}^{(i)} - \bs{x}^{(i)} \Vert \le r$，$i = 1, 2$，所以$\bs{y}^{(1)}, \bs{y}^{(2)} \in S$，故$\forall \lambda \in [0,1]$，$\bs{y}^{(1)} + (1 - \lambda) \bs{y}^{(2)} \in S$. 
-我们要保证$\bs{z} \in S$，那么只需要控制$\varepsilon = r$，于是就有
-$$
-    0 \le \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert \le r - r = 0
-$$
-从而$\bs{z} = \lambda \bs{y}^{(1)} + (1 - \lambda) \bs{y}^{(2)} \in S$，也即待证命题：$\exists \varepsilon = r > 0$，使得
-$$
-    \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \le \varepsilon \Rightarrow \bs{z} \in S
-$$
-的前件可推出后件，从而$\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in \text{int}(S)$，待证命题得证. 
+    （2）设\(S\)是一凸集，\(\text{int}(S)\)是其内点集，任取\(\bs{x}^{(1)}, \bs{x}^{(2)} \in \text{int}(S)\)，\(\lambda \in [0,1]\)，则\(\exists r > 0\)，使得
+    \begin{align*}
+        \Vert \bs{y}^{(1)} - \bs{x}^{(1)} \Vert \le r & \Rightarrow \bs{y}^{(1)} \in S, \\
+        \Vert \bs{y}^{(2)} - \bs{x}^{(2)} \Vert \le r & \Rightarrow \bs{y}^{(2)} \in S
+    \end{align*}
+    可以证明内点定义中使用开球和使用闭球是等价的，这里为了讨论方便，我们使用有闭球的定义. 
+    要证明\(\text{int}(S)\)是凸集，即证明\(\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in \text{int}(S)\)，也即证明\(\exists \varepsilon > 0\)，使得
+    \[
+        \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \le \varepsilon \Rightarrow \bs{z} \in S
+    \]
+    我们由三角不等式得到启发，于是上述逻辑式的前件的左式可以作如下放缩：
+    \begin{align*}
+        & \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \\
+        = & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} + \lambda (\bs{y}^{(1)} - \bs{x}^{(1)}) + (1 - \lambda) (\bs{y}^{(2)} - \bs{x}^{(2)}) \Vert \\
+        \le & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + \Vert \lambda (\bs{y}^{(1)} - \bs{x}^{(1)}) \Vert + \Vert (1 - \lambda) (\bs{y}^{(2)} - \bs{x}^{(2)}) \Vert \\
+        \le & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + \lambda r + (1 - \lambda) r \\
+        = & \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert + r
+    \end{align*}
+    其中\(\bs{y}^{(1)}, \bs{y}^{(2)}\)满足\(\Vert \bs{y}^{(i)} - \bs{x}^{(i)} \Vert \le r\)，\(i = 1, 2\)，所以\(\bs{y}^{(1)}, \bs{y}^{(2)} \in S\)，故\(\forall \lambda \in [0,1]\)，\(\bs{y}^{(1)} + (1 - \lambda) \bs{y}^{(2)} \in S\). 
+    我们要保证\(\bs{z} \in S\)，那么只需要控制\(\varepsilon = r\)，于是就有
+    \[
+        0 \le \Vert \bs{z} - \lambda \bs{y}^{(1)} - (1 - \lambda) \bs{y}^{(2)} \Vert \le r - r = 0
+    \]
+    从而\(\bs{z} = \lambda \bs{y}^{(1)} + (1 - \lambda) \bs{y}^{(2)} \in S\)，也即待证命题：\(\exists \varepsilon = r > 0\)，使得
+    \[
+        \Vert \bs{z} - (\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \Vert \le \varepsilon \Rightarrow \bs{z} \in S
+    \]
+    的前件可推出后件，从而\(\bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)} \in \text{int}(S)\)，待证命题得证. 
 
-（3）我们先证明一个引理：$\bs{x} \in \overline{S}$当且仅当存在一个点列$\{\bs{x}^{(n)}\} \subset S$满足$\displaystyle \lim_{n \to \infty} \bs{x}^{(n)} = \bs{x}$. 
-（实际上这正是聚点的另一等价定义）
+    （3）我们先证明一个引理：\(\bs{x} \in \overline{S}\)当且仅当存在一个点列\(\{\bs{x}^{(n)}\} \subset S\)满足\(\displaystyle \lim_{n \to \infty} \bs{x}^{(n)} = \bs{x}\). 
+    （实际上这正是聚点的另一等价定义）
 
-先证$\Rightarrow$. 
-对每一个整数$n$，取$\varepsilon_n = \frac 1n$，则能得到一个开球列$\{ B(\bs{x}, \varepsilon_n) \}$. 
-应用选择公理，从这个开球列中依次取一个点，排成一个点列$\{ \bs{x} ^{(n)} \}$，则必然有
-$$
-    \Vert \bs{x}^{(n)} - \bs{x} \Vert = \frac{1}{n} \to 0
-$$
+    先证\(\Rightarrow\). 
+    对每一个整数\(n\)，取\(\varepsilon_n = \frac 1n\)，则能得到一个开球列\(\{ B(\bs{x}, \varepsilon_n) \}\). 
+    应用选择公理，从这个开球列中依次取一个点，排成一个点列\(\{ \bs{x} ^{(n)} \}\)，则必然有
+    \[
+        \Vert \bs{x}^{(n)} - \bs{x} \Vert = \frac{1}{n} \to 0
+    \]
 
 
-再证$\Leftarrow$. 
-由于$\displaystyle \lim_{n \to \infty} \bs{x}^{(n)} = \bs{x}$，则$\forall \varepsilon > 0$，都$\exists N > 0$，使得$\Vert \bs{x}^{(n)} - \bs{x} \Vert < \varepsilon$对于$\forall n > N$成立，从而$\forall \varepsilon > 0$，都一定存在一个$n$，使得$\bs{x}^{(n)} \in B(\bs{x}, \varepsilon)$并且$\bs{x}^{(n)} \in S$，从而$\bs{x}^{(n)} \in B(\bs{x}, \varepsilon) \cap S$，故$B(\bs{x}, \varepsilon) \cap S \neq \varnothing$，所以$\bs{x} \in \overline{S}$. 
-从而引理得证. 
+    再证\(\Leftarrow\). 
+    由于\(\displaystyle \lim_{n \to \infty} \bs{x}^{(n)} = \bs{x}\)，则\(\forall \varepsilon > 0\)，都\(\exists N > 0\)，使得\(\Vert \bs{x}^{(n)} - \bs{x} \Vert < \varepsilon\)对于\(\forall n > N\)成立，从而\(\forall \varepsilon > 0\)，都一定存在一个\(n\)，使得\(\bs{x}^{(n)} \in B(\bs{x}, \varepsilon)\)并且\(\bs{x}^{(n)} \in S\)，从而\(\bs{x}^{(n)} \in B(\bs{x}, \varepsilon) \cap S\)，故\(B(\bs{x}, \varepsilon) \cap S \neq \varnothing\)，所以\(\bs{x} \in \overline{S}\). 
+    从而引理得证. 
 
-任取$\bs{x}, \bs{y} \in \overline{S}$，$\lambda \in [0, 1]$，由引理，$\exists \{ \bs{x}^{(n)} \}, \{ \bs{y}^{(n)} \} \subset S$，使得$\bs{x}^{(n)} \to \bs{x}$，$\bs{y}^{(n)} \to \bs{y}$. 
-构造点列$\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \}$，则由$\exists \{ \bs{x}^{(n)} \}, \{ \bs{y}^{(n)} \} \subset S$以及$S$是凸集，有$\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \} \in S$. 
-由$\bs{x}^{(n)} \to \bs{x}$，$\bs{y}^{(n)} \to \bs{y}$，知$\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \} \to \lambda \bs{x} + (1 - \lambda) \bs{y}$，所以根据引理，$\lambda \bs{x} + (1 - \lambda) \bs{y} \in \overline{S}$. 
-原命题得证. 
+    任取\(\bs{x}, \bs{y} \in \overline{S}\)，\(\lambda \in [0, 1]\)，由引理，\(\exists \{ \bs{x}^{(n)} \}, \{ \bs{y}^{(n)} \} \subset S\)，使得\(\bs{x}^{(n)} \to \bs{x}\)，\(\bs{y}^{(n)} \to \bs{y}\). 
+    构造点列\(\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \}\)，则由\(\exists \{ \bs{x}^{(n)} \}, \{ \bs{y}^{(n)} \} \subset S\)以及\(S\)是凸集，有\(\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \} \in S\). 
+    由\(\bs{x}^{(n)} \to \bs{x}\)，\(\bs{y}^{(n)} \to \bs{y}\)，知\(\{ \lambda \bs{x}^{(n)} + (1 - \lambda) \bs{y}^{(n)} \} \to \lambda \bs{x} + (1 - \lambda) \bs{y}\)，所以根据引理，\(\lambda \bs{x} + (1 - \lambda) \bs{y} \in \overline{S}\). 
+    原命题得证. 
 
-（4）暂时懒得写. 
+    （4）暂时懒得写. 
 
-（5）暂时懒得写. 
-\proved
+    （5）暂时懒得写. 
+\end{proof}
 
 \begin{definition}{凸组合}{}
-    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
-    若$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^m \lambda_j = 1$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 凸组合}. 
+    设\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n\). 
+    若\(\forall j \in \{ 1, 2, \cdots, m \}\)，\(\lambda_j \ge 0\)且\(\displaystyle \sum_{j=1}^m \lambda_j = 1\)，则称\(\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}\)为\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}\)的{\bf 凸组合}. 
 \end{definition}
 
 \begin{theorem}{凸集和凸组合的关系}{}
-    
-    $S$是凸集$\Leftrightarrow S$中任意有限点的凸组合属于$S$. 
+    \(S\)是凸集\(\Leftrightarrow S\)中任意有限点的凸组合属于\(S\). 
 \end{theorem}
 
-\prove
-先证$\Rightarrow$. 
-使用数学归纳法. 
-即证明$S$中任意$m$个点的凸组合属于$S$. 
-$m = 1, 2$时，由于$S$是凸集，所以显然成立. 
-假设$m = k$时，结论成立，往证$m = k + 1$时结论也成立，即证明当$\displaystyle \sum_{j = 1}^{k+1} \lambda_{j} = 1$时$\displaystyle\sum_{j=1}^{k+1} \lambda_j \bs{x}_j \in S$. 
-由于$m = k$时结论成立，则有：
-$$
-    \frac{\displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}_j}{\displaystyle\sum_{j = 1}^{k} \lambda_j} = \displaystyle\sum_{j = 1}^{k} \frac{\lambda_j}{\displaystyle\sum_{i = 1}^{k} \lambda_i} \bs{x}_j \in S
-$$
-从而
-$$
-    \displaystyle\sum_{j=1}^{k+1} \lambda_j \bs{x}^{(j)}  = \displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)}  = \displaystyle\sum_{j = 1}^{k} \lambda_j \cdot \frac{\displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)}}{\displaystyle\sum_{j = 1}^{k} \lambda_j} + \lambda_{k+1} \bs{x}^{(k+1)} \in S
-$$
-结论得证. 
+\begin{proof}
+    先证\(\Rightarrow\). 
+    使用数学归纳法. 
+    即证明\(S\)中任意\(m\)个点的凸组合属于\(S\). 
+    \(m = 1, 2\)时，由于\(S\)是凸集，所以显然成立. 
+    假设\(m = k\)时，结论成立，往证\(m = k + 1\)时结论也成立，即证明当\(\displaystyle \sum_{j = 1}^{k+1} \lambda_{j} = 1\)时\(\displaystyle\sum_{j=1}^{k+1} \lambda_j \bs{x}_j \in S\). 
+    由于\(m = k\)时结论成立，则有：
+    \[
+        \frac{\displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}_j}{\displaystyle\sum_{j = 1}^{k} \lambda_j} = \displaystyle\sum_{j = 1}^{k} \frac{\lambda_j}{\displaystyle\sum_{i = 1}^{k} \lambda_i} \bs{x}_j \in S
+    \]
+    从而
+    \[
+        \displaystyle\sum_{j=1}^{k+1} \lambda_j \bs{x}^{(j)}  = \displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)}  = \displaystyle\sum_{j = 1}^{k} \lambda_j \cdot \frac{\displaystyle\sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)}}{\displaystyle\sum_{j = 1}^{k} \lambda_j} + \lambda_{k+1} \bs{x}^{(k+1)} \in S
+    \]
+    结论得证. 
 
-再证$\Leftarrow$. 
-取$m = 2$，则若$\lambda_1, \lambda_2 > 0$且$\lambda_1 + \lambda_2 = 1$，都有$\lambda_1 \bs{x}^{(1)} + \lambda_2 \bs{x}^{(2)} \in S$，这正是凸集的定义，从而结论成立. 
-\proved
+    再证\(\Leftarrow\). 
+    取\(m = 2\)，则若\(\lambda_1, \lambda_2 > 0\)且\(\lambda_1 + \lambda_2 = 1\)，都有\(\lambda_1 \bs{x}^{(1)} + \lambda_2 \bs{x}^{(2)} \in S\)，这正是凸集的定义，从而结论成立. 
+\end{proof}
 
 \begin{definition}{凸包}{}
-    设非空集合$S \subseteq \R^n$，由$S$中所有有限点的凸组合所构成的集合，被称为$S$的{\bf 凸包}，记作$\text{cov}(S)$. 
+    设非空集合\(S \subseteq \R^n\)，由\(S\)中所有有限点的凸组合所构成的集合，被称为\(S\)的{\bf 凸包}，记作\(\text{cov}(S)\). 
 \end{definition}
 
 \begin{theorem}{凸集和凸包的关系}{}
-    如果$S$是凸集，那么$\text{cov} (S) = S$. 
+    如果\(S\)是凸集，那么\(\text{cov} (S) = S\). 
 \end{theorem}
 
-\prove
-由定理1.8知，$\text{cov}(S) \subseteq S$，下证$S \subseteq \text{cov}(S)$. 
-一个点的凸组合就是其本身，所以只要$\bs{x} \in S$，那么这个点本身的凸组合$\bs{x} \in \text{cov}(S)$，所以$S \subseteq \text{cov}(S)$. 
-\proved
+\begin{proof}
+    由定理1.8知，\(\text{cov}(S) \subseteq S\)，下证\(S \subseteq \text{cov}(S)\). 
+    一个点的凸组合就是其本身，所以只要\(\bs{x} \in S\)，那么这个点本身的凸组合\(\bs{x} \in \text{cov}(S)\)，所以\(S \subseteq \text{cov}(S)\). 
+\end{proof}
 
 \begin{definition}{多胞形}{}
-    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
-    由$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的所有凸组合构成的集合称为多胞形，记作$H(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)})$. 
+    设\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n\). 
+    由\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}\)的所有凸组合构成的集合称为多胞形，记作\(H(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)})\). 
 \end{definition}
 
 \begin{definition}{单纯形}{}
-    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
-    若多胞形$H(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)})$满足$\bs{x}^{(2)} - \bs{x}^{(1)}, \bs{x}^{(3)} - \bs{x}^{(1)}, \cdots, \bs{x}^{(m)} - \bs{x}^{(1)}$线性无关，则称该多胞形是单纯形. 
+    设\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n\). 
+    若多胞形\(H(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)})\)满足\(\bs{x}^{(2)} - \bs{x}^{(1)}, \bs{x}^{(3)} - \bs{x}^{(1)}, \cdots, \bs{x}^{(m)} - \bs{x}^{(1)}\)线性无关，则称该多胞形是单纯形. 
 \end{definition}
 
 \subsubsection{凸锥、半正组合}
 
 \begin{definition}{锥、凸锥}{}
-    设$S \subseteq \R^n$，若$\forall \bs{x} \in S$，$\lambda > 0$，必有$\lambda \bs{x} \in S$，则称$S$为以$\bs{0}$为顶点的{\bf 锥}. 
-    若$S$还是凸集，则称$S$为{\bf 凸锥}.  
+    设\(S \subseteq \R^n\)，若\(\forall \bs{x} \in S\)，\(\lambda > 0\)，必有\(\lambda \bs{x} \in S\)，则称\(S\)为以\(\bs{0}\)为顶点的{\bf 锥}. 
+    若\(S\)还是凸集，则称\(S\)为{\bf 凸锥}.  
 \end{definition}
 
-规定$\{ \bs{0} \}, \R^n$都是凸锥. 
-锥不一定包含$\bs{0}$. 
+规定\(\{ \bs{0} \}, \R^n\)都是凸锥. 
+锥不一定包含\(\bs{0}\). 
 
 \begin{definition}{半正组合}{}
-    设$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n$. 
-    若$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^m \lambda_j > 0$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}$为$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的{\bf 半正组合}. 
+    设\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in \R^n\). 
+    若\(\forall j \in \{ 1, 2, \cdots, m \}\)，\(\lambda_j \ge 0\)且\(\displaystyle \sum_{j=1}^m \lambda_j > 0\)，则称\(\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)}\)为\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}\)的{\bf 半正组合}. 
 \end{definition}
 
 \begin{theorem}{凸锥和半正组合的关系}{}
-    $S$是凸锥$\Leftrightarrow S$中任意有限点的半正组合属于$S$. 
+    \(S\)是凸锥\(\Leftrightarrow S\)中任意有限点的半正组合属于\(S\). 
 \end{theorem}
 
-\prove 先证$\Rightarrow$. 
-即证若$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in S$. 
-且$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^m \lambda_j > 0$，则称$\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)} \in S$. 
-注意到：
-$$
-    \sum_{j=1}^m \lambda_j \bs{x}^{(j)} 
-    = \sum_{j=1}^m \lambda_j \cdot \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)}
-$$
-其中：$\displaystyle \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)}$正是$\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}$的凸组合，由定理1.8知，$\displaystyle \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)} \in S$. 
-此外，由$\displaystyle\sum_{j=1}^m \lambda_j > 0$以及锥的定义，有
-$$
-    \sum_{j=1}^m \lambda_j \cdot \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)} \in S
-$$
-即原命题得证. 
+\begin{proof}
+    先证\(\Rightarrow\). 
+    即证若\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in S\). 
+    且\(\forall j \in \{ 1, 2, \cdots, m \}\)，\(\lambda_j \ge 0\)且\(\displaystyle \sum_{j=1}^m \lambda_j > 0\)，则称\(\displaystyle \sum_{j=1}^m \lambda_j \bs{x}^{(j)} \in S\). 
+    注意到：
+    \[
+        \sum_{j=1}^m \lambda_j \bs{x}^{(j)} 
+        = \sum_{j=1}^m \lambda_j \cdot \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)}
+    \]
+    其中：\(\displaystyle \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)}\)正是\(\bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)}\)的凸组合，由定理1.8知，\(\displaystyle \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)} \in S\). 
+    此外，由\(\displaystyle\sum_{j=1}^m \lambda_j > 0\)以及锥的定义，有
+    \[
+        \sum_{j=1}^m \lambda_j \cdot \sum_{j=1}^m \frac{\lambda_j}{\displaystyle \sum_{i=1}^m \lambda_i} \bs{x}^{(j)} \in S
+    \]
+    即原命题得证. 
 
-再证$\Leftarrow$. 
-显然任意有限点的凸组合一定是其半正组合，从而由定理1.8的$\Leftarrow$，$S$是凸集. 
-我们仿照定理1.8的证明方法，一个点$\bs{x}$的半正组合正是$\lambda \bs{x}$，$\lambda > 0$，而“若$\forall \bs{x} \in S$，$\lambda > 0$，则$\lambda \bs{x} \in S$”正是锥的定义. 
-因此原命题得证. 
-\proved
+    再证\(\Leftarrow\). 
+    显然任意有限点的凸组合一定是其半正组合，从而由定理1.8的\(\Leftarrow\)，\(S\)是凸集. 
+    我们仿照定理1.8的证明方法，一个点\(\bs{x}\)的半正组合正是\(\lambda \bs{x}\)，\(\lambda > 0\)，而“若\(\forall \bs{x} \in S\)，\(\lambda > 0\)，则\(\lambda \bs{x} \in S\)”正是锥的定义. 
+    因此原命题得证. 
+
+\end{proof}
 
 \subsection{凸函数}
 
 \subsubsection{凸函数}
 
 \begin{definition}{凸函数}{}
-    设集合$S \subseteq \R^n$为凸集，函数$f: S \to R$. 11122
-    若$\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\lambda \in (0,1)$，均有
-    $$
+    设集合\(S \subseteq \R^n\)为凸集，函数\(f: S \to R\).  
+    若\(\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S\)，\(\lambda \in (0,1)\)，均有
+    \[
         f(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x}^{(2)})
-    $$
-    则称$f(\bs{x})$为凸集$S$上的{\bf 凸函数}. 
+    \]
+    则称\(f(\bs{x})\)为凸集\(S\)上的{\bf 凸函数}. 
 
-    若进一步有上面不等式以严格不等式成立，则称$f(\bs{x})$为凸集$S$上的{\bf 严格凸函数}. 
-    当$-f(\bs{x})$为凸函数（严格凸函数时），则称$f(\bs{x})$为{\bf 凹函数}（{\bf 严格凹函数}）. 
+    若进一步有上面不等式以严格不等式成立，则称\(f(\bs{x})\)为凸集\(S\)上的{\bf 严格凸函数}. 
+    当\(-f(\bs{x})\)为凸函数（严格凸函数时），则称\(f(\bs{x})\)为{\bf 凹函数}（{\bf 严格凹函数}）. 
 \end{definition}
 
-\begin{theorem}{Jesen不等式}{}
-    $f(\bs{x})$为凸集$S$上的凸函数的充要条件是$S$上任意有限点的凸组合的函数值不大于各点函数值的凸组合，即$\forall \bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in S$，对于任意的序列$\{ \lambda_j \}_{j=1}^m$满足$\forall j \in \{ 1, 2, \cdots, m \}$，$\lambda_j \ge 0$且$\displaystyle \sum_{j=1}^{m} \lambda_j = 1$，都有
-    $$
+\begin{theorem}{Jensen不等式}{}
+    \(f(\bs{x})\)为凸集\(S\)上的凸函数的充要条件是\(S\)上任意有限点的凸组合的函数值不大于各点函数值的凸组合，即\(\forall \bs{x}^{(1)}, \bs{x}^{(2)}, \cdots, \bs{x}^{(m)} \in S\)，对于任意的序列\(\{ \lambda_j \}_{j=1}^m\)满足\(\forall j \in \{ 1, 2, \cdots, m \}\)，\(\lambda_j \ge 0\)且\(\displaystyle \sum_{j=1}^{m} \lambda_j = 1\)，都有
+    \[
         f \left(\sum_{j=1}^m \lambda_j \bs{x}^{(j)} \right) \le \sum_{j=1}^m \lambda_j f(\bs{x}^{(j)})
-    $$
+    \]
 \end{theorem}
 
-\prove
-我们仿照定理1.8进行证明. 
-先证$\Rightarrow$. 
-使用数学归纳法. 
-$m = 1$时，待证命题显然成立. 
-$m = 2$时，待证命题与凸函数定义等价，故其也成立. 
-设$m = k$时，待证命题成立，往证$m = k + 1$时命题也成立. 
-这里为了讨论方便，令$\displaystyle \sum_{j = 1}^k \lambda_j = \theta$，则
-\begin{align*}
-    f \left( \sum_{j = 1}^{k + 1} \lambda_j \bs{x}^{(j)} \right)
-    & = f \left( \sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)} \right) \\
-    & = f \left( \theta \sum_{j=1}^k \frac{\lambda_j}{\theta} x^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)} \right) \\
-    & \le \theta f \left( \frac{\lambda_j}{\theta} x^{(j)} \right) + \lambda_{k+1} f(\bs{x}^{(k+1)}) \\
-    & \le \theta \left( \sum_{j=1}^k \frac{\lambda_j}{\theta} f(\bs{x}^{(j)}) \right) + \lambda_{k+1} f(\bs{x}^{(k+1)}) \\
-    & = \sum_{j=1}^{k+1} \lambda_j f(\bs{x}^{(j)})
-\end{align*}
-命题得证. 
+\begin{proof}
+    我们仿照定理1.8进行证明. 
+    先证\(\Rightarrow\). 
+    使用数学归纳法. 
+    \(m = 1\)时，待证命题显然成立. 
+    \(m = 2\)时，待证命题与凸函数定义等价，故其也成立. 
+    设\(m = k\)时，待证命题成立，往证\(m = k + 1\)时命题也成立. 
+    这里为了讨论方便，令\(\displaystyle \sum_{j = 1}^k \lambda_j = \theta\)，则
+    \begin{align*}
+        f \left( \sum_{j = 1}^{k + 1} \lambda_j \bs{x}^{(j)} \right)
+        & = f \left( \sum_{j = 1}^{k} \lambda_j \bs{x}^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)} \right) \\
+        & = f \left( \theta \sum_{j=1}^k \frac{\lambda_j}{\theta} x^{(j)} + \lambda_{k+1} \bs{x}^{(k+1)} \right) \\
+        & \le \theta f \left( \frac{\lambda_j}{\theta} x^{(j)} \right) + \lambda_{k+1} f(\bs{x}^{(k+1)}) \\
+        & \le \theta \left( \sum_{j=1}^k \frac{\lambda_j}{\theta} f(\bs{x}^{(j)}) \right) + \lambda_{k+1} f(\bs{x}^{(k+1)}) \\
+        & = \sum_{j=1}^{k+1} \lambda_j f(\bs{x}^{(j)})
+    \end{align*}
+    命题得证. 
 
-再证$\Leftarrow$. 
-取$m = 2$时即可，因为这正是凸函数的定义. 
-命题得证. 
-\proved
+    再证\(\Leftarrow\). 
+    取\(m = 2\)时即可，因为这正是凸函数的定义. 
+    命题得证. 
+\end{proof}
 
 \eg
-设$f_1, f_2$是凸函数，判断：
+设\(f_1, f_2\)是凸函数，判断：
+\begin{enumerate}
+    \item 设\(\lambda_1, \lambda_2 > 0\)，\(\lambda_1 f_1 + \lambda_2 f_2\)是否为凸函数？
+    \(\lambda_1 f_1 - \lambda_2 f_2\)是否为凸函数？
+    \item \(f(\bs{x}) = \max \{ f_1(\bs{x}), f_2(\bs{x}) \}\)是否为凸函数？
+\(g(\bs{x}) = \min \{ f_1(\bs{x}), f_2(\bs{x}) \}\)是否为凸函数？
+\end{enumerate}
 
-（1）设$\lambda_1, \lambda_2 > 0$，$\lambda_1 f_1 + \lambda_2 f_2$是否为凸函数？
-$\lambda_1 f_1 - \lambda_2 f_2$是否为凸函数？
+\begin{solution}
+    （1）\(\lambda_1 f_1 + \lambda_2 f_2\)是凸函数. 
+    设\(f_1, f_2\)定义域的交集为\(S\)，则\(\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S\)，\(\forall \lambda > 0\)，都有
+    \begin{align*}
+        & \lambda_1 f_1 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) + \lambda_2 f_2 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \\ 
+        \le & \lambda_1 (\lambda f_1(\bs{x}^{(1)}) + (1 - \lambda) f_1(\bs{x^{(2)}})) + \lambda_2 (\lambda f_2(\bs{x}^{(1)}) + (1 - \lambda) f_2(\bs{x^{(2)}})) \\
+        = & \lambda (\lambda_1 f_1 (\bs{x}^{(1)}) + \lambda_2 f_2 (\bs{x}^{(1)})) + (1 - \lambda) (\lambda_1 f_1 (\bs{x}^{(2)}) + \lambda_2 f_2 (\bs{x}^{(2)}))
+    \end{align*}
 
-（2）$f(\bs{x}) = \max \{ f_1(\bs{x}), f_2(\bs{x}) \}$是否为凸函数？
-$g(\bs{x}) = \min \{ f_1(\bs{x}), f_2(\bs{x}) \}$是否为凸函数？
+    \(\lambda_1 f_1 - \lambda_2 f_2\)不一定是凸函数，构造反例如下：令\(\lambda_1 = 1\)，\(\lambda_2 = 2\)，\(f_1(x) = f_2(x) = x^2\)，从而\(\lambda_1 f_1(x) - \lambda_2 f_2(x) = -x^2\)在\(\R\)上是凹函数. 
+    若要构造正例，只需要调整上述反例中的\(\lambda_1, \lambda_2\)，使得\(\lambda_1 > \lambda_2\)即可. 
 
-\solve
-（1）$\lambda_1 f_1 + \lambda_2 f_2$是凸函数. 
-设$f_1, f_2$定义域的交集为$S$，则$\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\forall \lambda > 0$，都有
-\begin{align*}
-    & \lambda_1 f_1 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) + \lambda_2 f_2 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \\ 
-    \le & \lambda_1 (\lambda f_1(\bs{x}^{(1)}) + (1 - \lambda) f_1(\bs{x^{(2)}})) + \lambda_2 (\lambda f_2(\bs{x}^{(1)}) + (1 - \lambda) f_2(\bs{x^{(2)}})) \\
-    = & \lambda (\lambda_1 f_1 (\bs{x}^{(1)}) + \lambda_2 f_2 (\bs{x}^{(1)})) + (1 - \lambda) (\lambda_1 f_1 (\bs{x}^{(2)}) + \lambda_2 f_2 (\bs{x}^{(2)}))
-\end{align*}
+    （2）\(f(\bs{x}) = \max \{ f_1(\bs{x}), f_2(\bs{x}) \}\)是凸函数. 
+    设\(f_1, f_2\)定义域的交集为\(S\)，则\(\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S\)，\(\forall \lambda > 0\)，都有
+    \[
+        f_1 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \le \lambda f_1(\bs{x}^{(1)}) + (1 - \lambda) f_1(\bs{x^{(2)}}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x^{(2)}})
+    \]
+    同理，有
+    \[
+        f_2 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x^{(2)}})
+    \]
+    从而
+    \begin{align*}
+        & f (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \\
+        = & \max \{ f_1 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}), f_2 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \} \\
+        \le & \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x^{(2)}})
+    \end{align*}
 
-$\lambda_1 f_1 - \lambda_2 f_2$不一定是凸函数，构造反例如下：令$\lambda_1 = 1$，$\lambda_2 = 2$，$f_1(x) = f_2(x) = x^2$，从而$\lambda_1 f_1(x) - \lambda_2 f_2(x) = -x^2$在$\R$上是凹函数. 
-若要构造正例，只需要调整上述反例中的$\lambda_1, \lambda_2$，使得$\lambda_1 > \lambda_2$即可. 
-
-（2）$f(\bs{x}) = \max \{ f_1(\bs{x}), f_2(\bs{x}) \}$是凸函数. 
-设$f_1, f_2$定义域的交集为$S$，则$\forall \bs{x}^{(1)}, \bs{x}^{(2)} \in S$，$\forall \lambda > 0$，都有
-$$
-    f_1 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \le \lambda f_1(\bs{x}^{(1)}) + (1 - \lambda) f_1(\bs{x^{(2)}}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x^{(2)}})
-$$
-同理，有
-$$
-    f_2 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x^{(2)}})
-$$
-从而
-\begin{align*}
-    & f (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \\
-    = & \max \{ f_1 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}), f_2 (\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x^{(2)}}) \} \\
-    \le & \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x^{(2)}})
-\end{align*}
-
-$g(\bs{x}) = \min \{ f_1(\bs{x}), f_2(\bs{x}) \}$不一定是凸函数. 
-考虑如下反例：
-令$f_1(x) = x^2$，$f_2(x) = (x - 1)^2$，则$g(0) = \min \{ 0, 1 \} = 0$，$g(1) = \min \{ 1, 0 \} = 0$，$g\left( \frac{1}{2} \right) = \min \left\{ \frac{1}{4}, \frac{1}{4}\right\} = \frac{1}{4}$，然而：
-$$
-    g \left(\frac{1}{2} \cdot 0 + \frac{1}{2} \cdot 1 \right) = g \left( \frac{1}{2} \right) = \frac{1}{4} > \frac{1}{2} g(0) + \frac{1}{2} g(1)
-$$
-因此$g(x)$不是凸函数. 
-\solved
+    \(g(\bs{x}) = \min \{ f_1(\bs{x}), f_2(\bs{x}) \}\)不一定是凸函数. 
+    考虑如下反例：
+    令\(f_1(x) = x^2\)，\(f_2(x) = (x - 1)^2\)，则\(g(0) = \min \{ 0, 1 \} = 0\)，\(g(1) = \min \{ 1, 0 \} = 0\)，\(g\left( \frac{1}{2} \right) = \min \left\{ \frac{1}{4}, \frac{1}{4}\right\} = \frac{1}{4}\)，然而：
+    \[
+        g \left(\frac{1}{2} \cdot 0 + \frac{1}{2} \cdot 1 \right) = g \left( \frac{1}{2} \right) = \frac{1}{4} > \frac{1}{2} g(0) + \frac{1}{2} g(1)
+    \]
+    因此\(g(x)\)不是凸函数. 
+\end{solution}
 
 \begin{theorem}{凸函数的性质}{}
-    设$S \subseteq \R^n$为非空凸集，函数$f: S \to \R$，则有：
+    设\(S \subseteq \R^n\)为非空凸集，函数\(f: S \to \R\)，则有：
 
     \begin{enumerate}
-        \item 若$f$是凸函数，则$f$在$\text{int}(S)$上连续；
-        \item 若$f$是凸函数，则其对任意方向的方向导数（若方向可行）存在；
-        \item 设$S$是开集，$f$在$S$上可微，则$f$是凸函数的充要条件是$\forall \bs{x}^* \in S$，都有
-        $$
+        \item 若\(f\)是凸函数，则\(f\)在\(\text{int}(S)\)上连续；
+        \item 若\(f\)是凸函数，则其对任意方向的方向导数（若方向可行）存在；
+        \item 设\(S\)是开集，\(f\)在\(S\)上可微，则\(f\)是凸函数的充要条件是\(\forall \bs{x}^* \in S\)，都有
+        \[
             f(\bs{x}) \ge f(\bs{x}^*) + \nabla f^{\top} (\bs{x}^*) (\bs{x} - \bs{x}^*)
-        $$
-        $\forall \bs{x} \in S$都成立. 
-        进一步地，如果$f$是严格凸函数，则其充要条件是上述不等式的严格不等式成立；
-        \item 设$S$是开集，$f$在$S$上二次可微，则：
+        \]
+        \(\forall \bs{x} \in S\)都成立. 
+        进一步地，如果\(f\)是严格凸函数，则其充要条件是上述不等式的严格不等式成立；
+        \item 设\(S\)是开集，\(f\)在\(S\)上二次可微，则：
             \begin{indromlist}
-                \item $f$是凸函数的充要条件是$\forall \bs{x} \in S$，$\nabla^2 f(\bs{x})$是半正定的；
-                \item 若$\forall \bs{x} \in S$，$\nabla^2 f(\bs{x})$是正定的，则$f$是严格凸函数. 
+                \item \(f\)是凸函数的充要条件是\(\forall \bs{x} \in S\)，\(\nabla^2 f(\bs{x})\)是半正定的；
+                \item 若\(\forall \bs{x} \in S\)，\(\nabla^2 f(\bs{x})\)是正定的，则\(f\)是严格凸函数. 
             \end{indromlist}
     \end{enumerate}
 \end{theorem}
 
-\prove
-（1）以下基于估计$f(\bs{x}) - f(\bs{x}^{(0)})$的上下界的证明来自知乎用户\href{https://www.zhihu.com/question/327605651/answer/703823730?share_code=ccLEatjpX2zZ&utm_psn=1974944484816082565}{@cvgmt}. 
+\begin{proof}
+    （1）以下基于估计\(f(\bs{x}) - f(\bs{x}^{(0)})\)的上下界的证明来自知乎用户\href{https://www.zhihu.com/question/327605651/answer/703823730?share_code=ccLEatjpX2zZ&utm_psn=1974944484816082565}{@cvgmt}. 
 
-我们先证明：凸函数$f(\bs{x})$在其定义域的内点集上处处有上界. 
-设凸函数$f(\bs{x})$及其定义域为$S$，则$\forall \bs{x}^{(0)} \in \text{int}(S)$，都一定存在一个充分小的$r>0$，使得以$\bs{x}^{(0)}$为中心的正方体包含在$\text{int}(S)$中. 
-由凸函数的定义
-$$
-    f(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x}^{(2)})
-$$
-容易得到凸函数的最大值一定在线段端点上取得. 
-反复应用上述定义，最终能够证明凸函数的最大值一定在正方形的端点处取得. 
-\footnote{
-    这个条件还有另一种基于Minkowski-Weyl定理（见定理\ref{Minkowski-Weyl}）的证明方法. 
-    由上述定理，正方体（或任意有界凸多面体）实际上是其顶点集的凸包. 之后应用Jesen不等式进行证明即可. 
-}
+    我们先证明：凸函数\(f(\bs{x})\)在其定义域的内点集上处处有上界. 
+    设凸函数\(f(\bs{x})\)及其定义域为\(S\)，则\(\forall \bs{x}^{(0)} \in \text{int}(S)\)，都一定存在一个充分小的\(r>0\)，使得以\(\bs{x}^{(0)}\)为中心的正方体包含在\(\text{int}(S)\)中. 
+    由凸函数的定义
+    \[
+        f(\lambda \bs{x}^{(1)} + (1 - \lambda) \bs{x}^{(2)}) \le \lambda f(\bs{x}^{(1)}) + (1 - \lambda) f(\bs{x}^{(2)})
+    \]
+    容易得到凸函数的最大值一定在线段端点上取得. 
+    反复应用上述定义，最终能够证明凸函数的最大值一定在正方形的端点处取得. 
+    \footnote{
+        这个条件还有另一种基于Minkowski-Weyl定理（见定理\ref{Minkowski-Weyl}）的证明方法. 
+        由上述定理，正方体（或任意有界凸多面体）实际上是其顶点集的凸包. 之后应用Jensen不等式进行证明即可. 
+    }
 
-下面考虑以$\bs{x}^{(0)}$为圆心，$r$为半径的闭球$\overline{B}(\bs{x}^{(0)}, r)$（包含于上述正方形），则由上面的证明，知道$f(\bs{x})$在该闭球上一定有上界，从而一定有上确界，记作$M_r$. 
-我们先来估计$f(\bs{x}) - f(\bs{x}^{(0)})$的上界. 
-在$\overline{B}(\bs{x}^{(0)}, r)$内任取一点$\bs{x}$，连接$\bs{x}^{(0)}$和$\bs{x}$并延长到球面上，交于一点$\bs{y}$，从而$\bs{x}$在以$\bs{x}^{(0)}$和$\bs{y}$为端点的线段上，则由凸函数的定义，有
-$$
-    f(\bs{x}) \le \frac{\Vert \bs{x} - \bs{y} \Vert}{r} f(\bs{x}^{(0)}) + \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{y})
-$$
-其中$\frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} + \frac{\Vert \bs{x} - \bs{y} \Vert}{r} = 1$，从而有
-\begin{align*}
-    f(\bs{x}) - f(\bs{x}^{(0)}) & \le - \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{x}^{(0)}) + \frac{\Vert \bs{x} - \bs{y} \Vert}{r} f(\bs{y}) \\
-    & = \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} (f(\bs{y}) - f(\bs{x}^{(0)})) \\
-    & \le  \Vert \bs{x} - \bs{x}^{(0)} \Vert \cdot \frac{M_r - f(\bs{x}^{(0)})}{r}
-\end{align*}
-接下来估计$f(\bs{x}) - f(\bs{x}^{(0)})$的下界. 
-类似地，在$\overline{B}(\bs{x}^{(0)}, r)$内任取一点$\bs{x}'$，连接$\bs{x}'$和$\bs{x}^{(0)}$并延长到球面上，交于一点$\bs{y}'$，从而$\bs{x^{(0)}}$在以$\bs{x'}$和$\bs{y'}$为端点的线段上，则由凸函数的定义，有
-$$
-    f(\bs{x}^{(0)}) \le \frac{\Vert \bs{y} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} f(\bs{x}) + \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} f(\bs{y})
-$$
-其中$\frac{\Vert \bs{y} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} + \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} = 1$，从而有：
-\begin{align*}
-    f(\bs{x}) - f(\bs{x}^{(0)}) & \ge \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{x}^{(0)}) - \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{y}) \\
-    & = \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} (f(\bs{x}^{(0)}) - f(\bs{y})) \\
-    & \ge  \Vert \bs{x} - \bs{x}^{(0)} \Vert \cdot \frac{f(\bs{x}^{(0)}) - M_r}{r}
-\end{align*}
-综上，有
-$$
-    | f(\bs{x}) - f(\bs{x}^{(0)}) | \le \Vert \bs{x} - \bs{x}^{(0)} \Vert \cdot \frac{|M_r - f(\bs{x}^{(0)})|}{r}
-$$
-将$r$保持为不是无穷小的固定值，从而$\frac{|M_r - f(\bs{x}^{(0)}|}{r}$为一有限值，并且令$\bs{x} \to \bs{x}^{(0)}$，从而$\Vert \bs{x} - \bs{x}^{(0)} \Vert \to 0$，于是由夹挤准则，$| f(\bs{x}) - f(\bs{x}^{(0)}) | \to 0$，于是连续性得证. 
+    下面考虑以\(\bs{x}^{(0)}\)为圆心，\(r\)为半径的闭球\(\overline{B}(\bs{x}^{(0)}, r)\)（包含于上述正方形），则由上面的证明，知道\(f(\bs{x})\)在该闭球上一定有上界，从而一定有上确界，记作\(M_r\). 
+    我们先来估计\(f(\bs{x}) - f(\bs{x}^{(0)})\)的上界. 
+    在\(\overline{B}(\bs{x}^{(0)}, r)\)内任取一点\(\bs{x}\)，连接\(\bs{x}^{(0)}\)和\(\bs{x}\)并延长到球面上，交于一点\(\bs{y}\)，从而\(\bs{x}\)在以\(\bs{x}^{(0)}\)和\(\bs{y}\)为端点的线段上，则由凸函数的定义，有
+    \[
+        f(\bs{x}) \le \frac{\Vert \bs{x} - \bs{y} \Vert}{r} f(\bs{x}^{(0)}) + \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{y})
+    \]
+    其中\(\frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} + \frac{\Vert \bs{x} - \bs{y} \Vert}{r} = 1\)，从而有
+    \begin{align*}
+        f(\bs{x}) - f(\bs{x}^{(0)}) & \le - \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{x}^{(0)}) + \frac{\Vert \bs{x} - \bs{y} \Vert}{r} f(\bs{y}) \\
+        & = \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} (f(\bs{y}) - f(\bs{x}^{(0)})) \\
+        & \le  \Vert \bs{x} - \bs{x}^{(0)} \Vert \cdot \frac{M_r - f(\bs{x}^{(0)})}{r}
+    \end{align*}
+    接下来估计\(f(\bs{x}) - f(\bs{x}^{(0)})\)的下界. 
+    类似地，在\(\overline{B}(\bs{x}^{(0)}, r)\)内任取一点\(\bs{x}'\)，连接\(\bs{x}'\)和\(\bs{x}^{(0)}\)并延长到球面上，交于一点\(\bs{y}'\)，从而\(\bs{x^{(0)}}\)在以\(\bs{x'}\)和\(\bs{y'}\)为端点的线段上，则由凸函数的定义，有
+    \[
+        f(\bs{x}^{(0)}) \le \frac{\Vert \bs{y} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} f(\bs{x}) + \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} f(\bs{y})
+    \]
+    其中\(\frac{\Vert \bs{y} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} + \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{\Vert \bs{x} - \bs{x}^{(0)} \Vert+ r} = 1\)，从而有：
+    \begin{align*}
+        f(\bs{x}) - f(\bs{x}^{(0)}) & \ge \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{x}^{(0)}) - \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} f(\bs{y}) \\
+        & = \frac{\Vert \bs{x} - \bs{x}^{(0)} \Vert}{r} (f(\bs{x}^{(0)}) - f(\bs{y})) \\
+        & \ge  \Vert \bs{x} - \bs{x}^{(0)} \Vert \cdot \frac{f(\bs{x}^{(0)}) - M_r}{r}
+    \end{align*}
+    综上，有
+    \[
+        | f(\bs{x}) - f(\bs{x}^{(0)}) | \le \Vert \bs{x} - \bs{x}^{(0)} \Vert \cdot \frac{|M_r - f(\bs{x}^{(0)})|}{r}
+    \]
+    将\(r\)保持为不是无穷小的固定值，从而\(\frac{|M_r - f(\bs{x}^{(0)}|}{r}\)为一有限值，并且令\(\bs{x} \to \bs{x}^{(0)}\)，从而\(\Vert \bs{x} - \bs{x}^{(0)} \Vert \to 0\)，于是由夹挤准则，\(| f(\bs{x}) - f(\bs{x}^{(0)}) | \to 0\)，于是连续性得证. 
 
-（2）设凸函数$f(\bs{x})$的定义域为$S$，$\forall \bs{x} \in S$及其可行方向$\bs{d}$，即证明函数
-$$
-    g(\lambda) = \frac{f(\bs{x} + \lambda \bs{d}) - f(\bs{x})}{\lambda}
-$$
-在$0^+$处有定义且极限存在. 
-取充分小的$\delta > 0$，由于$\bs{d}$是可行方向，故其在$(0, \delta)$上有定义. 
-下证其在$0^+$处极限存在. 
-取$0 < \lambda_1 < \lambda_2 < \delta$，由$f$的凸性，有：
-$$
-    f(\bs{x} + \lambda_1 \bs{d}) \le \frac{\lambda_1}{\lambda_2} f(\bs{x} + \lambda_2 \bs{d}) + \left( 1 - \frac{\lambda_1}{\lambda_2} \right) f(\bs{x})
-$$
-整理得
-$$
-    g(\lambda_1) = \frac{f(\bs{x} + \lambda_1 \bs{d}) - f(\bs{x})}{\lambda_1} \le \frac{f(\bs{x} + \lambda_2 \bs{d}) - f(\bs{x})}{\lambda_2} = g(\lambda_2)
-$$
-由$\lambda_1, \lambda_2$及$\delta$的任意性，有$g(\lambda)$在0的任意右半去心邻域内单调递增，从而极限$\displaystyle\lim_{\lambda \to 0^+} g(\lambda)$为有限数或$-\infty$. 
+    （2）设凸函数\(f(\bs{x})\)的定义域为\(S\)，\(\forall \bs{x} \in S\)及其可行方向\(\bs{d}\)，即证明函数
+    \[
+        g(\lambda) = \frac{f(\bs{x} + \lambda \bs{d}) - f(\bs{x})}{\lambda}
+    \]
+    在\(0^+\)处有定义且极限存在. 
+    取充分小的\(\delta > 0\)，由于\(\bs{d}\)是可行方向，故其在\((0, \delta)\)上有定义. 
+    下证其在\(0^+\)处极限存在. 
+    取\(0 < \lambda_1 < \lambda_2 < \delta\)，由\(f\)的凸性，有：
+    \[
+        f(\bs{x} + \lambda_1 \bs{d}) \le \frac{\lambda_1}{\lambda_2} f(\bs{x} + \lambda_2 \bs{d}) + \left( 1 - \frac{\lambda_1}{\lambda_2} \right) f(\bs{x})
+    \]
+    整理得
+    \[
+        g(\lambda_1) = \frac{f(\bs{x} + \lambda_1 \bs{d}) - f(\bs{x})}{\lambda_1} \le \frac{f(\bs{x} + \lambda_2 \bs{d}) - f(\bs{x})}{\lambda_2} = g(\lambda_2)
+    \]
+    由\(\lambda_1, \lambda_2\)及\(\delta\)的任意性，有\(g(\lambda)\)在0的任意右半去心邻域内单调递增，从而极限\(\displaystyle\lim_{\lambda \to 0^+} g(\lambda)\)为有限数或\(-\infty\). 
 
-（3）
+    （3）
 
-（4）
-
-\proved
+    （4）
+\end{proof}
 
 \eg
 若$f(x) = 
@@ -422,23 +423,23 @@ $$
     2, & x = \pm 1 ,\\
     x^2, & -1 < x < 1
 \end{cases}$，
-容易验证$f$是凸函数，但是$f$在边界点上不连续. 
+容易验证\(f\)是凸函数，但是\(f\)在边界点上不连续. 
 
 \subsubsection{水平集}
 
 \begin{definition}{水平集}{}
-    设集合$S \subseteq \R^n$，函数$f: S \to \R$，$\alpha \in \R$，称$S_{\alpha} = \{ \bs{x} \in S \mid f(\bs{x}) \le \alpha \}$为$f(\bs{x})$在$S$上的$\alpha${\bf 水平集}. 
+    设集合\(S \subseteq \R^n\)，函数\(f: S \to \R\)，\(\alpha \in \R\)，称\(S_{\alpha} = \{ \bs{x} \in S \mid f(\bs{x}) \le \alpha \}\)为\(f(\bs{x})\)在\(S\)上的\(\alpha\){\bf 水平集}. 
 \end{definition}
 
 水平集的概念相当于在地形图中，海拔高度不高于某一数值的区域. 
 
 \begin{theorem}{凸函数的水平集是凸集}{}
-    设集合$S \subseteq \R^n$是凸集，函数$f: S \to \R$是凸函数，则对$\forall \alpha \in \R$，$S_{\alpha}$是凸集. 
+    设集合\(S \subseteq \R^n\)是凸集，函数\(f: S \to \R\)是凸函数，则对\(\forall \alpha \in \R\)，\(S_{\alpha}\)是凸集. 
 \end{theorem}
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}
 
 上述定理的逆不真. 
 
@@ -456,17 +457,17 @@ $
 
 \begin{definition}{凸规划}{}
     \begin{enumerate}
-        \item 若$(f\ S)$中的$S$为凸集，$f$是$S$上的凸函数，优化目标为$\min$时，则称$(f\ S)$为凸规划；
-        \item 若$(fgh)$中的$f, g_i$为凸函数，$h_j$为线性函数，则称$(fgh)$为凸规划. 
+        \item 若\((f\ S)\)中的\(S\)为凸集，\(f\)是\(S\)上的凸函数，优化目标为\(\min\)时，则称\((f\ S)\)为凸规划；
+        \item 若\((fgh)\)中的\(f, g_i\)为凸函数，\(h_j\)为线性函数，则称\((fgh)\)为凸规划. 
     \end{enumerate}
 \end{definition}
 
-\begin{definition}{凸优化的最优解}{}
-    设$(f\ S)$为凸优化. 
-    若$\bs{x}^*$为问题$(f\ S)$的l.opt.，则$\bs{x}^*$为g.opt. 
-    进一步地，若$f$是严格凸函数，则$\bs{x}^*$是$(f\ S)$的唯一g.opt. 
-\end{definition}
+\begin{theorem}{凸优化的最优解}{}
+    设\((f\ S)\)为凸优化. 
+    若\(\bs{x}^*\)为问题\((f\ S)\)的l.opt.，则\(\bs{x}^*\)为g.opt. 
+    进一步地，若\(f\)是严格凸函数，则\(\bs{x}^*\)是\((f\ S)\)的唯一g.opt. 
+\end{theorem}
 
-\prove
-
-\proved
+\begin{proof}
+    
+\end{proof}

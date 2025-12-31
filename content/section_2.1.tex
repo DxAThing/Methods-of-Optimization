@@ -2,8 +2,10 @@
 
 \subsection{线性规划的定义}
 
-\begin{definition}{线性规划的一般形式}{}
+我们先来介绍线性规划的一般形式. 
 
+\begin{definition}{线性规划的一般形式}{}
+    线性规划的一般形式如下：
     \begin{align*}
         \max (\min) & \quad z = c_1x_1 + c_2 x_2 + \cdots + c_n x_n \\
         \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n \le (=, \ge) b_1 \\
@@ -12,12 +14,15 @@
         & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n \le (=, \ge) b_m \\
         & \quad x_1, x_2, \cdots, x_n \in \R
     \end{align*}
+    其中，称 \( c_i \) 为\textbf{目标函数系数}或\textbf{价值系数}或\textbf{费用系数}；
+    称 \( b_j \) 为\textbf{右端项}或\textbf{资源常数}；
+    称 \( a_{ij} \) 为\textbf{约束系数}或\textbf{技术系数}. 
 \end{definition}
 
 我们为了方便解决问题，常把上述一般形式转化为标准形式：
 
 \begin{definition}{线性规划的标准形式}{}
-
+    线性规划的标准形式如下：
     \begin{align*}
         \max & \quad z = c_1x_1 + c_2 x_2 + \cdots + c_n x_n \\
         \text{s.t.} & \quad a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n = b_1 \\
@@ -26,16 +31,28 @@
         & \quad a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n = b_m \\
         & \quad x_1, x_2, \cdots, x_n \ge 0
     \end{align*}
-    为了研究问题的方便，我们将其写成矩阵形式
-    \begin{align*}
-        \max & \quad z = \bs{c}^{\top} \bs{x} \\
-        \text{s.t.} & \quad \bs{Ax} = \bs{b} \\
-        & \quad \bs{x} \ge \bs{0}
-    \end{align*}
-    其中，$\bs{c}, \bs{x} \in \R^n$，$\bs{b} \in \R^m$，$\bs{A} \in \R^{m \times n}$. 
+    其中右端项 \( b_1, b_2, \cdots, b_m \ge 0 \) .
 \end{definition}
 
+为了研究问题的方便，我们将其写成矩阵形式
+\begin{align*}
+    \max & \quad z = \bs{c}^{\top} \bs{x} \\
+    \text{s.t.} & \quad \bs{Ax} = \bs{b} \\
+    & \quad \bs{x} \ge \bs{0}
+\end{align*}
+其中，\(\bs{c}, \bs{x} \in \R^n\)，\(\bs{b} \ge \bs{0}\)，\(\bs{A} \in \R^{m \times n}\). 
+线性规划的标准形式记作(LP).
 
+\begin{definition}{线性规划的规范形式}{}
+    线性规划的规划形式如下：
+    \begin{align*}
+    \max & \quad z = \bs{c}^{\top} \bs{x} \\
+    \text{s.t.} & \quad \bs{Ax} \le \bs{b} \\
+    & \quad \bs{x} \ge \bs{0}
+    \end{align*}
+    其中，\(\bs{c}, \bs{x} \in \R^n\)，\(\bs{b} \ge \bs{0}\)，，\(\bs{A} \in \R^{m \times n}\). 
+\end{definition}
+线性规划的规范形式记作(P).
 
 不难发现，标准形式有区别于一般形式的以下四个特点：
 \begin{itemize}
@@ -53,66 +70,87 @@
 
 在标准形式中，要求优化目标为极大化目标函数值. 
 若目标函数为
-$$
-    \min f = c_1x_1 + c_2 x_2 + \cdots + c_n x_n
-$$
-则令$z = -f$，从而上述极小化问题与下面的极大化问题
-$$
-    \max z = - c_1x_1 - c_2 x_2 - \cdots - c_n x_n
-$$
+\[
+    \min \  f = c_1x_1 + c_2 x_2 + \cdots + c_n x_n
+\]
+则令\(z = -f\)，从而上述极小化问题与下面的极大化问题
+\[
+    \max \  z = - c_1x_1 - c_2 x_2 - \cdots - c_n x_n
+\]
 有相同的最优解，但它们的最优解的目标函数值相差一个符号，即
-$$
-    \min f = - \max z
-$$
+\[
+    \min \  f = - \max \  z
+\]
 
 \subsubsection{约束条件不为等式}
 
 在标准形式中，要求每约束条件均为等式. 
-若约束条件为小于等于号，即设第$i$个约束条件为
-$$
+若约束条件为小于等于号，即设第\(i\)个约束条件为
+\[
     a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n \le b_i
-$$
-则可以引入一个松弛变量$s$，使得
-$$
+\]
+则可以引入一个松弛变量\(s\)，使得
+\[
     s = b_i - (a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n)
-$$
-从而$s \ge 0$，也具有非负约束，这时新的约束条件成为
-$$
+\]
+从而\(s \ge 0\)，也具有非负约束，这时新的约束条件成为
+\[
     a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n + s = b_i
-$$
+\]
 
-若约束条件为大于等于号，即设第$i$个约束条件为
-$$
+若约束条件为大于等于号，即设第\(i\)个约束条件为
+\[
     a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n \ge b_i
-$$
-相似地，也可以引入一个松弛变量$s$，使得
-$$
+\]
+相似地，也可以引入一个松弛变量\(s\)，使得
+\[
     s = (a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n) - b_i
-$$
-从而$s \ge 0$，也具有非负约束，这时新的约束条件成为
-$$
+\]
+从而\(s \ge 0\)，也具有非负约束，这时新的约束条件成为
+\[
     a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n - s = b_i
-$$
+\]
 
 \subsubsection{变量无符号限制}
 
 在标准形式中，要求每一个变量均有非负约束. 
-当某一个变量$x_j$没有非负约束时，可以令
-$$
+当某一个变量\(x_j\)没有非负约束时，可以令
+\[
     x_j = x_j' - x_j''
-$$
-其中$x_j', x_j'' \ge 0$，即用两个非负数之差表示一个无符号限制的变量. 
+\]
+其中\(x_j', x_j'' \ge 0\)，即用两个非负数之差表示一个无符号限制的变量. 
 
 \subsubsection{右端项有负值}
 
 在标准形式中，要求每一个约束条件右端均为正值. 
-当某一个右端项系数为负时，假设是第$i$个，即
-$$
+当某一个右端项系数为负时，假设是第\(i\)个，即
+\[
     a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n = b_i \le 0
-$$
-则把该等式两端同时乘以$-1$，得到
-$$
+\]
+则把该等式两端同时乘以\(-1\)，得到
+\[
     - a_{i1} x_1 - a_{i2} x_2 - \cdots - a_{in} x_n = - b_i \ge 0
-$$
+\]
 
+\eg
+将以下线性规划问题转化为标准形式. 
+\begin{enumerate}
+    \item \( \begin{aligned}[t]
+        \min & \quad f = 3.6 x_1 - 5.2 x_2 + 1.8 x_3 \\
+        \text{s.t.} & \quad 2.3x_1 + 5.2x_2 - 6.1x_3 \le 15.7 \\
+        & \quad  4.1 x_1 + 3.3 x_3 \ge 8.9 \\
+        & \quad x_1 + x_2 + x_3 = 38 \\
+        & \quad x_1, x_2, x_3 \ge 0
+    \end{aligned} \)
+    \item \( \begin{aligned}[t]
+        \min & \quad f = - 3 x_1 + 5 x_2 + 8 x_3 - 7 x_4\\
+        \text{s.t.} & \quad 2x_1 - 3x_2 + 5x_3 + 6x_4 \leq 28 \\
+        & \quad 4x_1 + 2x_2 + 3x_3 - 9x_4 \geq 39 \\
+        & \quad 6x_2 + 2x_3 + 3x_4 \leq -58 \\
+        & \quad x_1, x_2, x_3 \ge 0
+    \end{aligned} \)
+\end{enumerate}
 
+\begin{solution}
+    
+\end{solution}

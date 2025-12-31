@@ -1,0 +1,168 @@
+\section{线性规划的对偶}
+
+\subsection{对偶问题}
+
+我们用下面的例子引出本节的讨论. 
+
+设某工厂有A、B、C三种类型的设备，生产甲、乙两种设备. 
+每件产品在生产中需要占用的设备机时数、每件产品可以获得的利润以及三种设备可利用的机时数如下表所示：
+
+\begin{longtblr}[
+    label = none,
+    entry = none,
+]{
+    cells = {c},
+    vline{2} = {-}{0.05em},
+    hline{1,6} = {-}{0.08em},
+    hline{2} = {-}{0.05em},
+}
+ & 甲产品 & 乙产品 & 设备能力（h） \\
+设备A & 3 & 2 & 65 \\
+设备B & 2 & 1 & 40 \\
+设备C & 0 & 3 & 75 \\
+利润（元/件） & 1500 & 2500 & / 
+\end{longtblr}
+
+\noindent
+试问：
+\begin{enumerate}
+    \item 工厂应如何安排生产可获得最大的总利润？
+    \item 若工厂的设备都用于外协加工，工厂收取加工费. 
+    试问：设备A、B、C每工时各如何收费才最有竞争力？
+\end{enumerate}
+
+对于第（1）个问题，设工厂生产 \( x_1 \) 个甲产品， \( x_2 \) 个乙产品，则可列线性规划问题如下：
+\begin{align*}
+    \max & \quad z = 1500x_1 + 2500 x_2 \\
+    \text{s.t.} & \quad 3 x_1 + 2 x_2 \le 65 \\
+    & \quad 2 x_1 + x_2 \le 40 \\
+    & \quad 3 x_2 \le 75 \\
+    & \quad x_1, x_2 \ge 0
+\end{align*}
+
+对于第（2）个问题，设设备A、B、C每工时各收费 \( y_1, y_2, y_3 \) 元，则可列线性规划问题如下：
+\begin{align*}
+    \min & \quad f = 65y_1 + 40y_2 + 75y_3 \\
+    \text{s.t.} & \quad 3 y_1 + 2 y_2 \ge 1500 \\
+    & \quad 2 y_1 + y_2 + 3y_3 \ge 2500 \\
+    & \quad y_1, y_2, y_3 \ge 0
+\end{align*}
+
+% \begin{definition}{对偶规划}{}
+%     称具有以下对称形式的两个线性规划问题互为对偶规划：
+
+%     \noindent % 取消首行缩进，确保宽度计算准确
+%     \begin{minipage}[t]{0.48\linewidth}
+%         \begin{align*}
+%             \max &\quad z = \bs{c}^{\top}\bs{x} \\
+%             \text{s.t.} & \quad \bs{Ax} \le \bs{b} \\
+%             & \quad \bs{x} \ge \bs{0}
+%         \end{align*}
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[t]{0.48\linewidth}
+%         \begin{align*}
+%             \min &\quad f = \bs{b}^{\top} \bs{y} \\
+%             \text{s.t.} & \quad \bs{A}^{\top}\bs{y} \ge \bs{c} \\
+%             & \quad \bs{y} \ge \bs{0}
+%         \end{align*}
+%     \end{minipage}
+% \end{definition}
+
+\begin{definition}{对偶规划}{}
+    称具有以下对称形式的两个线性规划问题互为对偶规划：
+
+    % \vspace{0.5em} % 手动微调定义文字与公式的间距
+    \noindent
+    \begin{minipage}[t]{0.48\linewidth}
+        \centering
+        \( % 使用内联模式配合 aligned 消除 align* 的自带大间距
+        \begin{aligned}[t]
+            \text{(LP)}\max &\quad z = \bs{c}^{\top}\bs{x} \\
+            \text{s.t.} & \quad \bs{Ax} \le \bs{b} \\
+            & \quad \bs{x} \ge \bs{0}
+        \end{aligned}
+        \)
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\linewidth}
+        \centering
+        \(
+        \begin{aligned}[t]
+            \text{(DP)}\min &\quad f = \bs{b}^{\top} \bs{y} \\
+            \text{s.t.} & \quad \bs{A}^{\top}\bs{y} \ge \bs{c} \\
+            & \quad \bs{y} \ge \bs{0}
+        \end{aligned}
+        \)
+    \end{minipage}
+\end{definition}
+
+一对对称形式的对偶规划之间具有下面的对应关系
+\footnote{ \( \bs{c} \) 换 \( \bs{b} \) ，\( \bs{x} \) 换 \( \bs{y} \)，约束矩阵变转置. }
+：
+\begin{itemize}
+    \item 若一个模型为目标求“极大”，约束为“小于等于”的不等式，则它的对偶模型为目标求“极小”，约束是“大于等于”的不等式. 
+    即“\( \max, \le \)”和“\( \min, \ge \)”相对应；
+    \item 从约束系数矩阵看：一个模型中为 \( \bs{A} \) ，则另一个模型中为 \( \bs{A}^{\top} \) . 
+    一个模型是 \( m \) 个约束、\( n \) 个变量，则它的对偶模型为 \( n \) 个约束、 \( m \) 个变量；
+    \item 从数据 \( \bs{b}, \bs{c} \) 的位置看：在两个规划模型中， \( \bs{b} \) 和 \( \bs{c} \) 的位置对换；
+    \item 两个规划模型中的变量皆非负. 
+\end{itemize}
+
+对于不满足上述定义形式的线性规划问题，其对偶规划可按如下规则直接给出：
+\begin{itemize}
+    \item 将模型统一为“\( \max, \le \)”或“\( \min, \ge \)”的形式；
+    \item 若原规划的某个约束条件为等式约束，则在对偶规划中与此约束对应的变量取值没有非负限制；
+    \item 若原规划的某个变量的值没有非负限制，则在对偶问题中与此变量对应的约束为等式. 
+\end{itemize}
+
+\eg
+写出下面线性规划的对偶规划模型. 
+\begin{align*}
+    \max & \quad z = x_1 - x_2 + 5x_3 - 7x_4 \\
+    \text{s.t.} & \quad x_1 + 3x_2 - 2x_3 + x_4 = 25 \\
+    & \quad 2x_1 + 7x_2 + 2x_4 \ge -60 \\
+    & \quad 2x_1 + 2x_2 - 4x_3 \le 30 \\
+    & \quad x_1, x_2 \ge 0, -5 \le x_4 \le 10
+\end{align*}
+
+\begin{solution}
+    
+\end{solution}
+
+\subsection{对偶定理}
+
+\begin{theorem}{弱对偶定理}{}
+    若 \( \bs{x}, \bs{y} \) 分别为(LP)和(DP)的可行解，那么 \( \bs{c}^{\top} \bs{x} \le \bs{b}^{\top}\bs{y} \)
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{corollary*}{}{}
+    设(LP)有可行解，那么若(LP)无有界最优解，则(DP)无可行解. 
+\end{corollary*}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}{最优性准则}{}
+    若 \( \bs{x}, \bs{y} \) 分别为(LP)和(DP)的可行解，且 \( \bs{c}^{\top} \bs{x} = \bs{b}^{\top}\bs{y} \) ，那么 \( \bs{x}, \bs{y} \) 分别为(LP)和(DP)的最优解. 
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}{主对偶定理}{}
+    若(LP)有最优解，则(DP)也有最优解. 
+    反之也成立，且最优值相等. 
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+
